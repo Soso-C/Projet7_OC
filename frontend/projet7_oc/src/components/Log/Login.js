@@ -14,7 +14,7 @@ const Login = () => {
                         <input placeholder="Adresse email" id="inputLogin" />
                         <input placeholder="Mot de Passe" id="passwordLogin" />
                         <button className="loginButton">Connecter</button>
-                        <span id="notRegistered">Vous êtes pas inscrit ?</span>
+                        <span id="notRegistered"></span>
                         <button className="registerButton">Créer un compte</button>
                     </div>
                 </div>    

@@ -37,14 +37,17 @@
 }
 
 #notRegistered {
-    color: #1775ee;
+    margin: 20px;
     font-size: 1em;
+    border-bottom: 1px solid #dadde1;
+    width: 100%;
+    align-self: center;
 }
 
 #inputLogin, #passwordLogin {
     height: 50px;
     border-radius: 10px;
-    border: 1px solid gray;
+    border: 1px solid #dadde1;
     font-size: 1.2em;
     padding-left: 20px;
 }
