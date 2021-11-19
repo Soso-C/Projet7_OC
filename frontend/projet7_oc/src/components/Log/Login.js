@@ -5,11 +5,11 @@ const Login = () => {
     return (
         <div className="login">
             <div className="loginWrapper">
-                <div className="loginLeft">
+                <div className="loginTop">
                     <h3 className="loginLogo">Groupomania</h3>
                     <span className="loginDesc">Avec Groupomania, partagez et restez en contact avec votre entreprise</span>
                 </div>
-                <div className="loginRight">
+                <div className="loginBottom">
                     <div className="loginBox">
                         <input placeholder="Adresse email" id="inputLogin" />
                         <input placeholder="Mot de Passe" id="passwordLogin" />
