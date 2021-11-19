@@ -10,6 +10,10 @@ const Login = () => {
         navigate("/sign-up");
     }
 
+    function loginData(e) {
+        e.preventDefault();
+    }
+
     return (
         <div className="login">
             <div className="loginWrapper">
@@ -17,15 +21,15 @@ const Login = () => {
                     <h3 className="loginLogo">Groupomania</h3>
                     <span className="loginDesc">Avec Groupomania, partagez et restez en contact avec votre entreprise</span>
                 </div>
-                <div className="loginBottom">
+                <form type="submit" className="loginBottom">
                     <div className="loginBox">
-                        <input placeholder="Adresse email" id="inputLogin" />
-                        <input placeholder="Mot de Passe" id="passwordLogin" />
-                        <button className="loginButton">Connecter</button>
+                        <input placeholder="Adresse email" id="inputLogin" type="email" required/>
+                        <input placeholder="Mot de Passe" id="passwordLogin" type="password" required/>
+                        <button className="loginButton" onSubmit={loginData}>Connecter</button>
                         <span id="notRegistered"></span>
                         <button className="registerButton" onClick={handleClick}>Créer un compte</button>
                     </div>
-                </div>    
+                </form>    
             </div>
         </div>
     );
