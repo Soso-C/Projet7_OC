@@ -1,0 +1,26 @@
+.header_container {
+    display: flex;
+    height: 100px;
+    background-color: #0000ff;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.header_container a {
+    padding: 10px;
+    font-weight: 900;
+    margin: 25px;
+    color: white;
+    font-size: 1.1em;
+}
+
+.header_container a:hover {
+    cursor: pointer;
+}
+
+#logo {
+    object-fit: cover;
+    height: 100%;
+    width: 20%;
+    margin-left: 1.5em;
+}
