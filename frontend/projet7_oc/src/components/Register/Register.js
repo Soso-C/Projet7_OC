@@ -1,7 +1,12 @@
-import React from 'react';
 import "../../styles/Register.css"
+import { useNavigate } from "react-router-dom";
 
-const Register = () => {
+const Register = () => {    
+
+    let navigate = useNavigate();
+    function handleClick() {
+    navigate("/");}
+
     return (
         <div className="login">
             <div className="loginWrapper">
@@ -10,14 +15,14 @@ const Register = () => {
                     <span className="loginDesc">Avec Groupomania, partagez et restez en contact avec votre entreprise</span>
                 </div>
                 <div className="loginBottom">
-                    <div className="loginBox">
+                    <div className="registerBox">
                         <input placeholder="Nom Prénom" id="inputLogin" type="text" />
                         <input placeholder="Adresse Email" id="inputLogin" type="email"/>
                         <input placeholder="Mot de passe" id="passwordLogin" type="password"/>
                         <input placeholder="Confirmer Mot de Passe" id="passwordLogin" type="password"/>
-                        <button className="signUpButton">Créer un compte</button>
+                        <button className="signUpButton">Créer votre compte</button>
                         <span id="notRegistered"></span>
-                        <button className="signInButton">Se Connecter</button>
+                        <button className="signInButton" onClick={handleClick}>Se Connecter</button>
                     </div>
                 </div>    
             </div>

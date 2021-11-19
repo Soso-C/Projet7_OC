@@ -1,7 +1,15 @@
 import React from 'react';
 import "../../styles/Login.css"
+import { useNavigate } from 'react-router';
 
 const Login = () => {
+
+    let navigate = useNavigate();
+    
+    function handleClick() {
+        navigate("/sign-up");
+    }
+
     return (
         <div className="login">
             <div className="loginWrapper">
@@ -15,7 +23,7 @@ const Login = () => {
                         <input placeholder="Mot de Passe" id="passwordLogin" />
                         <button className="loginButton">Connecter</button>
                         <span id="notRegistered"></span>
-                        <button className="registerButton">Créer un compte</button>
+                        <button className="registerButton" onClick={handleClick}>Créer un compte</button>
                     </div>
                 </div>    
             </div>
