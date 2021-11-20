@@ -4,14 +4,20 @@ import { useNavigate } from "react-router";
 import { useState } from "react";
 
 const Login = () => {
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+
+  // Navigate de sign-in to sign-up
 
   let navigate = useNavigate();
 
   function handleClick() {
     navigate("/sign-up");
   }
+
+  // Func qui va controler si notre email / pwd sont existant et valide dans notre base de données si oui alors on sera log si non non.
 
   function loginData(e) {
     e.preventDefault();
@@ -33,6 +39,7 @@ const Login = () => {
               placeholder="Adresse Email"
               className="inputLogin"
               type="email"
+              value={email}
               onChange={(e) => {
                 setEmail(e.target.value)
             }}
@@ -43,6 +50,7 @@ const Login = () => {
               placeholder="Mot de Passe"
               className="inputLogin"
               type="password"
+              value={password}
               onChange={(e) => {
                 setPassword(e.target.value)
             }}

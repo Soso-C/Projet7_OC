@@ -4,6 +4,7 @@ import { useState } from "react";
 import Axios from "axios";
 
 const Register = () => {
+  // variable use state
   const [fullname, setFullname] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -14,14 +15,33 @@ const Register = () => {
   const validPassword = false;
   const isFormSubmited = false;
 
+  // variable qui injectera des messages d'erreurs si erreur sous le input en question.
+
+  let fullnameErr = document.querySelector(".error-fullname");
+  let emailErr = document.querySelector(".error-email");
+  let passwordErr = document.querySelector(".error-password");
+  let cPwdErr = document.querySelector(".error-confirmPwd");
+
+  // usenavigate pour pouvoir de passé de sign-in a sign-up
   const navigate = useNavigate();
 
   function handleClick() {
     navigate("/");
   }
 
+  function displayError(tag, message) {
+    tag.innerHTML = message;
+  }
+
+
+  // Post du form a notre base de données
   function sendForm(e) {
     e.preventDefault()
+    if (password !== passwordConfirm) {
+      displayError(passwordErr, "les mdp sont pas identique")
+      displayError(cPwdErr, "les mdp sont pas identique")
+    }
+
     Axios.post("http://localhost:3001/user/register", {
       email: email, 
       password: password, 
