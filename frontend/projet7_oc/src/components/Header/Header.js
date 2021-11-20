@@ -1,7 +1,7 @@
 import React from "react";
-import "../styles/Header.css";
+import "./Header.css";
 import logo from "../assets/Groupomania_Logos/icon5.png";
-import Navbar from "./Navbar";
+import Navbar from "../Navbar/Navbar";
 
 const Header = () => {
   return (

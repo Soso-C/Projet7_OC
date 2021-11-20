@@ -1,5 +1,5 @@
 import React from "react";
-import "../../styles/Login.css";
+import "./Login.css";
 import { useNavigate } from "react-router";
 import { useState } from "react";
 
@@ -30,7 +30,7 @@ const Login = () => {
         <form type="submit" className="loginBottom">
           <div className="loginBox">
             <input
-              placeholder="Adresse email"
+              placeholder="Adresse Email"
               className="inputLogin"
               type="email"
               onChange={(e) => {

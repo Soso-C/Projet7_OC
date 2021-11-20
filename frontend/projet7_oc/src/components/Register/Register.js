@@ -1,4 +1,4 @@
-import "../../styles/Register.css";
+import "./Register.css";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
@@ -8,14 +8,21 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
 
-  let navigate = useNavigate();
+  const validEmail = false;
+  const validFullname = false;
+  const validPassword = false;
+  const isFormSubmited = false;
+
+  const navigate = useNavigate();
 
   function handleClick() {
     navigate("/");
   }
+
   function sendForm(e) {
     e.preventDefault();
   }
+
 
   return (
     <div className="login">
@@ -33,6 +40,8 @@ const Register = () => {
               placeholder="Nom Prénom"
               className="inputLogin"
               type="text"
+              id="fname"
+              value={fullname}
               onChange={(e) => {
                 setFullname(e.target.value);
               }}
@@ -43,6 +52,8 @@ const Register = () => {
               placeholder="Adresse Email"
               className="inputLogin"
               type="email"
+              id="email"
+              value={email}
               onChange={(e) => {
                 setEmail(e.target.value)
             }}
@@ -53,6 +64,8 @@ const Register = () => {
               placeholder="Mot de passe"
               className="inputLogin"
               type="password"
+              id="password"
+              value={password}
               onChange={(e) => {
                 setPassword(e.target.value)
             }}
@@ -63,6 +76,8 @@ const Register = () => {
               placeholder="Confirmer Mot de Passe"
               className="inputLogin"
               type="password"
+              id="cpassword"
+              value={passwordConfirm}
               onChange={(e) => {
                 setPasswordConfirm(e.target.value)
             }}
