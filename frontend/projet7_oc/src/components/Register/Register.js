@@ -1,6 +1,7 @@
 import "./Register.css";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import Axios from "axios";
 
 const Register = () => {
   const [fullname, setFullname] = useState("");
@@ -20,7 +21,14 @@ const Register = () => {
   }
 
   function sendForm(e) {
-    e.preventDefault();
+    e.preventDefault()
+    Axios.post("http://localhost:3001/user/register", {
+      email: email, 
+      password: password, 
+      fullname: fullname,
+    }).then((res) => {
+      console.log(res)
+    })
   }
 
 
@@ -35,7 +43,7 @@ const Register = () => {
           </span>
         </div>
         <div className="loginBottom">
-          <form type="submit" className="registerBox">
+          <form action="" className="registerBox" onSubmit={sendForm}>
             <input
               placeholder="Nom Prénom"
               className="inputLogin"
@@ -84,7 +92,7 @@ const Register = () => {
               required
             />
             <div className="error-confirmPwd"></div>
-            <button className="signUpButton" type="submit" onSubmit={sendForm}>
+            <button className="signUpButton" type="submit">
               Créer votre compte
             </button>
             <span id="notRegistered"></span>

@@ -27,7 +27,7 @@ const Login = () => {
             entreprise
           </span>
         </div>
-        <form type="submit" className="loginBottom">
+        <form action="" className="loginBottom" onSubmit={loginData}>
           <div className="loginBox">
             <input
               placeholder="Adresse Email"
@@ -49,7 +49,7 @@ const Login = () => {
               required
             />
             <div className="error-password"></div>
-            <button className="loginButton" onSubmit={loginData}>
+            <button className="loginButton">
               Connecter
             </button>
             <span id="notRegistered"></span>

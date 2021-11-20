@@ -1,19 +1,10 @@
 const express = require("express");
 const app = express();
+const cors = require("cors")
+const bodyparser = require("body-parser")
 
-const mysql = require('mysql');
-
-var db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'password',
-  database: "project7_oc",
-});
-
-db.connect(function(err) {
-    if (err) throw err;
-    console.log("Connexion a Mysql réussie !");
-  });
+app.use(cors());
+app.use(bodyparser.json());
 
 const userRoute = require("./Routes/User");
 app.use("/user", userRoute);
