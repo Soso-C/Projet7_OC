@@ -39,30 +39,7 @@ const Register = () => {
     navigate("/");
   }
 
- 
-  // const inputs = document.querySelectorAll(
-  //   "input[type=text],input[type=email],input[type=password]"
-  // );
-  // inputs.forEach((input) => {
-  //   input.addEventListener("input", (e) => {
-  //     switch (e.target.id) {
-  //       case "fname":
-  //         fullnameChecker();
-  //         break;
-  //       case "email":
-  //         emailChecker();
-  //         break;
-  //       case "password":
-  //         passwordChecker();
-  //         break;
-  //       case "cpassword":
-  //         cPwdChecker();
-  //         break;
-  //       default:
-  //     }
-  //   });
-  // });
-  
+
   // Func qui execute les checker d'inputs
   const validateForm = () => {
 
@@ -82,7 +59,7 @@ const Register = () => {
     }else if (fullname.length > 40) {
       displayError(fullnameErr, "Votre nom et prénom doivent contenir moins de 40 caractères !")
     }else if (!fullname.match(/^[a-zA-Z]+ [a-zA-Z]+$/)){
-      displayError(fullnameErr, "Pas de caractère spéciale")
+      displayError(fullnameErr, "Pas de caractère spéciale et un espace entre le nom et prénom")
     }else {
       displayError(fullnameErr, "  ")
       validFullname = true;
@@ -136,10 +113,21 @@ const Register = () => {
 
   function sendForm(e) {
     e.preventDefault()
+
     validateForm();
 
+    console.log(validConfPassword, validPassword, validEmail, validFullname, validFullname)
+
+    if (validConfPassword && validEmail && validFullname && validConfPassword) {
+      validForm = true;
+      console.log(validForm);
+    }
+    
+
+  
     if (validForm === true) {
 
+      console.log(validForm)
       Axios.post("http://localhost:3001/user/register", {
         email: email, 
         password: password, 
