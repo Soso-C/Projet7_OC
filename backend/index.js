@@ -7,7 +7,7 @@ app.use(cors());
 app.use(bodyparser.json());
 
 const userRoute = require("./Routes/User");
-app.use("/user", userRoute);
+app.use("/api/auth", userRoute);
 
 
 app.listen(3001, (req,res) =>{

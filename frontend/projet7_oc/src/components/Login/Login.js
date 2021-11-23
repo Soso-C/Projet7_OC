@@ -2,6 +2,7 @@ import React from "react";
 import "./Login.css";
 import { useNavigate } from "react-router";
 import { useState } from "react";
+import Axios from "axios";
 
 const Login = () => {
 
@@ -21,6 +22,12 @@ const Login = () => {
 
   function loginData(e) {
     e.preventDefault();
+
+    Axios.post("http://localhost:3001/api/auth/login", {
+      email: email, 
+      password: password, 
+    })
+
   }
 
   return (

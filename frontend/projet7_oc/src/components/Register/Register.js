@@ -116,19 +116,17 @@ const Register = () => {
 
     validateForm();
 
-    console.log(validConfPassword, validPassword, validEmail, validFullname, validFullname)
+    console.log(validConfPassword, validPassword, validEmail, validFullname)
 
-    if (validConfPassword && validEmail && validFullname && validConfPassword) {
+    if (validConfPassword && validEmail && validFullname) {
       validForm = true;
       console.log(validForm);
     }
     
-
-  
-    if (validForm === true) {
+    if (validForm) {
 
       console.log(validForm)
-      Axios.post("http://localhost:3001/user/register", {
+      Axios.post("http://localhost:3001/api/auth/signup", {
         email: email, 
         password: password, 
         fullname: fullname,
@@ -138,7 +136,6 @@ const Register = () => {
       })}
 
   }
-
 
   return (
     <div className="login">
