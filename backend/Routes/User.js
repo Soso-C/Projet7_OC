@@ -45,6 +45,15 @@ router.post("/login", (req, res) => {
           res.status(401).json({ error: "Mot de passe incorrect!" });
         }
 
+        
+        res.status(200).json({ // Si pwd et email ok alors return une réponse 200 et on créé un token d'auth avec l'user id, la clé secrete et l'expiration dans 24h
+          userId: results[0].id,
+          token: jwt.sign(
+            { userId: results[0].id },
+            'RANDOM_TOKEN_SECRET',
+            { expiresIn: '24h' }
+          )
+        })
         res.send("connection réussie");
       });
     }
