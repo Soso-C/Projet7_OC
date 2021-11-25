@@ -5,10 +5,8 @@ import { useState } from "react";
 import Axios from "axios";
 
 const Login = () => {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
 
   // Navigate de sign-in to sign-up
 
@@ -23,11 +21,10 @@ const Login = () => {
   function loginData(e) {
     e.preventDefault();
 
-    Axios.post("http://localhost:3001/api/auth/login",{
-      email: email, 
-      password: password, 
-    })
-
+    Axios.post("http://localhost:3001/api/auth/login", {
+      email: email,
+      password: password,
+    });
   }
 
   return (
@@ -40,7 +37,7 @@ const Login = () => {
             entreprise
           </span>
         </div>
-        <form action="" className="loginBottom" onSubmit={loginData}>
+        <form action="/" className="loginBottom" onSubmit={loginData}>
           <div className="loginBox">
             <input
               placeholder="Adresse Email"
@@ -48,8 +45,8 @@ const Login = () => {
               type="email"
               value={email}
               onChange={(e) => {
-                setEmail(e.target.value)
-            }}
+                setEmail(e.target.value);
+              }}
               required
             />
             <div className="error-email"></div>
@@ -59,14 +56,12 @@ const Login = () => {
               type="password"
               value={password}
               onChange={(e) => {
-                setPassword(e.target.value)
-            }}
+                setPassword(e.target.value);
+              }}
               required
             />
             <div className="error-password"></div>
-            <button className="loginButton">
-              Connecter
-            </button>
+            <button className="loginButton">Connecter</button>
             <span id="notRegistered"></span>
             <button className="registerButton" onClick={handleClick}>
               Créer un compte

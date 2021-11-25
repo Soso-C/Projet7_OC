@@ -1,9 +1,13 @@
 import React from 'react';
+import Header from "../components/Header/Header.js"
+import SearchBar from '../components/ProfileComponents/SearchBar.js';
 
 const Profil = () => {
     return (
         <div>
-            Hello depuis profil
+            <SearchBar />
+            {/* <Header />
+            Hello depuis profil */}
         </div>
     );
 };

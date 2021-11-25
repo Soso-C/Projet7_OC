@@ -17,8 +17,11 @@ router.post("/signup", (req, res) => {
       "INSERT INTO test1 (email, password, fullname) VALUES (?, ?, ?);",
       [email, hash, fullname],
       (err, results) => {
-        console.log(err);
-        res.send(results);
+        if (err){
+          res.status(400).json({ err })
+        }else {
+          res.status(201).json({ message: 'Utilisateur créé !' })
+        }      
       }
     );
   });
@@ -44,9 +47,8 @@ router.post("/login", (req, res) => {
         if (!valid) {
           res.status(401).json({ error: "Mot de passe incorrect!" });
         }
-
-        
-        res.status(200).json({ // Si pwd et email ok alors return une réponse 200 et on créé un token d'auth avec l'user id, la clé secrete et l'expiration dans 24h
+        // Si email et pwd ok alors on crée un token d'auth.
+        res.status(200).json({ 
           userId: results[0].id,
           token: jwt.sign(
             { userId: results[0].id },
