@@ -3,6 +3,17 @@ const jwt = require("jsonwebtoken");
 const db = require("../config/db");
 
 
+// const maxAge pour le cookie
+const maxAge = 3 * 24 * 60 * 60 * 1000; 
+
+// Crée un token avec l'userId et une clé et le temps max pour le cookie.
+const createToken = (id) => {
+  return jwt.sign({id}, "RANDOM_TOKEN_SECRET", {
+    expiresIn: maxAge
+  })
+};
+
+
 // Post pour créer user
 module.exports.signUp = async (req,res) => {
 
@@ -27,7 +38,7 @@ module.exports.signUp = async (req,res) => {
 }
 
 
-// Post pour se connecter et créer un token.
+// Post pour se connecter et créer cookie avec token.
 module.exports.signIn = async (req, res) => {
 
   const email = req.body.email;
@@ -42,22 +53,21 @@ module.exports.signIn = async (req, res) => {
     } else if (results.length == 0) {
       res.status(401).json({ error: "L'email n'existe pas dans la DB" });
 
-      // si email trouvé on test pwd
+      // si email trouvé on compare le pwd donné et celui de la db
     } else {
       bcrypt.compare(password, results[0].password).then((valid) => {
         if (!valid) {
           res.status(401).json({ error: "Mot de passe incorrect!" });
         }
-        // Si email et pwd ok alors on crée un token d'auth.
-        res.status(200).json({ 
-          userId: results[0].id,
-          token: jwt.sign(
-            { userId: results[0].id },
-            'RANDOM_TOKEN_SECRET',
-            { expiresIn: '24h' }
-          )
-        })
-        res.send("connection réussie");
+        // Si email et pwd ok alors on créé un cookie depuis le token.
+        try {
+            const token = createToken(results[0].id)
+            res.cookie('jwt', token, { httpOnly: true, maxAge});
+            res.status(200).json({ user: results[0].id})
+        } catch (err) {
+            res.status(200).json({ err });
+        }   
+        
       })
       .catch(error => res.status(500).json({ error }));
     }
