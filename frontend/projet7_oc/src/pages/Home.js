@@ -1,6 +1,6 @@
 import React from 'react';
 import PostCard from '../components/Post/PostCard/PostCard';
-import SearchBar from '../components/ProfileComponents/SearchBar';
+import SearchBar from "../components/SearchBar/SearchBar";
 
 
 const Home = () => {
