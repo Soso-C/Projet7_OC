@@ -21,7 +21,7 @@ const Login = () => {
   function loginData(e) {
     e.preventDefault();
 
-    Axios.post("http://localhost:3001/api/auth/login", {
+    Axios.post("http://localhost:3001/api/user/login", {
       email: email,
       password: password,
     });

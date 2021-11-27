@@ -132,7 +132,7 @@ const Register = () => {
 
     if (validForm) {
       console.log(validForm);
-      Axios.post("http://localhost:3001/api/auth/signup", {
+      Axios.post("http://localhost:3001/api/user/signup", {
         email: email,
         password: password,
         fullname: fullname,

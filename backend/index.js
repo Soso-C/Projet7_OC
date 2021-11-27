@@ -1,16 +1,18 @@
 const express = require("express");
 const app = express();
-const cors = require("cors")
-const bodyparser = require("body-parser")
+const cookieParser = require("cookie-parser");
+const bodyparser = require("body-parser");
+const cors = require("cors");
 
+const userRoute = require("./Routes/User");
 
 app.use(cors());
 app.use(bodyparser.json());
+app.use(cookieParser());
 
-const userRoute = require("./Routes/User");
-app.use("/api/auth", userRoute);
+// routes
+app.use("/api/user", userRoute);
 
-
-app.listen(3001, (req,res) =>{
-    console.log("Le serveur est en route sur le port : 3001")
-})  
+app.listen(3001, (req, res) => {
+  console.log("Le serveur est en route sur le port : 3001");
+});
