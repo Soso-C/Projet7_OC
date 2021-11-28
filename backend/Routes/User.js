@@ -7,10 +7,11 @@ const userController = require("../controllers/user_controller");
 router.post("/signup", authController.signUp);
 router.post("/login", authController.signIn);
 router.get("/logout", authController.logout);
-
+ 
 // userDB
 router.get("/", userController.getAllUsers);
 router.get("/:id", userController.getOneUser);
 router.put("/:id", userController.modifyUser);
+router.delete("/:id", userController.deleteUser);
 
 module.exports = router;

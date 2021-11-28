@@ -21,8 +21,8 @@ module.exports.signUp = async (req, res) => {
   // On récupere le pwd de l'user on le salt x10 et hash avec bcrypt on attend que tout soit fait et on envoie tout ca a la db.
   bcrypt.hash(password, 10).then((hash) => {
     db.query(
-      "INSERT INTO test1 (email, password, fullname) VALUES (?, ?, ?);",
-      [email, hash, fullname],
+      "INSERT INTO users (fullname, email, password) VALUES (?, ?, ?);",
+      [fullname, email, hash],
       (err, results) => {
         if (err) {
           res.status(400).json({ err });
@@ -39,7 +39,7 @@ module.exports.signIn = async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
 
-  db.query("SELECT * FROM test1 WHERE email= ?;", [email], (error, results) => {
+  db.query("SELECT * FROM users WHERE email= ?;", [email], (error, results) => {
     // si erreur SQL
     if (error) {
       res.status(500).json({ error: error });

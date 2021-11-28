@@ -10,6 +10,8 @@ app.use(cors());
 app.use(bodyparser.json());
 app.use(cookieParser());
 
+require('dotenv').config();
+
 // routes
 app.use("/api/user", userRoute);
 
