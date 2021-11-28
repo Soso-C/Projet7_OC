@@ -19,6 +19,7 @@ import MoreIcon from "@mui/icons-material/MoreVert";
 import HomeIcon from "@mui/icons-material/Home";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useNavigate } from "react-router";
+import { typography } from "@mui/system";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -206,6 +207,9 @@ export default function SearchBar() {
               />
             </Search>
           </Grid>
+          <Typography  textAlign="center">
+            <h6>Bonjour Soso</h6>
+          </Typography>
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton
               size="large"
