@@ -11,5 +11,6 @@ router.get("/logout", authController.logout);
 // userDB
 router.get("/", userController.getAllUsers);
 router.get("/:id", userController.getOneUser);
+router.put("/:id", userController.modifyUser);
 
 module.exports = router;

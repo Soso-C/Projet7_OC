@@ -9,13 +9,12 @@ module.exports.getAllUsers = async (req, res) => {
     } else {
       res.status(200).json(result);
     }
-  });
+  });   
 };
 
 // Get 1 user avec son id en params
 module.exports.getOneUser = async (req, res) => {
   const uId = req.params.id;
-
   db.query(
     "SELECT id, email, fullname FROM test1 WHERE id= ?;",
     [uId],
@@ -28,3 +27,24 @@ module.exports.getOneUser = async (req, res) => {
     }
   );
 };
+
+
+// Modify user
+
+module.exports.modifyUser = async (req, res) => {
+  
+  const id = req.params.id;
+  const fullname = req.body.fullname
+
+  db.query(
+    "UPDATE test1 SET fullname = ?  WHERE id = ?;",
+    [fullname, id],
+    (err, result) => {
+      if (err) {
+        res.status(500).json({ error: "ID non trouvé" });
+      } else {
+        res.status(200).json({ message: "Fullname changé !" });
+      }
+    }
+  );
+}

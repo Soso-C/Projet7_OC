@@ -68,6 +68,7 @@ module.exports.signIn = async (req, res) => {
         .catch((error) => res.status(500).json({ error }));
     }
   });
+  
 };
 
 // Reset le cookie a "" et son maxAge a 1ms

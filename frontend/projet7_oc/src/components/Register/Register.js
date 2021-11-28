@@ -137,7 +137,7 @@ const Register = () => {
         password: password,
         fullname: fullname,
       }).then((res) => {
-        console.log(res);
+        alert("Enregistrement créé avec succes")
       });
     }
   }
