@@ -24,7 +24,7 @@ module.exports.getOneUser = async (req, res) => {
     [uId],
     (err, result) => {
       if (err) {
-        res.status(500).json({ error: "ID non trouvée" });
+        res.status(500).json({ err });
       } else {
         res.status(200).json(result);
       }
@@ -44,7 +44,7 @@ module.exports.modifyUser = async (req, res) => {
     [fullname, bio, id],
     (err, result) => {
       if (err) {
-        res.status(500).json({ message: "ID non trouvé" });
+        res.status(500).json({ err });
       } else {
         res.status(200).json({ message: "Fullname et bio changé !" });
       }

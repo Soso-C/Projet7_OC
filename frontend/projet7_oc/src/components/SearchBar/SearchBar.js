@@ -72,6 +72,7 @@ export default function SearchBar() {
   //   setAnchorEl(event.currentTarget);
   // };
 
+
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
@@ -85,10 +86,12 @@ export default function SearchBar() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
-  const navigate = useNavigate();
-
   function backToHome() {
-    navigate("/");
+    window.location.href = "/"
+  }
+
+  function myProfile() {
+    window.location.href = "/profil/me"
   }
 
   const menuId = "primary-search-account-menu";
@@ -130,7 +133,7 @@ export default function SearchBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
+      <MenuItem >
         <IconButton
           size="large"
           aria-label="Home Button"
@@ -138,7 +141,7 @@ export default function SearchBar() {
           aria-haspopup="true"
           color="inherit"
         >
-          <HomeIcon />
+          <HomeIcon/>
         </IconButton>
         <p>Accueil</p>
       </MenuItem>
@@ -208,7 +211,7 @@ export default function SearchBar() {
             </Search>
           </Grid>
           <Typography  textAlign="center">
-            <h6>Bonjour Soso</h6>
+            <h6>Bonjour Sonny</h6>
           </Typography>
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton
@@ -217,6 +220,7 @@ export default function SearchBar() {
               aria-controls={menuId}
               aria-haspopup="true"
               color="inherit"
+              onClick={backToHome}
             >
               <HomeIcon />
             </IconButton>
@@ -236,6 +240,7 @@ export default function SearchBar() {
               aria-controls={menuId}
               aria-haspopup="true"
               color="inherit"
+              onClick={myProfile}
             >
               <AccountCircle />
             </IconButton>

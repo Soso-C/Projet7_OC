@@ -136,9 +136,11 @@ const Register = () => {
         email: email,
         password: password,
         fullname: fullname,
-      }).then((res) => {
-        alert("Enregistrement créé avec succes")
-      });
+      }).then(res => {
+        window.location.href = '/sign-in'
+        alert("Compte créé avec succes veuillez vous connecter !")
+      })
+      .catch()
     }
   }
 

@@ -1,5 +1,6 @@
 import "../src/styles/App.css";
 import { Routes, Route } from "react-router-dom";
+import { useState } from "react";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import Home from "./pages/Home";
@@ -8,6 +9,8 @@ import NotFound from "./components/NotFound";
 
 
 function App() {
+  const [token, setToken] = useState()
+  
   return (
     <div className="App">
 

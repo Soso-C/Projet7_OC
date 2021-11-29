@@ -7,6 +7,7 @@ import Axios from "axios";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isAuth, setIsAuth] = useState(false)
 
   // Navigate de sign-in to sign-up
 
@@ -16,6 +17,7 @@ const Login = () => {
     navigate("/sign-up");
   }
 
+
   // Func qui va controler si notre email / pwd sont existant et valide dans notre base de données si oui alors on sera log si non non.
 
   function loginData(e) {
@@ -24,7 +26,12 @@ const Login = () => {
     Axios.post("http://localhost:3001/api/user/login", {
       email: email,
       password: password,
-    });
+    })
+    .then(res => {
+      window.location.href = '/'
+      alert("Connexion réussie")
+    })
+    .catch()
   }
 
   return (
