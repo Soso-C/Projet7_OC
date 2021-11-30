@@ -86,6 +86,7 @@ const Register = () => {
     } else {
       displayError(passwordErr, "");
       validPassword = true;
+      console.log("Etape 1")
     }
   };
 

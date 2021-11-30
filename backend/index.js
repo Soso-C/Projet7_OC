@@ -6,9 +6,11 @@ const cors = require("cors");
 const helmet = require('helmet');
 const rateLimit = require("express-rate-limit");
 const dotenv = require('dotenv').config()
+const userRoute = require("./Routes/User");
+const postRoute = require("./Routes/Post");
 
 
-// ratelimite secure request
+// Ratelimite secure request
 
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // maximum 100 connexion en 15 minutes
@@ -17,11 +19,8 @@ const apiLimiter = rateLimit({
 
 app.use(apiLimiter);
 
-// Main route
-const userRoute = require("./Routes/User");
-const postRoute = require("./Routes/Post");
 
-// cors
+// Cors
 app.use(cors());
 
 
@@ -32,7 +31,7 @@ app.use(helmet());
 
 
 
-// routes
+// Routes
 app.use("/api/user", userRoute);
 app.use("/api/post", postRoute);
 
