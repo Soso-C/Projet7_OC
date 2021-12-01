@@ -1,28 +1,29 @@
-import React from 'react';
-import PostCard from './PostCard/PostCard'
-import { useState, useEffect } from 'react';
-import Axios from 'axios';
+import React from "react";
+import PostCard from "./PostCard/PostCard";
+import { useState, useEffect } from "react";
+import Axios from "axios";
+import MakePost from "./MakePost/MakePost";
 
 const Post = () => {
+  const [data, setData] = useState([]);
 
-    const [data, setData] = useState([])
+  // useEffect permet de récupérer la data et de l'afficher une seul fois avec les [].
+  useEffect(() => {
+    Axios.get("http://localhost:3001/api/post/").then((res) => {
+      setData(res.data);
+    });
+  }, []);
 
-    // useEffect permet de récupérer la data et de l'afficher une seul fois avec les [].
-    useEffect(() => {
-        Axios.get("http://localhost:3001/api/post/")
-        .then((res) => { setData(res.data)})
-        console.log(setData)
-    }, [])
-
-    return (
-        <div className='postContainer'>
-            <div className="postLists">
-                {data.map((post) => (
-                    <PostCard post={post} key={post.id} />
-                ))}
-            </div>
-        </div>
-    );
+  return (
+    <div className="postContainer">
+      <MakePost />
+      <div className="postLists">
+        {data.map((post) => (
+          <PostCard post={post} key={post.id} />
+        ))}
+      </div>
+    </div>
+  );
 };
 
 export default Post;

@@ -1,62 +1,63 @@
 .container {
-  width: 600px;
+  max-width: 600px;
   height: 250px;
   background: white;
   margin: 2em auto;
   border-radius: 10px;
-  display: flex;
-  position: relative;
-  box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%), 0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
-  }
-  
-  .avatar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #1775ee;
-    border-radius: 50%;
-    height: 50px;
-    width: 50px;
-  }
-  
-  .wraper-left {
-    display: flex;
-    padding: 1.5em;
-  }
-  
-  .wraper-right {
-    padding-top: 2em;
-  }
-  
-  .avatar-name {
-    padding-left: 0.5em;
-    font-weight: bold;
-  }
-  
-  textarea {
-    width: 90%;
-    height: 100px;
-    background: none;
-    border: none;
-    font-size: 1.2em;
-    outline: none;
-    resize: none;
-  }
-  
-  .btnTweet {
-    width: 100px;
-    height: 40px;
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    background: #42b72a;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 1em;
-  }
+  box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
+    0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+}
 
-  .imgUrl {
-    outline: none;
-    text-align: center;
-  }
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1775ee;
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+}
+
+.wraper-left {
+  display: flex;
+  padding: 1.5em;
+  align-items: baseline;
+}
+
+.avatar-name {
+  padding-left: 0.5em;
+  font-weight: bold;
+}
+
+textarea {
+  width: 90%;
+  height: 100px;
+  background: none;
+  border: none;
+  font-size: 1.2em;
+  outline: none;
+  resize: none;
+  margin-left: 2em;
+}
+
+.btnTweet {
+  width: 100px;
+  height: 40px;
+  background: #42b72a;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.imgUrl {
+  outline: none;
+  text-align: center;
+}
+
+.wrapper-right {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 1em;
+}

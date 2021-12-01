@@ -13,10 +13,22 @@ import { red } from "@mui/material/colors";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import DeleteIcon from "@mui/icons-material/Delete";
+import Axios from "axios";
 
 export default function PostCard(props) {
+  const post = props.post;
 
-  const post = props.post
+  const deletePost = () => {
+
+   Axios.delete(`http://localhost:3001/api/post/${post.id}`)
+   .then(res => {
+     alert("post delete")
+     window.location.reload();
+   })
+
+  }
+
   return (
     <div className="postCardWrap">
       <Card sx={{ width: 600 }} className="card1">
@@ -38,7 +50,7 @@ export default function PostCard(props) {
           component="img"
           height="300"
           image={post.img_url}
-          alt="Photo punta cana"
+          alt={post.title}
         />
         <CardContent>
           <Typography variant="body1" color="text.secondary">
@@ -50,7 +62,10 @@ export default function PostCard(props) {
             <CommentOutlinedIcon />
           </IconButton>
           <IconButton aria-label="add to favorites">
-          <FavoriteIcon className="favIcon"/>
+            <FavoriteIcon className="favIcon" />
+          </IconButton>
+          <IconButton onClick={deletePost}>
+            <DeleteIcon />
           </IconButton>
         </CardActions>
       </Card>
