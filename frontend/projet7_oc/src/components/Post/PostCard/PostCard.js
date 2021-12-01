@@ -19,11 +19,17 @@ import Axios from "axios";
 export default function PostCard(props) {
   const post = props.post;
 
+
+  const modifyPost = () => {
+
+  }
+
+  // Permet de supprimer un post depuis l'id de notre Post
   const deletePost = () => {
 
    Axios.delete(`http://localhost:3001/api/post/${post.id}`)
    .then(res => {
-     alert("post delete")
+     alert("Publication supprimée avec succes !")
      window.location.reload();
    })
 
