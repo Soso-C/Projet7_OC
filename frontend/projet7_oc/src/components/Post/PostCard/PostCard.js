@@ -14,8 +14,9 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
-export default function PostCard() {
+export default function PostCard(props) {
 
+  const post = props.post
   return (
     <div className="postCardWrap">
       <Card sx={{ width: 600 }} className="card1">
@@ -31,17 +32,17 @@ export default function PostCard() {
             </IconButton>
           }
           title="User Name"
-          subheader="25 Novembre 2021"
+          subheader={post.post_date}
         />
         <CardMedia
           component="img"
           height="300"
-          image="https://media-cdn.tripadvisor.com/media/photo-s/17/d9/5c/ec/melia-caribe-beach-resort.jpg"
+          image={post.img_url}
           alt="Photo punta cana"
         />
         <CardContent>
           <Typography variant="body1" color="text.secondary">
-            Mes super vacance a punta cana !
+            {post.title}
           </Typography>
         </CardContent>
         <CardActions disableSpacing>
@@ -50,41 +51,6 @@ export default function PostCard() {
           </IconButton>
           <IconButton aria-label="add to favorites">
           <FavoriteIcon className="favIcon"/>
-          </IconButton>
-        </CardActions>
-      </Card>
-      <Card sx={{ width: 600 }}>
-        <CardHeader
-          avatar={
-            <Avatar sx={{ bgcolor: red[500] }} aria-label="pseudo">
-              S
-            </Avatar>
-          }
-          action={
-            <IconButton aria-label="settings">
-              <MoreVertIcon />
-            </IconButton>
-          }
-          title="User Name"
-          subheader="25 Novembre 2021"
-        />
-        <CardMedia
-          component="img"
-          height="300"
-          image="https://media-cdn.tripadvisor.com/media/photo-s/17/d9/5c/ec/melia-caribe-beach-resort.jpg"
-          alt="Photo punta cana"
-        />
-        <CardContent>
-          <Typography variant="body1" color="text.secondary">
-            Mes super vacance a punta cana !
-          </Typography>
-        </CardContent>
-        <CardActions disableSpacing>
-          <IconButton aria-label="share">
-            <CommentOutlinedIcon />
-          </IconButton>
-          <IconButton aria-label="add to favorites">
-          <FavoriteIcon style={{ color: 'red' }} />
           </IconButton>
         </CardActions>
       </Card>
