@@ -15,14 +15,12 @@ import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Axios from "axios";
+import { dateParser } from "../../Utils";
 
 export default function PostCard(props) {
   const post = props.post;
 
-
-  const modifyPost = () => {
-
-  }
+  const test = "http://localhost:3001/"
 
   // Permet de supprimer un post depuis l'id de notre Post
   const deletePost = () => {
@@ -50,19 +48,19 @@ export default function PostCard(props) {
             </IconButton>
           }
           title="User Name"
-          subheader={post.post_date}
-        />
-        <CardMedia
-          component="img"
-          height="300"
-          image={post.img_url}
-          alt={post.title}
+          subheader={dateParser(post.post_date)}
         />
         <CardContent>
-          <Typography variant="body1" color="text.secondary">
+          <Typography variant="body1" color="text.primary">
             {post.title}
           </Typography>
         </CardContent>
+        <CardMedia
+          component="img"
+          height="300"
+          image={test + post.img_url}
+          alt={post.title}
+        />
         <CardActions disableSpacing>
           <IconButton aria-label="share">
             <CommentOutlinedIcon />
