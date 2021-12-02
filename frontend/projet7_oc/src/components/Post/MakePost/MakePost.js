@@ -13,21 +13,24 @@ import IconButton from "@mui/material/IconButton";
 export default function MakePost() {
   const [title, setTitle] = useState("");
   const [file, setFile] = useState();
+  const nameFile = "random_name"
 
   const sendPost = () => {
 
     const data = new FormData();
 
-    data.append('name', "test1")
-    data.append("title", title);
-    data.append("file", file);
+    data.append("file", file)
+    data.append("name", nameFile)
+    data.append("title", title)
 
-    Axios.post("http://localhost:3001/api/post/upload", {
-      data
-    }).then((res) => {
+    Axios.post("http://localhost:3001/api/post/upload", data)
+    .then((res) => {
       alert("Publication créée avec succes !");
       window.location.reload();
-    });
+    })
+    .catch(err => {
+      alert("Post non envoyée")
+    })
   };
 
   return (
