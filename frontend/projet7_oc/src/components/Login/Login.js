@@ -5,6 +5,7 @@ import { useState } from "react";
 import Axios from "axios";
 
 const Login = () => {
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isAuth, setIsAuth] = useState(false)
@@ -31,7 +32,9 @@ const Login = () => {
       window.location.href = '/'
       alert("Connexion réussie")
     })
-    .catch()
+    .catch(err => {
+      console.log(err)
+    })
   }
 
   return (

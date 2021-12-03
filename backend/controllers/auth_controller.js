@@ -1,13 +1,14 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const db = require("../config/db");
+const dotenv = require("dotenv")
 
 // const maxAge pour le cookie
 const maxAge = 3 * 24 * 60 * 60 * 1000;
 
 // Crée un token avec l'userId et une clé et le temps max pour le cookie.
 const createToken = (id) => {
-  return jwt.sign({ id }, "RANDOM_TOKEN_SECRET", {
+  return jwt.sign({ id }, process.env.SECRETTOKEN, {
     expiresIn: maxAge,
   });
 };
@@ -61,6 +62,7 @@ module.exports.signIn = async (req, res) => {
             const token = createToken(results[0].id);
             res.cookie("jwt", token, { httpOnly: true, maxAge });
             res.status(200).json({ user: results[0].id });
+            res.json({ token });
           } catch (err) {
             res.status(200).json({ err });
           }

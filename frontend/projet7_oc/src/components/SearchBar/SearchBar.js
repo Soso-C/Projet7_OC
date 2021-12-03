@@ -72,7 +72,6 @@ export default function SearchBar() {
   //   setAnchorEl(event.currentTarget);
   // };
 
-
   const handleMobileMenuClose = () => {
     setMobileMoreAnchorEl(null);
   };
@@ -86,12 +85,19 @@ export default function SearchBar() {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  // Navigation
+
   function backToHome() {
-    window.location.href = "/"
+    window.location.href = "/";
   }
 
   function myProfile() {
-    window.location.href = "/profil/me"
+    window.location.href = "/profil/me";
+  }
+
+
+  function backToSiginIn() {
+    window.location.href = "/sign-in"
   }
 
   const menuId = "primary-search-account-menu";
@@ -116,6 +122,7 @@ export default function SearchBar() {
     </Menu>
   );
 
+  // Mobile menu
   const mobileMenuId = "primary-search-account-menu-mobile";
   const renderMobileMenu = (
     <Menu
@@ -133,7 +140,7 @@ export default function SearchBar() {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem >
+      <MenuItem>
         <IconButton
           size="large"
           aria-label="Home Button"
@@ -141,21 +148,9 @@ export default function SearchBar() {
           aria-haspopup="true"
           color="inherit"
         >
-          <HomeIcon/>
+          <HomeIcon />
         </IconButton>
         <p>Accueil</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton
-          size="large"
-          aria-label="show 17 new notifications"
-          color="inherit"
-        >
-          <Badge badgeContent={17} color="error">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
       </MenuItem>
       <MenuItem>
         <IconButton
@@ -177,28 +172,21 @@ export default function SearchBar() {
       </MenuItem>
     </Menu>
   );
-
+  // Main menu
   return (
     <Box sx={{ flexGrow: 1 }}>
+      {/* // Top left // */}
       <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
+        <Toolbar> 
           <Typography
-            variant="h6"
+            variant="h5"
             // noWrap
             component="div"
             sx={{ display: { xs: "none", sm: "block" } }}
           >
             <div>Groupomania</div>
           </Typography>
+          {/* // Search bar // */}
           <Grid container justifyContent="center">
             <Search>
               <SearchIconWrapper>
@@ -210,9 +198,11 @@ export default function SearchBar() {
               />
             </Search>
           </Grid>
-          <Typography  textAlign="center">
-            <h6>Bonjour Sonny</h6>
+          {/* // Top Right // */}
+          <Typography textAlign="center">
+            <span>Bonjour Sonny</span>
           </Typography>
+          {/* // Home icon // */}
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
             <IconButton
               size="large"
@@ -224,18 +214,9 @@ export default function SearchBar() {
             >
               <HomeIcon />
             </IconButton>
+            {/* // Profile icon // */}
             <IconButton
               size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              edge="end"
               aria-label="account of current user"
               aria-controls={menuId}
               aria-haspopup="true"
@@ -244,17 +225,20 @@ export default function SearchBar() {
             >
               <AccountCircle />
             </IconButton>
+            {/* // Logout icon // */}
             <IconButton
               size="large"
               edge="end"
               aria-label="account of current user"
               aria-controls={menuId}
               aria-haspopup="true"
+              onClick={backToSiginIn}
               color="inherit"
             >
               <LogoutIcon />
             </IconButton>
           </Box>
+          {/* // Mobile icon // */}
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"

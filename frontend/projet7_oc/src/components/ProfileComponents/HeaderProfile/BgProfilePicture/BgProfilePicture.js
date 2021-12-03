@@ -6,9 +6,7 @@ const BgProfilePicture = () => {
 
     return (
         <div className="bgProfilePicture">
-            <div className="bgpImg">
-                Test
-            </div>
+            <h1>Mon Profil</h1>
         </div>
     );
 };

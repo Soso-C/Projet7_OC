@@ -41,7 +41,6 @@ textarea {
   font-size: 1.2em;
   outline: none;
   resize: none;
-  margin-left: 2em;
 }
 
 .btnTweet {
@@ -64,8 +63,8 @@ textarea {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  padding-right: 2em;
-  padding-left: 2em;
+  padding-right: 1.5em;
+  padding-left: 1em;
 }
 
 #postTitleError {
@@ -76,10 +75,23 @@ textarea {
 .iconVideoT,
 .iconLiveT {
   font-weight: 500;
-  color: #1775ee;
   cursor: pointer;
   display: inline-block;
   vertical-align: middle;
+}
+
+.iconPhotoT{
+  
+  color: #1775ee;
+}
+
+.iconVideoT, #icnBtnVideo {
+
+  color: orange;
+}
+
+.iconLiveT, #icnBtnLive{
+  color: red;
 }
 
 #borderPost {

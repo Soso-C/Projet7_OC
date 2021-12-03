@@ -45,7 +45,7 @@ export default function MakePost() {
 
   return (
     <div>
-      <div className="container" enctype="multipart/form-data">
+      <div className="container">
         <div className="wraper-left">
           <CardHeader
             avatar={
@@ -55,10 +55,9 @@ export default function MakePost() {
             }
           />
           <textarea
-            placeholder="Dites nous quelque chose de cool"
+            placeholder="Dites nous quelque chose de cool ici"
             rows="20"
             cols="40"
-            autocomplete="off"
             aria-autocomplete="list"
             aria-haspopup="true"
             value={title}
@@ -69,23 +68,23 @@ export default function MakePost() {
         </div>
         <span id="borderPost"></span>
         <div className="wrapper-right">
-          <label htmlFor="icon-button-file" className="icnBtnPhoto">
+          <label htmlFor="icon-button-file" >
             <Input accept=".jpg, .jpeg, .png" id="icon-button-file" type="file" onChange={(e) => {
                 setFile(e.target.files[0]);
               }}/>
-            <IconButton color="primary" aria-label="upload picture" component="span" >
+            <IconButton color="primary" aria-label="upload picture" component="span" id="icnBtnPhoto" >
               <PhotoCamera />
             </IconButton>
             <span className="iconPhotoT">Image</span>
           </label>
-          <label htmlFor="icon-button-video" className="icnBtnVideo">
-            <IconButton color="primary" aria-label="video import" component="span" >
+          <label htmlFor="icon-button-video" >
+            <IconButton color="primary" aria-label="video import" component="span" id="icnBtnVideo" >
                 <VideoCameraBackIcon />
               </IconButton>
               <span className="iconVideoT">Video</span>
           </label>
-          <label htmlFor="icon-button-live" className="icnBtnlive">
-            <IconButton color="primary" aria-label="live now" component="span" >
+          <label htmlFor="icon-button-live" >
+            <IconButton color="primary" aria-label="live now" component="span" id="icnBtnLive" >
               <LiveTvIcon />
             </IconButton>
             <span className="iconLiveT">Live</span>
