@@ -7,13 +7,23 @@ import Avatar from "@mui/material/Avatar";
 import CardHeader from "@mui/material/CardHeader";
 import Button from "@mui/material/Button";
 import SendIcon from "@mui/icons-material/Send";
+import { styled } from '@mui/material/styles';
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
+import VideoCameraBackIcon from '@mui/icons-material/VideoCameraBack';
 import IconButton from "@mui/material/IconButton";
+import LiveTvIcon from '@mui/icons-material/LiveTv';
+
+
+const Input = styled('input')({
+  display: 'none',
+});
+
 
 export default function MakePost() {
   const [title, setTitle] = useState("");
   const [file, setFile] = useState();
   const nameFile = "random_name"
+
 
   const sendPost = () => {
 
@@ -35,7 +45,7 @@ export default function MakePost() {
 
   return (
     <div>
-      <form className="container" enctype="multipart/form-data">
+      <div className="container" enctype="multipart/form-data">
         <div className="wraper-left">
           <CardHeader
             avatar={
@@ -57,25 +67,28 @@ export default function MakePost() {
             }}
           />
         </div>
-        <span id="postTitleError"></span>
+        <span id="borderPost"></span>
         <div className="wrapper-right">
-          <label htmlFor="image">
-            <input
-              accept=".jpg, .jpeg, .png"
-              type="file"
-              name="file"
-              id="file"
-              onChange={(e) => {
+          <label htmlFor="icon-button-file" className="icnBtnPhoto">
+            <Input accept=".jpg, .jpeg, .png" id="icon-button-file" type="file" onChange={(e) => {
                 setFile(e.target.files[0]);
-              }}
-            />
-            <IconButton
-              color="primary"
-              aria-label="upload picture"
-              component="span"
-            >
+              }}/>
+            <IconButton color="primary" aria-label="upload picture" component="span" >
               <PhotoCamera />
             </IconButton>
+            <span className="iconPhotoT">Image</span>
+          </label>
+          <label htmlFor="icon-button-video" className="icnBtnVideo">
+            <IconButton color="primary" aria-label="video import" component="span" >
+                <VideoCameraBackIcon />
+              </IconButton>
+              <span className="iconVideoT">Video</span>
+          </label>
+          <label htmlFor="icon-button-live" className="icnBtnlive">
+            <IconButton color="primary" aria-label="live now" component="span" >
+              <LiveTvIcon />
+            </IconButton>
+            <span className="iconLiveT">Live</span>
           </label>
           <Button
             variant="contained"
@@ -86,7 +99,7 @@ export default function MakePost() {
             Send
           </Button>
         </div>
-      </form>
+      </div>
     </div>
   );
 }

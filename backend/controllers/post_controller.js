@@ -96,12 +96,11 @@ module.exports.stockImg = async (req, res) => {
     if (
       req.file.detectedMimeType != "image/jpg" &&
       req.file.detectedMimeType != "image/png" &&
-      req.file.detectedMimeType != "image/jpeg" &&
       req.file.detectedMimeType != "image/jpeg"
     )
       throw Error("invalid file");
 
-    if (req.file.size > 500000) throw Error("max size");
+    if (req.file.size > 4000000) throw Error("max size");
   } catch (err) {
     return res.status(201).json({ err });
   }

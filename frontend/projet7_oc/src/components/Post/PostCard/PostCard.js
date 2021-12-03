@@ -51,13 +51,13 @@ export default function PostCard(props) {
           subheader={dateParser(post.post_date)}
         />
         <CardContent>
-          <Typography variant="body1" color="text.primary">
+          <Typography variant="body1" color="text.primary" className="title_post">
             {post.title}
           </Typography>
         </CardContent>
         <CardMedia
           component="img"
-          height="300"
+          height="350"
           image={test + post.img_url}
           alt={post.title}
         />
@@ -68,7 +68,7 @@ export default function PostCard(props) {
           <IconButton aria-label="add to favorites">
             <FavoriteIcon className="favIcon" />
           </IconButton>
-          <IconButton onClick={deletePost}>
+          <IconButton onClick={deletePost} id="deletePost" >
             <DeleteIcon />
           </IconButton>
         </CardActions>

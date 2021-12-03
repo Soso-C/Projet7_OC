@@ -6,9 +6,18 @@
 }
 
 .card1 {
+    position: relative;
     margin-bottom: 2em;
+    max-width: 600px;
 }
 
 .favIcon{
     color: red;
+}
+
+
+#deletePost {
+    position: absolute;
+    right: 15px;
+    color: #1976d2;
 }

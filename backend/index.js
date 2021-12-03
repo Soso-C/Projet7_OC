@@ -1,7 +1,6 @@
 const express = require("express");
 const app = express();
 const cookieParser = require("cookie-parser");
-const bodyparser = require("body-parser");
 const cors = require("cors");
 const helmet = require('helmet');
 const rateLimit = require("express-rate-limit");
@@ -22,11 +21,20 @@ app.use(apiLimiter);
 
 
 // Cors
-app.use(cors());
+const corsOptions = {
+  origin: process.env.CLIENT_URL,
+  credentials: true,
+  'allowedHeaders': ['sessionId', 'Content-Type'],
+  'exposedHeaders': ['sessionId'],
+  'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  'preflightContinue': false
+}
+app.use(cors(corsOptions));
 
 
 // Packages
-app.use(bodyparser.json());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(helmet());
 
