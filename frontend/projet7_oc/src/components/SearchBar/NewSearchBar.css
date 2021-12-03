@@ -1,0 +1,27 @@
+.navContainer {
+  display: flex;
+  justify-content: space-between;
+  padding: 0em 1em;
+  background-color: #1775ee;
+  color: white;
+  align-items: center;
+  min-height: 80px;
+}
+
+.logoContainer {
+  display: flex;
+}
+
+.icon {
+  margin-left: 20px;
+  color: white;
+}
+
+
+.HiUsername p {
+  font-weight: 600;
+}
+
+a {
+  text-decoration: none;
+}

@@ -200,7 +200,7 @@ export default function SearchBar() {
           </Grid>
           {/* // Top Right // */}
           <Typography textAlign="center">
-            <span>Bonjour Sonny</span>
+            <p>Bonjour Sonny</p>
           </Typography>
           {/* // Home icon // */}
           <Box sx={{ display: { xs: "none", md: "flex" } }}>

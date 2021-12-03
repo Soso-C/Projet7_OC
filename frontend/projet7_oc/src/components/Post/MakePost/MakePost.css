@@ -24,7 +24,6 @@
 .wraper-left {
   display: flex;
   align-items: baseline;
-  padding-left: 1em;
 }
 
 /* 
@@ -63,8 +62,9 @@ textarea {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  padding-right: 1.5em;
-  padding-left: 1em;
+  padding-right: 4em;
+  padding-left: 3em;
+  padding-top: 1em;
 }
 
 #postTitleError {
@@ -95,8 +95,7 @@ textarea {
 }
 
 #borderPost {
-  margin: 1em;
-  font-size: 1em;
+  padding-top: 1em;
   border-bottom: 1px solid #dadde1;
   width: 100%;
   align-self: center;
