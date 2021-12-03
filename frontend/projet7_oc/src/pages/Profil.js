@@ -1,13 +1,12 @@
 import React from 'react';
-import SearchBar from "../components/SearchBar/SearchBar";
 import HeaderProfile from '../components/ProfileComponents/HeaderProfile/HeaderProfile';
+import NewSearchBar from '../components/SearchBar/NewSearchBar';
 
 const Profil = () => {
     return (
         <div>
-            <SearchBar />
+            <NewSearchBar />
             <HeaderProfile />
-
         </div>
     );
 };
