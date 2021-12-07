@@ -15,7 +15,7 @@ export default function NewSearchBar() {
         <h2>Groupomania</h2>
         </div>
         <div className="HiUsername">
-          <p>Bonjour Sonny</p>
+          <p>Bonjour Username</p>
         </div>
         <div className="logoContainer">
           <Link to="/" className="icon"><HomeIcon sx={{ fontSize: 30 }}/></Link>
