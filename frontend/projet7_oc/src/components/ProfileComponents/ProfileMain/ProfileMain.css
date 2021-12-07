@@ -80,4 +80,8 @@
     padding-right: 1em;
 }
 
+.githubLink {
+    text-decoration: none;
+    color: black;
+}
 

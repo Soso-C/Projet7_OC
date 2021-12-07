@@ -21,8 +21,8 @@ export default function ProfileMain() {
                         <p>Pays : France</p>
                         <p>Age : 25 ans</p>
                         <div className="socialWrapper">
-                            <p>Social :</p>
-                            <GitHubIcon />
+                            <p>GitHub :</p>
+                            <a href="https://github.com/Soso-C/Projet7_OC" target="_blank" rel="noreferrer" className="githubLink"><GitHubIcon /></a>
                         </div>
                     </div>
                 </div>
