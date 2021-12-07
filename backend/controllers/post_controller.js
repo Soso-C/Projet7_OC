@@ -23,9 +23,9 @@ module.exports.createPost = async (req, res) => {
 };
 
 
-// Get tous les posts.
+// Get tous les posts en fonction de la date de publication.
 module.exports.getAllPosts = async (req, res) => {
-  db.query("SELECT * FROM posts;", (err, result) => {
+  db.query("SELECT * FROM posts ORDER BY post_date DESC;", (err, result) => {
     if (err) {
       res.status(500).json({ err });
     } else {
@@ -33,6 +33,7 @@ module.exports.getAllPosts = async (req, res) => {
     }
   });
 };
+
 
 
 // Get 1 post avec son id en params

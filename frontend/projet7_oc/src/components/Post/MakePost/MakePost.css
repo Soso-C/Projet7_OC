@@ -62,7 +62,7 @@ textarea {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-  padding-right: 4em;
+  padding-right: 3em;
   padding-left: 3em;
   padding-top: 1em;
 }
@@ -91,7 +91,7 @@ textarea {
 }
 
 .iconLiveT, #icnBtnLive{
-  color: red;
+  color: #42b72a;
 }
 
 #borderPost {

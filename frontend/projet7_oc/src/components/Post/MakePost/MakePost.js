@@ -9,13 +9,14 @@ import { styled } from "@mui/material/styles";
 import PhotoCamera from "@mui/icons-material/PhotoCamera";
 import VideoCameraBackIcon from "@mui/icons-material/VideoCameraBack";
 import IconButton from "@mui/material/IconButton";
-import LiveTvIcon from "@mui/icons-material/LiveTv";
+import SendIcon from "@mui/icons-material/Send";
 
 const Input = styled("input")({
   display: "none",
 });
 
 export default function MakePost() {
+  
   const [title, setTitle] = useState("");
   const [file, setFile] = useState();
   const [validTitle, setValidTitle] = useState(false);
@@ -36,29 +37,22 @@ export default function MakePost() {
     }
   };
 
-  // Quand enter est appuyé alors on exec checkerpost et si validTitle true alors on envoie la data a la db et on post notre publication. PROBLEM:appuyer 2 fois sur enter pour publié
-  const sendTweet = (e) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      checkerPost();
+  // Envoyer la data a la DB
+  const sendData = () => {
+    const data = new FormData();
 
-      if (validTitle) {
-        const data = new FormData();
+    data.append("file", file);
+    data.append("name", nameFile);
+    data.append("title", title);
 
-        data.append("file", file);
-        data.append("name", nameFile);
-        data.append("title", title);
-
-        Axios.post("http://localhost:3001/api/post/upload", data)
-          .then((res) => {
-            alert("Publication créée avec succes !");
-            window.location.reload();
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }
-    }
+    Axios.post("http://localhost:3001/api/post/upload", data)
+      .then((res) => {
+        alert("Publication créée avec succes !");
+        window.location.reload();
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -82,7 +76,6 @@ export default function MakePost() {
             onChange={(e) => {
               setTitle(e.target.value);
             }}
-            onKeyPress={sendTweet}
           />
         </div>
         <span id="borderPost"></span>
@@ -117,16 +110,16 @@ export default function MakePost() {
             </IconButton>
             <span className="iconVideoT">Video</span>
           </label>
-          <label htmlFor="icon-button-live">
+          <label htmlFor="icon-button-live" onClick={sendData}>
+          <span className="iconLiveT">Publier</span>
             <IconButton
               color="primary"
-              aria-label="live now"
+              aria-label="send"
               component="span"
               id="icnBtnLive"
             >
-              <LiveTvIcon />
+              <SendIcon />
             </IconButton>
-            <span className="iconLiveT">Live</span>
           </label>
         </div>
       </div>
