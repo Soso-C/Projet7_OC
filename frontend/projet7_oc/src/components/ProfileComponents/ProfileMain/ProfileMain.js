@@ -1,5 +1,6 @@
 import React from 'react'
 import "./ProfileMain.css"
+import GitHubIcon from '@mui/icons-material/GitHub';
 
 export default function ProfileMain() {
     return (
@@ -19,7 +20,10 @@ export default function ProfileMain() {
                         <p>Métier : Developpeur web</p>
                         <p>Pays : France</p>
                         <p>Age : 25 ans</p>
-                        <span>Social : GitHub URL</span>
+                        <div className="socialWrapper">
+                            <p>Social :</p>
+                            <GitHubIcon />
+                        </div>
                     </div>
                 </div>
             </div>
