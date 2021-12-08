@@ -29,11 +29,10 @@ const Login = () => {
       password: password,
     })
     .then(res => {
-      window.location.href = '/'
-      alert("Connexion réussie")
-    })
-    .catch(err => {
-      console.log(err)
+        console.log(res)
+        localStorage.setItem("token", JSON.stringify(res.data))
+        alert("Connexion réussie")
+        window.location.href = '/'
     })
   }
 

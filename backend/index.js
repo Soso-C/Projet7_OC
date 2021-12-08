@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const jwt = require("jsonwebtoken")
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const helmet = require('helmet');
@@ -53,3 +54,28 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 app.listen(3001, (req, res) => {
   console.log("Le serveur est en route sur le port : 3001");
 });
+
+
+// test
+
+const verifyJwt = (req, res, next) => {
+
+  const token = req.headers["x-acces-token"]
+
+  if (!token) {
+    res.send("You need a token")
+  }else {
+    jwt.verify(token, process.env.SECRETTOKEN, (err, decoded) => {
+      if (err) {
+        res.json({auth: false, message: "Connexion échouée"})
+      } else {
+        req.userId = decoded.id;
+        next();
+      }
+    })
+  }
+}
+
+app.get("/userAuth", verifyJwt, (req, res) => {
+  res.send("u are auth")
+})

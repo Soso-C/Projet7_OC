@@ -60,9 +60,8 @@ module.exports.signIn = async (req, res) => {
           // Si email et pwd ok alors on créé un cookie depuis le token.
           try {
             const token = createToken(results[0].id);
-            res.cookie("jwt", token, { httpOnly: true, maxAge });
-            res.status(200).json({ user: results[0].id });
-            res.json({ token });
+            // res.cookie("jwt", token, { httpOnly: true, maxAge });
+            res.status(200).json({ auth: true, token: token, user: results[0].id, username: results[0].fullname, admin: results[0].isAdmin });
           } catch (err) {
             res.status(200).json({ err });
           }
@@ -78,3 +77,6 @@ module.exports.logout = (req, res) => {
   res.cookie("jwt", "", { maxAge: 1 });
   res.redirect("/");
 };
+
+
+

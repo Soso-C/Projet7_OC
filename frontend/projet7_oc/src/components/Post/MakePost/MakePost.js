@@ -16,7 +16,6 @@ const Input = styled("input")({
 });
 
 export default function MakePost() {
-  
   const [title, setTitle] = useState("");
   const [file, setFile] = useState();
   const [validTitle, setValidTitle] = useState(false);
@@ -45,14 +44,14 @@ export default function MakePost() {
     data.append("name", nameFile);
     data.append("title", title);
 
-    Axios.post("http://localhost:3001/api/post/upload", data)
-      .then((res) => {
+    Axios.post("http://localhost:3001/api/post/upload", data).then((res) => {
+      if (!res.data.message) {
+        alert("Veuillez insérer une image");
+      } else {
         alert("Publication créée avec succes !");
         window.location.reload();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      }
+    });
   };
 
   return (
@@ -111,7 +110,7 @@ export default function MakePost() {
             <span className="iconVideoT">Video</span>
           </label>
           <label htmlFor="icon-button-live" onClick={sendData}>
-          <span className="iconLiveT">Publier</span>
+            <span className="iconLiveT">Publier</span>
             <IconButton
               color="primary"
               aria-label="send"
