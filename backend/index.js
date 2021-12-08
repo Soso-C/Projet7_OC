@@ -9,6 +9,7 @@ const dotenv = require('dotenv').config()
 const userRoute = require("./Routes/User");
 const postRoute = require("./Routes/Post");
 const path = require('path');
+const auth = require("./middleware/auth_middleware")
 
 
 // Ratelimite secure request
@@ -21,16 +22,24 @@ const apiLimiter = rateLimit({
 app.use(apiLimiter);
 
 
+
+// const corsOptions = {
+//   origin: process.env.CLIENT_URL,
+//   credentials: true,
+//   'allowedHeaders': ['sessionId', 'Content-Type'],
+//   'exposedHeaders': ['sessionId'],
+//   'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
+//   'preflightContinue': false
+// }
+// app.use(cors(corsOptions));
+
 // Cors
-const corsOptions = {
-  origin: process.env.CLIENT_URL,
-  credentials: true,
-  'allowedHeaders': ['sessionId', 'Content-Type'],
-  'exposedHeaders': ['sessionId'],
-  'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  'preflightContinue': false
-}
-app.use(cors(corsOptions));
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+  next();
+});
 
 
 // Packages
@@ -40,7 +49,6 @@ app.use(cookieParser());
 app.use(helmet());
 
 // jwt
-
 
 
 // Routes
@@ -56,26 +64,3 @@ app.listen(3001, (req, res) => {
 });
 
 
-// test
-
-const verifyJwt = (req, res, next) => {
-
-  const token = req.headers["x-acces-token"]
-
-  if (!token) {
-    res.send("You need a token")
-  }else {
-    jwt.verify(token, process.env.SECRETTOKEN, (err, decoded) => {
-      if (err) {
-        res.json({auth: false, message: "Connexion échouée"})
-      } else {
-        req.userId = decoded.id;
-        next();
-      }
-    })
-  }
-}
-
-app.get("/userAuth", verifyJwt, (req, res) => {
-  res.send("u are auth")
-})

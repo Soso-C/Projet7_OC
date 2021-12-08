@@ -5,10 +5,9 @@ import { useState } from "react";
 import Axios from "axios";
 
 const Login = () => {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isAuth, setIsAuth] = useState(false)
+  const [isAuth, setIsAuth] = useState(false);
 
   // Navigate de sign-in to sign-up
 
@@ -18,7 +17,6 @@ const Login = () => {
     navigate("/sign-up");
   }
 
-
   // Func qui va controler si notre email / pwd sont existant et valide dans notre base de données si oui alors on sera log si non non.
 
   function loginData(e) {
@@ -27,13 +25,16 @@ const Login = () => {
     Axios.post("http://localhost:3001/api/user/login", {
       email: email,
       password: password,
-    })
-    .then(res => {
-        console.log(res)
-        localStorage.setItem("token", JSON.stringify(res.data))
-        alert("Connexion réussie")
-        window.location.href = '/'
-    })
+    }).then((res) => {
+      console.log(res.data.token);
+      Axios.defaults.headers.common[
+        "authorization"
+      ] = `Bearer ${res.data.token}`;
+      localStorage.setItem("token", JSON.stringify(res.data));
+      setIsAuth(true)
+      alert("Connexion réussie");
+      window.location.href = "/";
+    });
   }
 
   return (
