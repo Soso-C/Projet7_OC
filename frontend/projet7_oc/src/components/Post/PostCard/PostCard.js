@@ -19,13 +19,13 @@ import { dateParser } from "../../Utils";
 
 export default function PostCard(props) {
   const post = props.post;
-
+  let test1 = JSON.parse(localStorage.getItem("token"));
   const test = "http://localhost:3001/"
 
   // Permet de supprimer un post depuis l'id de notre Post
   const deletePost = () => {
 
-   Axios.delete(`http://localhost:3001/api/post/${post.id}`)
+   Axios.delete(`http://localhost:3001/api/post/${post.id}`, { headers: { Authorization: `Bearer ${test1.token}` }})
    .then(res => {
      alert("Publication supprimée avec succes !")
      window.location.reload();

@@ -1,26 +1,22 @@
 const jwt = require("jsonwebtoken");
-const dotenv = require("dotenv")
+const dotenv = require("dotenv");
+const db = require("../config/db");
 
-
+// On vérifie si la personne a un token avec son userid valid pour pouvoir se connecter au site 
 module.exports = (req, res, next) => {
-
-    // récupe le token dans les paramètres
-    const authHeader = req.headers.authorization;
-
-    // Si l'user a une autorisation alors on verify le token et sa clé secrete.
-    if (authHeader) {
-        const token = authHeader.split(' ')[1];
-
-        jwt.verify(token, process.env.SECRETTOKEN, (err, user) => {
-            if (err) {
-                res.status(403).json({ error: "token non valide"});
-            } else {
-                next();
-            }
-        });
+  try { // on récupere le token, on decode la clé secrete du token si = a "SECRETTOKEN" et on recupe l'user id du token
+    const token = req.headers.authorization.split(' ')[1];
+    const decodedToken = jwt.verify(token, process.env.SECRETTOKEN);
+    const userId = decodedToken.userId;
+    if (req.body.userId && req.body.userId !== userId) { // Si l'id de notre user et son token/key est != du uid et son token/key donnée lors du login alors error.
+      throw 'Invalid user ID';
+    
+    } else { // Si tout vas bien on next le middleware.
+      next();
     }
-    // sinon renvoie 401 non authorisé : msg ....
-    else {
-        res.status(401).json({ error:"Acces non authorisé, présentez un token valide pour faire cette requete" });
-    }
-}
+  } catch {
+    res.status(401).json({
+      error: new Error('Invalid request!')
+    });
+  }
+};

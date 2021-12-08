@@ -3,15 +3,6 @@ const jwt = require("jsonwebtoken");
 const db = require("../config/db");
 const dotenv = require("dotenv")
 
-// const maxAge pour le cookie
-const maxAge = 3 * 24 * 60 * 60 * 1000;
-
-// Crée un token avec l'userId et une clé et le temps max pour le cookie.
-const createToken = (id) => {
-  return jwt.sign({ id }, process.env.SECRETTOKEN, {
-    expiresIn: maxAge,
-  });
-};
 
 // Post pour créer user
 module.exports.signUp = async (req, res) => {
@@ -57,13 +48,18 @@ module.exports.signIn = async (req, res) => {
           if (!valid) {
             res.status(401).json({ error: "Mot de passe incorrect!" });
           }
-          // Si email et pwd ok alors on créé un cookie depuis le token.
-          try {
-            const token = createToken(results[0].id);
-            // res.cookie("jwt", token, { httpOnly: true, maxAge });
-            res.status(200).json({ auth: true, token: token, user: results[0].id, username: results[0].fullname, admin: results[0].isAdmin });
-          } catch (err) {
-            res.status(200).json({ err });
+          // Si pwd et email ok alors return une réponse 200 et on créé un token d'auth avec l'user id, la clé secrete et l'expiration dans 24h ainsi que d'autre infos user.
+          else {
+            res.status(200).json({ 
+              userId: results[0].id,
+              username: results[0].fullname,
+              admin: results[0].isAdmin,
+              token: jwt.sign(
+                { userId: results[0].id, admin: results[0].isAdmin },
+                process.env.SECRETTOKEN,
+                { expiresIn: '24h' }
+              )
+            });
           }
         })
         .catch((error) => res.status(500).json({ error }));

@@ -16,6 +16,7 @@ const Input = styled("input")({
 });
 
 export default function MakePost() {
+  let test1 = JSON.parse(localStorage.getItem("token"));
   const [title, setTitle] = useState("");
   const [file, setFile] = useState();
   const [validTitle, setValidTitle] = useState(false);
@@ -24,17 +25,17 @@ export default function MakePost() {
   const nameFile = "random_name";
 
   // Checker avant d'envoyer le post
-  const checkerPost = () => {
-    if (title.length < 5) {
-      alert("Vous devez avoir au moins 5 caracteres");
-      setValidTitle(false);
-    } else if (title.length > 200) {
-      alert("200 caracteres max !");
-      setValidTitle(false);
-    } else {
-      setValidTitle(true);
-    }
-  };
+  // const checkerPost = () => {
+  //   if (title.length < 5) {
+  //     alert("Vous devez avoir au moins 5 caracteres");
+  //     setValidTitle(false);
+  //   } else if (title.length > 200) {
+  //     alert("200 caracteres max !");
+  //     setValidTitle(false);
+  //   } else {
+  //     setValidTitle(true);
+  //   }
+  // };
 
   // Envoyer la data a la DB
   const sendData = () => {
@@ -44,7 +45,9 @@ export default function MakePost() {
     data.append("name", nameFile);
     data.append("title", title);
 
-    Axios.post("http://localhost:3001/api/post/upload", data).then((res) => {
+    Axios.post("http://localhost:3001/api/post/upload", data, {
+      headers: { Authorization: `Bearer ${test1.token}` },
+    }).then((res) => {
       if (!res.data.message) {
         alert("Veuillez insérer une image");
       } else {
