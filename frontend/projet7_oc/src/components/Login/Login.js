@@ -7,7 +7,7 @@ import Axios from "axios";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isAuth, setIsAuth] = useState(false);
+  const [userData, setUserData] = useState([]);
 
   // Navigate de sign-in to sign-up
 
@@ -26,12 +26,10 @@ const Login = () => {
       email: email,
       password: password,
     }).then((res) => {
-      console.log(res.data.token);
       Axios.defaults.headers.common[
         "authorization"
       ] = `Bearer ${res.data.token}`;
       localStorage.setItem("token", JSON.stringify(res.data));
-      setIsAuth(true)
       alert("Connexion réussie");
       window.location.href = "/";
     });

@@ -116,13 +116,13 @@ module.exports.stockImg = async (req, res) => {
   );
 
   try {
-
+    const userId = req.body.userId
     const title = req.body.title
     const img = req.file !== null ? "./images/posts/" + fileName : "";
 
     db.query(
-      "INSERT INTO posts (title, img_url) VALUES (?, ?);",
-    [title, img],
+      "INSERT INTO posts (title, img_url, user_id) VALUES (?, ?, ?);",
+    [title, img, userId],
     (err, results) => {
       if (!err) {
         res.status(201).json({ message: "Post créé avec succes !" });
