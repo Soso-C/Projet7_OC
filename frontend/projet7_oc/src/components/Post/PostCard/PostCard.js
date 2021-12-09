@@ -68,9 +68,13 @@ export default function PostCard(props) {
           <IconButton aria-label="add to favorites">
             <FavoriteIcon className="favIcon" />
           </IconButton>
-          <IconButton onClick={deletePost} id="deletePost" >
+          {test1.userId === post.user_id ? (
+            <IconButton onClick={deletePost} id="deletePost" >
             <DeleteIcon />
           </IconButton>
+          ) : ( 
+            <div></div>
+          )}         
         </CardActions>
       </Card>
     </div>

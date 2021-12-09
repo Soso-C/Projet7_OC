@@ -12,10 +12,8 @@ let test1 = JSON.parse(localStorage.getItem("token"));
 export default function NewSearchBar() {
 
   const logout = () =>  {
-
     localStorage.removeItem("token")
     window.location.href = "/sign-in"
-
   }
 
   return (
@@ -25,7 +23,7 @@ export default function NewSearchBar() {
         <h2>Groupomania</h2>
         </div>
         <div className="HiUsername">
-          {/* <p>Bonjour, {test1.username}</p> */}
+          <p>Bonjour, {test1.username}</p> 
         </div>
         <div className="logoContainer">
           <Link to="/" className="icon"><HomeIcon sx={{ fontSize: 30 }}/></Link>

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Axios from "axios";
 import MakePost from "./MakePost/MakePost";
 
-let test1 = JSON.parse(localStorage.getItem("token"));
+const test1 = JSON.parse(localStorage.getItem("token"));
 const Post = () => {
   
   const [data, setData] = useState([]);
