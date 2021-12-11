@@ -133,7 +133,7 @@ exports.createComment = (req, res) => {
 
   db.query("INSERT INTO comments (post_id, user_id, comments) VALUES (?, ?, ?)",[pId, uId, comment] ,(err, result) => {
     if (err) {
-      res.status(404).json({ err });
+      res.status(500).json({ err });
       console.log(err);
       throw err;
     }
@@ -149,7 +149,7 @@ exports.getAllComments = (req, res) => {
 
   db.query("SELECT * FROM comments WHERE post_id = ?;",[pId],(err,comment) => {
     if(err){
-      res.status(404).json({ err });
+      res.status(500).json({ err });
       console.log(err);
       throw err;
     }else {
@@ -159,14 +159,14 @@ exports.getAllComments = (req, res) => {
   
 }
 
-// Get 1 comments
+// Get 1 comment
 exports.getOneComment = (req, res) => {
 
   const cId = req.param.id;
 
   db.query("SELECT * FROM comments WHERE id= ?;",[cId],(err,comment) => {
     if(err){
-      res.status(404).json({ err });
+      res.status(500).json({ err });
       console.log(err);
       throw err;
     }else {
@@ -175,3 +175,22 @@ exports.getOneComment = (req, res) => {
   })
   
 }
+
+// Delete un comment
+
+exports.getOneComment = (req, res) => {
+
+  const cId = req.param.id;
+
+  db.query("DELETE FROM comments WHERE id= ?;",[cId],(err,comment) => {
+    if(err){
+      res.status(500).json({ err });
+      console.log(err);
+      throw err;
+    }else {
+      res.status(200).json({ message: "Le commentaire a bien été supprimé !" });
+    }
+  })
+  
+}
+
