@@ -5,26 +5,32 @@ const pipeline = promisify(require("stream").pipeline);
 const jwt = require("jsonwebtoken")
 
 
+/******************************************************************************* Post *************************************************************************************************/ 
+
 // Créer un post
 module.exports.createPost = async (req, res) => {
 
+
   let fileName;
   
-  try {
+  try { // Si notre file du front est pas en jpg/png/jpeg alors on return une erreur
     if (
       req.file.detectedMimeType != "image/jpg" &&
       req.file.detectedMimeType != "image/png" &&
       req.file.detectedMimeType != "image/jpeg"
     )
       throw Error("invalid file");
-
+    
+     // si sa taille dépasse les 4M+ alors on return une erreur 
     if (req.file.size > 4000000) throw Error("max size");
   } catch (err) {
     return res.status(201).json({ err });
   }
 
+  // une variable qui aura comme param le name et la date actuelle pour donné un nom a notre fichier
   fileName = req.body.name + Date.now() + ".jpg";
 
+  // créer notre fichier a tel destination
   await pipeline(
     req.file.stream,
     fs.createWriteStream(
@@ -102,16 +108,35 @@ module.exports.modifyPost = async (req, res) => {
 
 // Delete un post
 module.exports.deletePost = async (req, res) => {
-    const id = req.params.id;
-  
-    db.query("DELETE FROM posts WHERE id = ?;", 
-        [id], 
-        (err, result) => {
-        if (err) {
-            res.status(500).json({ err });
-        } else {
-          res.status(200).json({ message: "Le post a bien été supprimé !" });
-        }
-    });
+
+  const id = req.params.id;
+
+  db.query("DELETE FROM posts WHERE id = ?;", 
+      [id], 
+      (err, result) => {
+      if (err) {
+          res.status(500).json({ err });
+      } else {
+        res.status(200).json({ message: "Le post a bien été supprimé !" });
+      }
+  });
 };
+
+
+/**************************************************************************************** Comments Post  *******************************************************************/
+
+// Créé un commentaire 
+
+exports.createComment = (req, res, next) => {
   
+  const {pId, uId, comment} = req.body
+
+  db.query("INSERT INTO comments (post_id, user_id, comments) VALUES (?, ?, ?)",[pId, uId, comment] ,(err, result) => {
+    if (err) {
+      res.status(404).json({ err });
+      console.log(err);
+      throw err;
+    }
+    res.status(200).json(result);
+  });
+};

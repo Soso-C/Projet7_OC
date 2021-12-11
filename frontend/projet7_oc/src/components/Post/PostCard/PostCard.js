@@ -17,9 +17,11 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DeleteIcon from "@mui/icons-material/Delete";
+import MakeComment from "../../Comments/MakeComment/MakeComment";
 
 export default function PostCard(props) {
   const post = props.post;
+
   let test1 = JSON.parse(localStorage.getItem("token"));
   const test = "http://localhost:3001/";
 
@@ -35,7 +37,7 @@ export default function PostCard(props) {
 
   return (
     <div className="postCardWrap">
-      <Card sx={{ width: 600 }} className="card1">
+      <Card sx={{ width: 600 }} id="card1">
         <CardHeader
           avatar={
             <Avatar sx={{ bgcolor: red[500] }} aria-label="pseudo">
@@ -69,9 +71,11 @@ export default function PostCard(props) {
           <IconButton aria-label="share">
             <CommentOutlinedIcon />
           </IconButton>
+          <p className="pPostCard">8 commentaires</p>
           <IconButton aria-label="add to favorites">
             <FavoriteIcon className="favIcon" />
           </IconButton>
+          <p className="pPostCard">10 likes</p>
           {test1.userId === post.user_id ? (
             <IconButton onClick={deletePost} id="deletePost">
               <DeleteIcon />
@@ -80,6 +84,7 @@ export default function PostCard(props) {
             <div></div>
           )}
         </CardActions>
+        <MakeComment />
       </Card>
     </div>
   );

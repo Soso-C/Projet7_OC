@@ -1,33 +1,3 @@
-.postCardWrap {
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-  align-items: center;
-}
-
-#card1 {
-  position: relative;
-  margin-bottom: 3em;
-  max-width: 600px;
-  border-radius: 10px;
-}
-
-.favIcon {
-  color: red;
-}
-
-#deletePost {
-  position: absolute;
-  right: 15px;
-  color: #1976d2;
-}
-
-.pPostCard {
-  font-size: 0.95em;
-  padding-left: 0.3em;
-  padding-right: 0.3em;
-}
-
 .comContainer {
     height: 250px;
 }

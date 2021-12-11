@@ -14,7 +14,7 @@ router.put("/:id", auth, postController.modifyPost);
 router.delete("/:id", auth, postController.deletePost);
 
 // Comments
-
+router.post("/comment-post", auth, postController.createComment);
 
 
 module.exports = router;

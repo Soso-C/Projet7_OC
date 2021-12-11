@@ -26,7 +26,7 @@ module.exports.signUp = async (req, res) => {
   });
 };
 
-// Post pour se connecter et créer cookie avec token.
+// Post pour se connecter et créer un token.
 module.exports.signIn = async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
@@ -57,7 +57,7 @@ module.exports.signIn = async (req, res) => {
               token: jwt.sign(
                 { userId: results[0].id, admin: results[0].isAdmin },
                 process.env.SECRETTOKEN,
-                { expiresIn: '15m' }
+                { expiresIn: '24h' }
               )
             });
           }
@@ -68,10 +68,10 @@ module.exports.signIn = async (req, res) => {
   
 };
 
-// Reset le cookie a "" et son maxAge a 1ms
+
+// Se Déconnecter 
 module.exports.logout = (req, res) => {
-  res.cookie("jwt", "", { maxAge: 1 });
-  res.redirect("/");
+  
 };
 
 

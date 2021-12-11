@@ -9,20 +9,20 @@ module.exports = (req, res, next) => {
     const token = req.headers.authorization.split(" ")[1];
     const decodedToken = jwt.verify(token, process.env.SECRETTOKEN);
     const userId = decodedToken.userId;
-    db.query("SELECT * FROM users WHERE id= ?;", [userId], (err, user) => {
+
+    // On compare l'user id du token si il existe dans notre db 
+    db.query("SELECT id FROM users WHERE id= ?;", [userId], (err, user) => {
+
+      // Si ya pas d'user alors on return l'id du token et on dit que l'user existe pas
       if (!user) {
         return res.status(401).json({
           message: `User ${userId} n'existe pas`,
         });
-      } else if (user[0].id !== userId) {
-        return res.status(401).json({
-          message: "User différent du token, connexion impossible",
-        });
       }
+      // Sinon si ok alors on passe au middleware suivant
       else {
         console.log(userId, user[0].id)
         req.user = user;
-        /* On appelle le prochain middleware */
         return next();
       }
     });
