@@ -2,6 +2,7 @@ import React from "react";
 import "./PostCard.css";
 import Axios from "axios";
 import { dateParser } from "../../Utils";
+import MakeComment from "../../Comments/MakeComment/MakeComment";
 
 // Material ui
 import Card from "@mui/material/Card";
@@ -17,7 +18,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DeleteIcon from "@mui/icons-material/Delete";
-import MakeComment from "../../Comments/MakeComment/MakeComment";
+
 
 export default function PostCard(props) {
   const post = props.post;
@@ -76,6 +77,7 @@ export default function PostCard(props) {
             <FavoriteIcon className="favIcon" />
           </IconButton>
           <p className="pPostCard">10 likes</p>
+          {/* Affiche le btn a l'user si il est l'owner ou bien admin si non le cache*/}
           {test1.userId === post.user_id ? (
             <IconButton onClick={deletePost} id="deletePost">
               <DeleteIcon />

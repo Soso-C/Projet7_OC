@@ -127,7 +127,7 @@ module.exports.deletePost = async (req, res) => {
 
 // Créé un commentaire 
 
-exports.createComment = (req, res, next) => {
+exports.createComment = (req, res) => {
   
   const {pId, uId, comment} = req.body
 
@@ -140,3 +140,38 @@ exports.createComment = (req, res, next) => {
     res.status(200).json(result);
   });
 };
+
+// Get all comments d'un post
+
+exports.getAllComments = (req, res) => {
+
+  const pId = req.param.id;
+
+  db.query("SELECT * FROM comments WHERE post_id = ?;",[pId],(err,comment) => {
+    if(err){
+      res.status(404).json({ err });
+      console.log(err);
+      throw err;
+    }else {
+      res.status(200).json(comment);
+    }
+  })
+  
+}
+
+// Get 1 comments
+exports.getOneComment = (req, res) => {
+
+  const cId = req.param.id;
+
+  db.query("SELECT * FROM comments WHERE id= ?;",[cId],(err,comment) => {
+    if(err){
+      res.status(404).json({ err });
+      console.log(err);
+      throw err;
+    }else {
+      res.status(200).json(comment);
+    }
+  })
+  
+}

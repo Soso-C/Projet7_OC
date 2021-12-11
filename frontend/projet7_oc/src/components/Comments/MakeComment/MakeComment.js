@@ -10,8 +10,8 @@ import { red } from "@mui/material/colors";
 
 export default function MakeComment() {
 
-  const [comment, setComment] = useState(null);
   let test1 = JSON.parse(localStorage.getItem("token"));
+  const [comment, setComment] = useState("");
   const [postId, setPostId] = useState(140)
 
   const sendCom = () => {
