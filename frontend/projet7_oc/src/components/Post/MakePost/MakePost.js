@@ -22,7 +22,7 @@ export default function MakePost() {
   const [validTitle, setValidTitle] = useState(false);
 
   // nom pour la var fileName qui créer notre image dans le back avec
-  const nameFile = "random_name";
+  const nameFile = `post${test1.userId}`;
 
   // Checker avant d'envoyer le post
   // const checkerPost = () => {
@@ -46,7 +46,7 @@ export default function MakePost() {
     data.append("title", title);
     data.append("userId", test1.userId)
 
-    Axios.post("http://localhost:3001/api/post/upload", data, {
+    Axios.post("http://localhost:3001/api/post/", data, {
       headers: { Authorization: `Bearer ${test1.token}` },
     }).then((res) => {
       if (!res.data.message) {

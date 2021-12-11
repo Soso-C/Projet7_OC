@@ -2,25 +2,56 @@ const db = require("../config/db");
 const fs = require("fs");
 const { promisify } = require("util");
 const pipeline = promisify(require("stream").pipeline);
+const jwt = require("jsonwebtoken")
 
 
 // Créer un post
 module.exports.createPost = async (req, res) => {
-  const title = req.body.title;
-  const img = req.body.img;
 
-  db.query(
-    "INSERT INTO posts (title, img_url) VALUES (?, ?);",
-    [title, img],
+  let fileName;
+  
+  try {
+    if (
+      req.file.detectedMimeType != "image/jpg" &&
+      req.file.detectedMimeType != "image/png" &&
+      req.file.detectedMimeType != "image/jpeg"
+    )
+      throw Error("invalid file");
+
+    if (req.file.size > 4000000) throw Error("max size");
+  } catch (err) {
+    return res.status(201).json({ err });
+  }
+
+  fileName = req.body.name + Date.now() + ".jpg";
+
+  await pipeline(
+    req.file.stream,
+    fs.createWriteStream(
+      `${__dirname}/../images/posts/${fileName}`
+    )
+  );
+
+  try {
+    const userId = req.body.userId
+    const title = req.body.title
+    const img = req.file !== null ? "./images/posts/" + fileName : "";
+
+    db.query(
+      "INSERT INTO posts (title, img_url, user_id) VALUES (?, ?, ?);",
+    [title, img, userId],
     (err, results) => {
       if (!err) {
         res.status(201).json({ message: "Post créé avec succes !" });
       } else {
         res.status(500).json({ err });
       }
-    }
-  );
-};
+    })
+  } catch (err) {
+    return res.status(500).send({ message: err });
+  }
+
+}
 
 
 // Get tous les posts en fonction de la date de publication.
@@ -79,59 +110,8 @@ module.exports.deletePost = async (req, res) => {
         if (err) {
             res.status(500).json({ err });
         } else {
-            res.status(200).json({ message: "Le post a bien été supprimé !" });
+          res.status(200).json({ message: "Le post a bien été supprimé !" });
         }
     });
-  };
+};
   
-
-
-
-/// Test route upload
-
-module.exports.stockImg = async (req, res) => {
-
-  let fileName;
-  
-  try {
-    if (
-      req.file.detectedMimeType != "image/jpg" &&
-      req.file.detectedMimeType != "image/png" &&
-      req.file.detectedMimeType != "image/jpeg"
-    )
-      throw Error("invalid file");
-
-    if (req.file.size > 4000000) throw Error("max size");
-  } catch (err) {
-    return res.status(201).json({ err });
-  }
-
-  fileName = req.body.name + Date.now() + ".jpg";
-
-  await pipeline(
-    req.file.stream,
-    fs.createWriteStream(
-      `${__dirname}/../images/posts/${fileName}`
-    )
-  );
-
-  try {
-    const userId = req.body.userId
-    const title = req.body.title
-    const img = req.file !== null ? "./images/posts/" + fileName : "";
-
-    db.query(
-      "INSERT INTO posts (title, img_url, user_id) VALUES (?, ?, ?);",
-    [title, img, userId],
-    (err, results) => {
-      if (!err) {
-        res.status(201).json({ message: "Post créé avec succes !" });
-      } else {
-        res.status(500).json({ err });
-      }
-    })
-  } catch (err) {
-    return res.status(500).send({ message: err });
-  }
-
-}

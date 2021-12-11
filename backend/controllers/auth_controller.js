@@ -57,7 +57,7 @@ module.exports.signIn = async (req, res) => {
               token: jwt.sign(
                 { userId: results[0].id, admin: results[0].isAdmin },
                 process.env.SECRETTOKEN,
-                { expiresIn: '24h' }
+                { expiresIn: '15m' }
               )
             });
           }
