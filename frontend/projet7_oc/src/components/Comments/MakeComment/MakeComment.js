@@ -1,6 +1,7 @@
 import React from "react";
 import Axios from "axios";
 import { useState } from "react";
+import "./MakeComment.css"
 
 // Material ui
 import SendIcon from "@mui/icons-material/Send";

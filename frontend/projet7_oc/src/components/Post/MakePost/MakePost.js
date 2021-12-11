@@ -70,6 +70,7 @@ export default function MakePost() {
             }
           />
           <textarea
+            id="textareaPost"
             placeholder="Dites nous quelque chose de cool ici"
             rows="20"
             cols="40"

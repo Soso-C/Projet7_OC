@@ -1,0 +1,130 @@
+.profileContainer {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.profileContainer input {
+  outline: none;
+  border: 1px solid gray;
+  font-size: 1.05em;
+}
+
+#inputMetier, #inputPays, #inputAge, #inputGit {
+  margin-left: 1em;
+}
+
+.pictureAndName {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 3em;
+}
+
+.avatarPic {
+  background-color: #1775ee;
+  border-radius: 50%;
+  height: 250px;
+  width: 250px;
+  border: 7px solid white;
+  box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
+    0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+}
+
+.bioAndInfoContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 2em;
+}
+
+.bioContainer {
+  width: 500px;
+  background: white;
+  height: 400px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
+    0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+  margin-right: 25px;
+}
+
+.infoContainer {
+  width: 500px;
+  background: white;
+  height: 400px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
+    0px 1px 1px 0px rgb(0 0 0 / 14%), 0px 1px 3px 0px rgb(0 0 0 / 12%);
+}
+
+.infoContainer p,
+.bioContainer p {
+  padding-left: 20px;
+}
+
+.bioTitle,
+.infoTitle {
+  text-align: center;
+  font-size: 1.3em;
+  font-weight: 600;
+}
+
+.bioTitle {
+  padding-top: 1.5em;
+}
+
+.profileName {
+  font-size: 1.2em;
+  font-weight: 600;
+  text-align: center;
+  background: none;
+  margin-top: 1em;
+}
+
+.socialWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.socialWrapper p {
+  padding-right: 1em;
+}
+
+.githubLink {
+  text-decoration: none;
+  color: black;
+}
+
+#userBio {
+  width: 90%;
+  font-size: 1.2em;
+  outline: none;
+  resize: none;
+  height: 150px;
+  margin: 0 auto;
+  margin-top: 1em;
+}
+
+#cancelIcon {
+  color: red;
+}
+
+#saveIcon {
+  color: greenyellow;
+}
+
+.btnEditAndCancel {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 5em;
+  padding-top: 1em;
+}
+
+.btnEditAndCancel p{
+  padding-right: 1em;
+  font-weight: 600;
+}

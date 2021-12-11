@@ -3,12 +3,22 @@ import "./ProfileMain.css";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import { useState } from "react";
 
+import ProfilEdit from "../ProfilEdit";
 
 export default function ProfileMain() {
-    
-  const [bio, setBio] = useState("");
-  
-  return (
+
+  const [edit, isEdit] = useState(false);
+  const [username, setUsername] = useState("Edit Profile Name");
+  const [bio, setBio] = useState("Bio");
+  const [work, setWork] = useState("Developpeur Web");
+  const [country, setCountry] = useState("France");
+  const [age, setAge] = useState(25);
+  const [urlGit, setUrlGit] = useState("https://github.com/Soso-C/Projet7_OC");
+
+
+  return edit ? (
+    <ProfilEdit />
+  ) : (
     <div className="Profile">
       <div className="profileContainer">
         <div className="pictureAndName">
