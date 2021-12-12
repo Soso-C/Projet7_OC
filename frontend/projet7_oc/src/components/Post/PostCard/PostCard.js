@@ -28,7 +28,7 @@ export default function PostCard(props) {
 
   // Permet de supprimer un post depuis l'id de notre Post
   const deletePost = () => {
-    Axios.delete(`http://localhost:3001/api/post/${post.id}`, {
+    Axios.delete(`http://localhost:3001/api/post/${post.id}`,{
       headers: { Authorization: `Bearer ${test1.token}` },
     }).then((res) => {
       alert("Publication supprimée avec succes !");

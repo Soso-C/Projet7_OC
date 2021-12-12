@@ -1,6 +1,25 @@
 const db = require("../config/db");
+const jwt = require("jsonwebtoken");
 
-// Get la liste d'Users
+
+/******************************************************************************** VERIFYUID  ******************************************************************************************/
+
+// Function qui permet de decode le token lors de l'envoie de la request avec authorization en params et on return l'id du token et la var admin qu'on utlisera pour comparer a la db.
+// Cette fonction permettra de créer/supprimer/modifier des post/comments etc en comparant les variable qu'on retourne directement d'ou celles ci sont créée depuis notre token donné lors du login.
+
+const verifyUid = (authorization) => {
+  const token = authorization.split(" ")[1];
+  const decodedToken = jwt.verify(token, process.env.SECRETTOKEN);
+  return {
+    id: decodedToken.userId,
+    admin: decodedToken.admin,
+  };
+};
+
+
+/********************************************************************************** USER CONTROLLER ***********************************************************************************/
+
+// Get tous les users
 
 module.exports.getAllUsers = async (req, res) => {
   db.query(
@@ -57,11 +76,17 @@ module.exports.modifyUser = async (req, res) => {
 module.exports.deleteUser = async (req, res) => {
   const id = req.params.id;
 
-  db.query("DELETE FROM users WHERE id = ?;", [id], (err, result) => {
-    if (err) {
-      res.status(500).json({ error: "ID non trouvé" });
-    } else {
-      res.status(200).json({ message: "L'user a bien été supprimé !" });
-    }
-  });
-};
+  const user = verifyUid(req.headers.authorization);
+
+  // Si notre tokenid = params id ou que notre tokenid est admin alors on peut faire la request.
+  if (user.id === id || user.admin === 1) {
+ 
+    db.query("DELETE FROM users WHERE id = ?;", [id], (err, result) => {
+      if (err) {
+        res.status(500).json({ error: "ID non trouvé" });
+      } else {
+        res.status(200).json({ message: "L'user a bien été supprimé !" });
+      }
+    });
+  };
+}
