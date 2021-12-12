@@ -24,7 +24,7 @@ const verifyUid = (authorization) => {
 // Créer un post
 module.exports.createPost = async (req, res) => {
   let fileName;
-
+  const user = verifyUid(req.headers.authorization);
   // Error
   try {
     // Si notre file du front est pas en jpg/png/jpeg alors on return une erreur
@@ -57,13 +57,13 @@ module.exports.createPost = async (req, res) => {
       .json({ error: "Le post doit faire au moins 1 caractere" });
   } else { // sinon on fait la request
     try {
-      const userId = req.body.userId;
+
       const title = req.body.title;
       const img = req.file !== null ? "./images/posts/" + fileName : "";
 
       db.query(
         "INSERT INTO posts (title, img_url, user_id) VALUES (?, ?, ?);",
-        [title, img, userId],
+        [title, img, user.id],
         (err, results) => {
           if (!err) {
             res.status(201).json({ message: "Post créé avec succes !" });
