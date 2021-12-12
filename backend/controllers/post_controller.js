@@ -38,24 +38,29 @@ module.exports.createPost = async (req, res) => {
     )
   );
 
-  try {
-    const userId = req.body.userId
-    const title = req.body.title
-    const img = req.file !== null ? "./images/posts/" + fileName : "";
+  if (req.body.title === null || req.body.title.length < 1) {
+    return res.status(500).json({error: "Le post doit faire au moins 1 caractere"})
+  }else {
 
-    db.query(
-      "INSERT INTO posts (title, img_url, user_id) VALUES (?, ?, ?);",
-    [title, img, userId],
-    (err, results) => {
-      if (!err) {
-        res.status(201).json({ message: "Post créé avec succes !" });
-      } else {
-        res.status(500).json({ err });
+    try {
+      const userId = req.body.userId
+      const title = req.body.title
+      const img = req.file !== null ? "./images/posts/" + fileName : "";
+      
+      db.query(
+        "INSERT INTO posts (title, img_url, user_id) VALUES (?, ?, ?);",
+        [title, img, userId],
+        (err, results) => {
+          if (!err) {
+            res.status(201).json({ message: "Post créé avec succes !" });
+          } else {
+            res.status(500).json({ err });
+          }
+        })
+      } catch (err) {
+        return res.status(500).send({ message: err });
       }
-    })
-  } catch (err) {
-    return res.status(500).send({ message: err });
-  }
+    }
 
 }
 
@@ -131,15 +136,20 @@ exports.createComment = (req, res) => {
   
   const {pId, uId, comment} = req.body
 
-  db.query("INSERT INTO comments (post_id, user_id, comments) VALUES (?, ?, ?)",[pId, uId, comment] ,(err, result) => {
-    if (err) {
-      res.status(500).json({ err });
-      console.log(err);
-      throw err;
-    }
-    res.status(200).json(result);
-  });
-};
+  if (req.body.comment === null || req.body.comment.length < 2) {
+    return res.status(500).json({error: "Le commentaire doit faire au moins 2 caracteres"})
+  }else {
+    
+    db.query("INSERT INTO comments (post_id, user_id, comments) VALUES (?, ?, ?)",[pId, uId, comment] ,(err, result) => {
+      if (err) {
+        res.status(500).json({ err });
+        console.log(err);
+        throw err;
+      }
+      res.status(200).json(result);
+    });
+  };
+}
 
 // Get all comments d'un post
 

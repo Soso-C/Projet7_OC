@@ -17,7 +17,7 @@ export default function ProfileMain() {
 
 
   return edit ? (
-    <ProfilEdit />
+    <ProfilEdit edit={edit}/>
   ) : (
     <div className="Profile">
       <div className="profileContainer">

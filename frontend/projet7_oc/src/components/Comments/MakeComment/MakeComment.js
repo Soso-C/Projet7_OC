@@ -5,9 +5,7 @@ import "./MakeComment.css"
 
 // Material ui
 import SendIcon from "@mui/icons-material/Send";
-import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
-import { red } from "@mui/material/colors";
 
 export default function MakeComment(props) {
 
@@ -33,9 +31,9 @@ export default function MakeComment(props) {
       <div className="comContainer">
         <div className="makeComContainer">
           <div className="comAvatarAndDate">
-            <Avatar sx={{ bgcolor: red[500] }} aria-label="pseudo">
+            {/* <Avatar sx={{ bgcolor: red[500] }} aria-label="pseudo">
               S
-            </Avatar>
+            </Avatar> */}
           </div>
           <input
             type="text"

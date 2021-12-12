@@ -60,7 +60,7 @@ export default function MakePost() {
           />
           <textarea
             id="textareaPost"
-            placeholder="Dites nous quelque chose de cool ici"
+            placeholder="Importer une image et écrivez du texte ici !"
             rows="20"
             cols="40"
             aria-autocomplete="list"

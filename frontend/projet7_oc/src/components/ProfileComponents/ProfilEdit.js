@@ -9,8 +9,9 @@ import SaveIcon from "@mui/icons-material/Save";
 import IconButton from "@mui/material/IconButton";
 import CancelIcon from "@mui/icons-material/Cancel";
 
-export default function ProfilEdit() {
+export default function ProfilEdit(props) {
 
+  const [edit, isEdit] = useState(props.edit)
   const [username, setUsername] = useState("Edit Profile Name");
   const [bio, setBio] = useState("Bio");
   const [work, setWork] = useState("Developpeur Web");
@@ -19,7 +20,7 @@ export default function ProfilEdit() {
   const [urlGit, setUrlGit] = useState("https://github.com/Soso-C/Projet7_OC");
 
   const closeEdit = () => {
-    // isEdit(false);
+    // isEdit(false)
   };
 
   const uploadProfil = () => {};
@@ -103,7 +104,7 @@ export default function ProfilEdit() {
           </IconButton>
           <p>Annuler</p>
           <IconButton>
-            <SaveIcon id="saveIcon" />
+            <SaveIcon id="saveIcon" onClick={uploadProfil}/>
           </IconButton>
           <p>Sauvegarder</p>
         </div>
