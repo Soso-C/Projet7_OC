@@ -16,7 +16,6 @@ export default function MakeComment(props) {
   const sendCom = () => {
     Axios.post("http://localhost:3001/api/post/comment-post", {
       pId: postId,
-      uId: test1.userId,
       comment: comment
     }, {
       headers: { Authorization: `Bearer ${test1.token}` },

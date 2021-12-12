@@ -158,7 +158,9 @@ module.exports.deletePost = async (req, res) => {
 // Créé un commentaire
 
 exports.createComment = (req, res) => {
-  const { pId, uId, comment } = req.body;
+
+  const user = verifyUid(req.headers.authorization);
+  const { pId, comment } = req.body;
 
   if (req.body.comment === null || req.body.comment.length < 2) {
     return res
@@ -167,7 +169,7 @@ exports.createComment = (req, res) => {
   } else {
     db.query(
       "INSERT INTO comments (post_id, user_id, comments) VALUES (?, ?, ?)",
-      [pId, uId, comment],
+      [pId, user.id, comment],
       (err, result) => {
         if (err) {
           res.status(500).json({ err });
