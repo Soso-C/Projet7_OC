@@ -86,7 +86,7 @@ export default function PostCard(props) {
             <div></div>
           )}
         </CardActions>
-        <MakeComment />
+        <MakeComment postId={post.id}/>
       </Card>
     </div>
   );

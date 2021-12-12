@@ -9,11 +9,11 @@ import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import { red } from "@mui/material/colors";
 
-export default function MakeComment() {
+export default function MakeComment(props) {
 
   let test1 = JSON.parse(localStorage.getItem("token"));
   const [comment, setComment] = useState("");
-  const [postId, setPostId] = useState(140)
+  const [postId, setPostId] = useState(props.postId)
 
   const sendCom = () => {
     Axios.post("http://localhost:3001/api/post/comment-post", {
@@ -24,6 +24,7 @@ export default function MakeComment() {
       headers: { Authorization: `Bearer ${test1.token}` },
     }).then((res) => {
       alert("Commentaire envoyée !")
+      window.location.href = "/"
     })
   };
 

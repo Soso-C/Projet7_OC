@@ -2,6 +2,8 @@ import React from "react";
 import { useState } from "react";
 import "./MakePost.css";
 import Axios from "axios";
+
+// Material ui
 import { red } from "@mui/material/colors";
 import Avatar from "@mui/material/Avatar";
 import CardHeader from "@mui/material/CardHeader";
@@ -23,19 +25,6 @@ export default function MakePost() {
 
   // nom pour la var fileName qui créer notre image dans le back avec
   const nameFile = `post${test1.userId}`;
-
-  // Checker avant d'envoyer le post
-  // const checkerPost = () => {
-  //   if (title.length < 5) {
-  //     alert("Vous devez avoir au moins 5 caracteres");
-  //     setValidTitle(false);
-  //   } else if (title.length > 200) {
-  //     alert("200 caracteres max !");
-  //     setValidTitle(false);
-  //   } else {
-  //     setValidTitle(true);
-  //   }
-  // };
 
   // Envoyer la data a la DB
   const sendData = () => {

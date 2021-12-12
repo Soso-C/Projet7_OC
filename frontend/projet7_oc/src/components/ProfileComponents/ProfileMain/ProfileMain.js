@@ -1,9 +1,9 @@
 import React from "react";
 import "./ProfileMain.css";
-import GitHubIcon from "@mui/icons-material/GitHub";
 import { useState } from "react";
-
 import ProfilEdit from "../ProfilEdit";
+
+import GitHubIcon from "@mui/icons-material/GitHub";
 
 export default function ProfileMain() {
 

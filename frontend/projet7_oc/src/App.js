@@ -8,12 +8,9 @@ import Home from "./pages/Home";
 import Profil from "./pages/Profil";
 import NotFound from "./components/NotFound";
 
-
 function App() {
-  
   return (
     <div className="App">
-
       <Routes>
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/sign-up" element={<SignUp />} />
@@ -21,7 +18,6 @@ function App() {
         <Route path="/profil/:id" element={<Profil />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-
     </div>
   );
 }
