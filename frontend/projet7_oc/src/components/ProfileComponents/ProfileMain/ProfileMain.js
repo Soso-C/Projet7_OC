@@ -10,9 +10,11 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 
 export default function ProfileMain() {
-  // const test qui provisoire que si user =id param url ou admin alors on voit le btn edit
+  // const test provisoire que si user =id param url ou admin alors on voit le btn edit
   const isOwner = true;
   const [isEdit, setIsEdit] = useState(false);
+
+  // DB infos  useState
   const [username, setUsername] = useState("Edit Profile Name");
   const [bio, setBio] = useState("Bio");
   const [work, setWork] = useState("Developpeur Web");
@@ -20,10 +22,12 @@ export default function ProfileMain() {
   const [age, setAge] = useState(25);
   const [urlGit, setUrlGit] = useState("https://github.com/Soso-C/Projet7_OC");
 
+  // Passe a false la partie edit
   const closeEdit = () => {
     setIsEdit(false);
   };
 
+  // Passe a true la partie edit
   const openEdit = () => {
     setIsEdit(true);
   };
@@ -113,7 +117,7 @@ export default function ProfileMain() {
                 onClick={closeEdit}
                 color="error"
               >
-              Annuler
+                Annuler
               </Button>
               <Button
                 variant="contained"
@@ -125,13 +129,15 @@ export default function ProfileMain() {
             </Stack>
           </div>
           <div className="deleteUserContainer">
-            <span className="deleteUser">Supprimer votre compte Groupomania</span>
+            <span className="deleteUser">
+              Supprimer votre compte Groupomania
+            </span>
             <div className="deleteUserWrapper">
               <Button
                 variant="contained"
                 startIcon={<CancelIcon />}
                 color="error"
-                >
+              >
                 Supprimer
               </Button>
             </div>
@@ -152,7 +158,7 @@ export default function ProfileMain() {
                 startIcon={<SaveIcon />}
                 onClick={openEdit}
               >
-              Modifier
+                Modifier
               </Button>
             </div>
           ) : (
