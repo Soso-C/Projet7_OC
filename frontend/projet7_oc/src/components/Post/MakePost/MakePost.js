@@ -18,10 +18,10 @@ const Input = styled("input")({
 });
 
 export default function MakePost() {
+  
   let test1 = JSON.parse(localStorage.getItem("token"));
   const [title, setTitle] = useState("");
   const [file, setFile] = useState();
-  const [validTitle, setValidTitle] = useState(false);
 
   // nom pour la var fileName qui créer notre image dans le back avec
   const nameFile = `post${test1.userId}`;

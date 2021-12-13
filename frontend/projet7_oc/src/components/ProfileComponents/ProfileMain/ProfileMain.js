@@ -124,6 +124,18 @@ export default function ProfileMain() {
               </Button>
             </Stack>
           </div>
+          <div className="deleteUserContainer">
+            <span className="deleteUser">Supprimer votre compte Groupomania</span>
+            <div className="deleteUserWrapper">
+              <Button
+                variant="contained"
+                startIcon={<CancelIcon />}
+                color="error"
+                >
+                Supprimer
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
     </>
