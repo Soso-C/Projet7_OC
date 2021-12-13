@@ -23,7 +23,7 @@ const verifyUid = (authorization) => {
 
 module.exports.getAllUsers = async (req, res) => {
   db.query(
-    "SELECT id, fullname, bio, user_created, picture, isAdmin ,github_url FROM users;",
+    "SELECT id, fullname, bio, user_created, picture, github_url FROM users;",
     (err, result) => {
       if (err) {
         res.status(500).json({ err });
@@ -39,7 +39,7 @@ module.exports.getAllUsers = async (req, res) => {
 module.exports.getOneUser = async (req, res) => {
   const uId = req.params.id;
   db.query(
-    "SELECT id, fullname, bio, user_created, picture, isAdmin, github_url FROM users WHERE id= ?;",
+    "SELECT id, fullname, bio, user_created, picture, github_url FROM users WHERE id= ?;",
     [uId],
     (err, result) => {
       if (err) {

@@ -1,6 +1,8 @@
 import React from "react";
 import "./ProfileMain.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import Axios  from "axios";
 
 // Material UI
 import GitHubIcon from "@mui/icons-material/GitHub";
@@ -10,6 +12,24 @@ import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 
 export default function ProfileMain() {
+
+  const params = useParams();
+  console.log(params.id);
+  const test1 = JSON.parse(localStorage.getItem("token"));
+  
+  const [userData, setUserData] = useState([]);
+
+  // useEffect permet de récupérer la data et de l'afficher une seul fois avec les [].
+  useEffect(() => {
+    Axios.get(`http://localhost:3001/api/user/${params.id}`, {
+      headers: { Authorization: `Bearer ${test1.token}` },
+    }).then((res) => {
+      setUserData(res.data);
+      console.log(res.data);
+    });
+  }, [params.id]);
+
+
   // const test provisoire que si user =id param url ou admin alors on voit le btn edit
   const isOwner = true;
   const [isEdit, setIsEdit] = useState(false);
@@ -150,7 +170,7 @@ export default function ProfileMain() {
       <div className="profileContainer">
         <div className="pictureAndName">
           <div className="avatarPic"></div>
-          <p className="profileName">Username Profile</p>
+          <p className="profileName"></p>
           {isOwner === true ? (
             <div className="editProfile">
               <Button

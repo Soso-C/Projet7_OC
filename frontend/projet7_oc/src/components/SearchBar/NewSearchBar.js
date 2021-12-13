@@ -28,7 +28,7 @@ export default function NewSearchBar() {
         </div>
         <div className="logoContainer">
           <Link to="/" ><IconButton size="medium" id="iconNavWhite"><HomeIcon /></IconButton></Link>
-          <Link to="/profil/me" ><IconButton size="medium" id="iconNavWhite"><AccountCircle /></IconButton></Link>
+          <Link to="/profil/1" ><IconButton size="medium" id="iconNavWhite"><AccountCircle /></IconButton></Link>
           <Link to="/sign-in"><IconButton size="medium" id="iconNavWhite" onClick={logout}><LogoutIcon /></IconButton></Link>         
         </div>
       </div>
