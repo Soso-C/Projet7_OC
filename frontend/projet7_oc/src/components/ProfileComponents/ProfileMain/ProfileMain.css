@@ -8,6 +8,7 @@
   flex-direction: column;
   align-items: center;
   margin-top: 3em;
+  position: relative;
 }
 
 .avatarPic {
@@ -83,5 +84,66 @@
 .githubLink {
     text-decoration: none;
     color: black;
+}
+
+.editProfile {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+
+/************************************************************************************* Partie EDIT ************************************************************************************/
+
+.profileInputName {
+  font-weight: 600;
+  text-align: center;
+  background: none;
+  margin-top: 1em;
+}
+
+
+.profileContainer input {
+  outline: none;
+  border: 1px solid gray;
+  font-size: 1.05em;
+  font-weight: 600;
+}
+
+#inputMetier, #inputPays, #inputAge, #inputGit {
+  margin-left: 1em;
+}
+
+#userBio {
+  width: 90%;
+  font-size: 1.2em;
+  outline: none;
+  resize: none;
+  height: 150px;
+  margin: 0 auto;
+  margin-top: 1em;
+}
+
+#cancelIcon {
+  color: red;
+}
+
+#saveIcon {
+  color: greenyellow;
+}
+
+.btnEditAndCancel {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-top: 1em;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+
+.btnEditAndCancel p{
+  padding-right: 1em;
+  font-weight: 600;
 }
 

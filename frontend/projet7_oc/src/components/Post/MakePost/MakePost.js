@@ -33,7 +33,7 @@ export default function MakePost() {
     data.append("file", file);
     data.append("name", nameFile);
     data.append("title", title);
-    data.append("userId", test1.userId)
+    data.append("userId", test1.userId);
 
     Axios.post("http://localhost:3001/api/post/", data, {
       headers: { Authorization: `Bearer ${test1.token}` },
