@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import HomeIcon from "@mui/icons-material/Home";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
+import IconButton from "@mui/material/IconButton";
 
 let test1 = JSON.parse(localStorage.getItem("token"));
 
@@ -26,9 +27,9 @@ export default function NewSearchBar() {
           <p>Bonjour, {test1.username}</p> 
         </div>
         <div className="logoContainer">
-          <Link to="/" className="icon"><HomeIcon sx={{ fontSize: 30 }}/></Link>
-          <Link to="/profil/me" className="icon"><AccountCircle sx={{ fontSize: 30 }}/></Link>
-          <Link to="/sign-in" className="icon"><LogoutIcon sx={{ fontSize: 30 }} onClick={logout}/></Link>
+          <Link to="/" ><IconButton size="medium" id="iconNavWhite"><HomeIcon /></IconButton></Link>
+          <Link to="/profil/me" ><IconButton size="medium" id="iconNavWhite"><AccountCircle /></IconButton></Link>
+          <Link to="/sign-in"><IconButton size="medium" id="iconNavWhite" onClick={logout}><LogoutIcon /></IconButton></Link>         
         </div>
       </div>
     </div>

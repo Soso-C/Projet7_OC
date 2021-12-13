@@ -1,3 +1,4 @@
+// Permet de formater la date et de la mettre en FR
 export const dateParser = (num) => {
     let options = {hour: "2-digit", minute: "2-digit", seconde: "2-digit", weekday:"long", year:"numeric", month:"short", day:"numeric"};
 

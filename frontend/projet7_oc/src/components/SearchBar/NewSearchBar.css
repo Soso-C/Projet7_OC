@@ -12,9 +12,12 @@
   display: flex;
 }
 
-.icon {
-  margin-left: 20px;
+#iconNavWhite {
   color: white;
+}
+
+.logoContainer a {
+  margin-left: 20px;
 }
 
 

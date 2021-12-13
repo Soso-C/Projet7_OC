@@ -1,7 +1,7 @@
 import React from "react";
 import "./PostCard.css";
 import Axios from "axios";
-import { dateParser } from "../../Utils";
+import { dateParser } from "../../../utils/Utils";
 import MakeComment from "../../Comments/MakeComment/MakeComment";
 
 // Material ui
