@@ -19,7 +19,6 @@ import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DeleteIcon from "@mui/icons-material/Delete";
 
-
 export default function PostCard(props) {
   const post = props.post;
 
@@ -28,7 +27,7 @@ export default function PostCard(props) {
 
   // Permet de supprimer un post depuis l'id de notre Post
   const deletePost = () => {
-    Axios.delete(`http://localhost:3001/api/post/${post.id}`,{
+    Axios.delete(`http://localhost:3001/api/post/${post.id}`, {
       headers: { Authorization: `Bearer ${test1.token}` },
     }).then((res) => {
       alert("Publication supprimée avec succes !");
@@ -78,7 +77,7 @@ export default function PostCard(props) {
           </IconButton>
           <p className="pPostCard">10 likes</p>
           {/* Affiche le btn a l'user si il est l'owner ou bien admin si non le cache*/}
-          {test1.userId === post.user_id ? (
+          {test1.userId === post.user_id || test1.admin === 1 ? (
             <IconButton onClick={deletePost} id="deletePost">
               <DeleteIcon />
             </IconButton>
@@ -86,7 +85,7 @@ export default function PostCard(props) {
             <div></div>
           )}
         </CardActions>
-        <MakeComment postId={post.id}/>
+        <MakeComment postId={post.id} />
       </Card>
     </div>
   );

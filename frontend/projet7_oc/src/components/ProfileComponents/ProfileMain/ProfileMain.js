@@ -1,8 +1,8 @@
 import React from "react";
 import "./ProfileMain.css";
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import { useParams } from "react-router-dom";
-import Axios  from "axios";
+import Axios from "axios";
 
 // Material UI
 import GitHubIcon from "@mui/icons-material/GitHub";
@@ -11,32 +11,19 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 
-export default function ProfileMain() {
+export default function ProfileMain(props) {
 
-  const params = useParams();
-  console.log(params.id);
   const test1 = JSON.parse(localStorage.getItem("token"));
-  
-  const [userData, setUserData] = useState([]);
+  const params = useParams();
+  const user = props.user
 
-  // useEffect permet de récupérer la data et de l'afficher une seul fois avec les [].
-  useEffect(() => {
-    Axios.get(`http://localhost:3001/api/user/${params.id}`, {
-      headers: { Authorization: `Bearer ${test1.token}` },
-    }).then((res) => {
-      setUserData(res.data);
-      console.log(res.data);
-    });
-  }, [params.id]);
+  console.log(user);
 
-
-  // const test provisoire que si user =id param url ou admin alors on voit le btn edit
-  const isOwner = true;
   const [isEdit, setIsEdit] = useState(false);
 
   // DB infos  useState
   const [username, setUsername] = useState("Edit Profile Name");
-  const [bio, setBio] = useState("Bio");
+  const [bio, setBio] = useState("");
   const [work, setWork] = useState("Developpeur Web");
   const [country, setCountry] = useState("France");
   const [age, setAge] = useState(25);
@@ -53,7 +40,9 @@ export default function ProfileMain() {
   };
 
   // Envoie la data a la DB pour upload le profile
-  const uploadProfil = () => {};
+  const uploadProfil = () => {
+    Axios.post();
+  };
 
   return isEdit ? (
     <>
@@ -170,8 +159,8 @@ export default function ProfileMain() {
       <div className="profileContainer">
         <div className="pictureAndName">
           <div className="avatarPic"></div>
-          <p className="profileName"></p>
-          {isOwner === true ? (
+          <p className="profileName">{user.fullname}</p>
+          {user.id === test1.userId || test1.admin === 1  ? (
             <div className="editProfile">
               <Button
                 variant="contained"
@@ -188,17 +177,17 @@ export default function ProfileMain() {
         <div className="bioAndInfoContainer">
           <div className="bioContainer">
             <span className="bioTitle">Biographie :</span>
-            <p className="userBio">Une super bio</p>
+            <p className="userBio">{user.bio}</p> 
           </div>
           <div className="infoContainer">
             <span className="infoTitle">Information :</span>
-            <p>Métier : Developpeur web</p>
-            <p>Pays : France</p>
-            <p>Age : 25 ans</p>
+            <p>Métier : {user.metier}</p>
+            <p>Pays : {user.country}</p>
+            <p>Age : {user.age} ans</p>
             <div className="socialWrapper">
               <p>GitHub :</p>
               <a
-                href="https://github.com/Soso-C/Projet7_OC"
+                href={user.github_url}
                 target="_blank"
                 rel="noreferrer"
                 className="githubLink"

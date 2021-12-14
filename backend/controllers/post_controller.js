@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 /******************************************************************************** VERIFYUID  ******************************************************************************************/
 
 // Function qui permet de decode le token lors de l'envoie de la request avec authorization en params et on return l'id du token et la var admin qu'on utlisera pour comparer a la db.
-// Cette fonction permettra de créer/supprimer/modifier des post/comments etc en comparant les variable qu'on retourne directement d'ou celles ci sont créée depuis notre token donné lors du login.
+// Cette fonction permettra de créer/supprimer/modifier des post/comments etc en comparant les variable qu'on retourne directement depuis notre token donné lors du login.
 
 const verifyUid = (authorization) => {
   const token = authorization.split(" ")[1];

@@ -15,7 +15,7 @@ const Post = () => {
     .then((res) => {
       setData(res.data);
     });
-  }, []);
+  }, [test1.token]);
 
   return (
     <div className="postContainer">
