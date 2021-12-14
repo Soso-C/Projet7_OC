@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const jwt = require("jsonwebtoken")
 const cookieParser = require("cookie-parser");
-const cors = require("cors");
+// const cors = require("cors");
 const helmet = require('helmet');
 const rateLimit = require("express-rate-limit");
 const dotenv = require('dotenv').config()
@@ -21,17 +21,6 @@ const apiLimiter = rateLimit({
 
 app.use(apiLimiter);
 
-
-
-// const corsOptions = {
-//   origin: process.env.CLIENT_URL,
-//   credentials: true,
-//   'allowedHeaders': ['sessionId', 'Content-Type'],
-//   'exposedHeaders': ['sessionId'],
-//   'methods': 'GET,HEAD,PUT,PATCH,POST,DELETE',
-//   'preflightContinue': false
-// }
-// app.use(cors(corsOptions));
 
 // Cors
 app.use((req, res, next) => {

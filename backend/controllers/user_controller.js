@@ -1,7 +1,6 @@
 const db = require("../config/db");
 const jwt = require("jsonwebtoken");
 
-
 /******************************************************************************** VERIFYUID  ******************************************************************************************/
 
 // Function qui permet de decode le token lors de l'envoie de la request avec authorization en params et on return l'id du token et la var admin qu'on utlisera pour comparer a la db.
@@ -15,7 +14,6 @@ const verifyUid = (authorization) => {
     admin: decodedToken.admin,
   };
 };
-
 
 /********************************************************************************** USER CONTROLLER ***********************************************************************************/
 
@@ -55,20 +53,24 @@ module.exports.getOneUser = async (req, res) => {
 
 module.exports.modifyUser = async (req, res) => {
   const id = req.params.id;
-  const fullname = req.body.fullname;
-  const bio = req.body.bio;
+  const user = verifyUid(req.headers.authorization);
 
-  db.query(
-    "UPDATE users SET fullname = ?, bio = ?  WHERE id = ?;",
-    [fullname, bio, id],
-    (err, result) => {
-      if (err) {
-        res.status(500).json({ err });
-      } else {
-        res.status(200).json({ message: "Fullname et bio changé !" });
+  const { fullname, bio, country, metier, github, age } = req.body;
+
+  // si notre params id == a notre tokenid ou si notre token est admin alors on peut faire la request.
+  if (user.id == id) {
+    db.query(
+      "UPDATE users SET fullname = ?, bio = ?, country = ?, metier = ?, age = ?, github_url = ? WHERE id = ?;",
+      [fullname, bio, country, metier, age, github, id],
+      (err, result) => {
+        if (err) {
+          res.status(500).json({ err });
+        } else {
+          res.status(200).json({ message: "Le profil a bien été modifié !" });
+        }
       }
-    }
-  );
+    );
+  }
 };
 
 // Delete un user
@@ -80,7 +82,6 @@ module.exports.deleteUser = async (req, res) => {
 
   // Si notre tokenid = params id ou que notre tokenid est admin alors on peut faire la request.
   if (user.id === id || user.admin === 1) {
- 
     db.query("DELETE FROM users WHERE id = ?;", [id], (err, result) => {
       if (err) {
         res.status(500).json({ error: "ID non trouvé" });
@@ -88,5 +89,5 @@ module.exports.deleteUser = async (req, res) => {
         res.status(200).json({ message: "L'user a bien été supprimé !" });
       }
     });
-  };
-}
+  }
+};

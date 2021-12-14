@@ -17,7 +17,7 @@ const Profil = () => {
     }).then((res) => {
       setUserData(res.data[0])
     });
-  }, [test1.token, test1.userId]);
+  }, []);
 
   return (
     <div>

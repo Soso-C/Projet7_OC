@@ -54,6 +54,7 @@
 .infoContainer p,
 .bioContainer p {
   padding-left: 2em;
+  padding-right: 2em;
 }
 
 .bioTitle,
@@ -61,10 +62,12 @@
   text-align: center;
   font-size: 1.3em;
   font-weight: 600;
+  padding: 1em;
 }
 
 .bioTitle {
   padding-top: 1.5em;
+  padding-bottom: 1em;
 }
 
 .profileName {
@@ -103,7 +106,7 @@
 
 .profileContainer input {
   outline: none;
-  border: 1px solid gray;
+  /* border: 1px solid gray; */
   font-size: 1.05em;
   font-weight: 600;
 }
@@ -113,6 +116,10 @@
 #inputAge,
 #inputGit {
   margin-left: 1em;
+}
+
+.userBio {
+  text-align: center;
 }
 
 #userBio {
@@ -169,4 +176,14 @@
   text-align: center;
   justify-content: center;
   padding: 1em;
+}
+
+
+.titleAndInputProfil {
+  display: flex;
+  align-items: center;
+}
+
+#outlined-basic{
+  padding: 10px 10px;
 }

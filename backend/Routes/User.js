@@ -14,7 +14,12 @@ router.get("/logout", auth);
 // userDB
 router.get("/", auth, userController.getAllUsers);
 router.get("/:id", auth, userController.getOneUser);
+
+//Modify user
 router.put("/:id", auth, userController.modifyUser);
+
+//Delete user
 router.delete("/:id", auth, userController.deleteUser);
+
 
 module.exports = router;

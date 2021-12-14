@@ -1,7 +1,7 @@
 import React from "react";
 import "./ProfileMain.css";
-import { useState} from "react";
-import { useParams } from "react-router-dom";
+import { useState } from "react";
+// import { useParams } from "react-router-dom";
 import Axios from "axios";
 
 // Material UI
@@ -10,24 +10,22 @@ import SaveIcon from "@mui/icons-material/Save";
 import CancelIcon from "@mui/icons-material/Cancel";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
 
 export default function ProfileMain(props) {
-
   const test1 = JSON.parse(localStorage.getItem("token"));
-  const params = useParams();
-  const user = props.user
 
-  console.log(user);
-
+  const user = props.user;
   const [isEdit, setIsEdit] = useState(false);
 
-  // DB infos  useState
-  const [username, setUsername] = useState("Edit Profile Name");
-  const [bio, setBio] = useState("");
-  const [work, setWork] = useState("Developpeur Web");
-  const [country, setCountry] = useState("France");
-  const [age, setAge] = useState(25);
-  const [urlGit, setUrlGit] = useState("https://github.com/Soso-C/Projet7_OC");
+  // DB infos useState
+  const [username, setUsername] = useState("");
+  const [bio, setBio] = useState(user.bio);
+  console.log(bio);
+  const [work, setWork] = useState("");
+  const [country, setCountry] = useState("");
+  const [age, setAge] = useState("");
+  const [urlGit, setUrlGit] = useState("");
 
   // Passe a false la partie edit
   const closeEdit = () => {
@@ -41,18 +39,37 @@ export default function ProfileMain(props) {
 
   // Envoie la data a la DB pour upload le profile
   const uploadProfil = () => {
-    Axios.post();
+    Axios.put(
+      `http://localhost:3001/api/user/${test1.userId}`,
+      {
+        fullname: username,
+        bio: bio,
+        country: country,
+        metier: work,
+        age: age,
+        github: urlGit,
+      },
+      {
+        headers: { Authorization: `Bearer ${test1.token}` },
+      }
+    ).then((res) => {
+      alert("Profil mis a jour !");
+      closeEdit();
+      window.location.href = "/profil/mon-profil";
+    });
   };
 
+  // Si isEdit est true alors on affiche le editmode si non le profil basique
   return isEdit ? (
     <>
       <div className="Profile">
         <div className="profileContainer">
           <div className="pictureAndName">
-            <div className="avatarPic"></div>
-            <input
-              className="profileInputName"
-              type="text"
+            <div className="avatarPic" style={{ marginBottom: "2em" }}></div>
+            <TextField
+              id="outlined-basic"
+              label=""
+              variant="outlined"
               value={username}
               onChange={(e) => {
                 setUsername(e.target.value);
@@ -72,50 +89,54 @@ export default function ProfileMain(props) {
             </div>
             <div className="infoContainer">
               <span className="infoTitle">Information :</span>
-              <p>
-                Métier :
-                <input
-                  id="inputMetier"
-                  type="text"
+              <div className="titleAndInputProfil">
+                <p>Métier :</p>
+                <TextField
+                  id="outlined-basic"
+                  label=""
+                  variant="outlined"
                   value={work}
                   onChange={(e) => {
                     setWork(e.target.value);
                   }}
                 />
-              </p>
-              <p>
-                Pays :
-                <input
-                  id="inputPays"
-                  type="text"
+              </div>
+              <div className="titleAndInputProfil">
+                <p>Pays :</p>
+                <TextField
+                  id="outlined-basic"
+                  label=""
+                  variant="outlined"
                   value={country}
                   onChange={(e) => {
                     setCountry(e.target.value);
                   }}
                 />
-              </p>
-              <p>
-                Age :
-                <input
-                  id="inputAge"
-                  type="text"
+              </div>
+              <div className="titleAndInputProfil">
+                <p>Age :</p>
+                <TextField
+                  id="outlined-basic"
+                  label=""
+                  variant="outlined"
                   value={age}
                   onChange={(e) => {
                     setAge(e.target.value);
                   }}
                 />
-              </p>
-              <p>
-                GitHub :
-                <input
-                  id="inputGit"
-                  type="text"
+              </div>
+              <div className="titleAndInputProfil">
+                <p>Git :</p>
+                <TextField
+                  id="outlined-basic"
+                  label=""
+                  variant="outlined"
                   value={urlGit}
                   onChange={(e) => {
                     setUrlGit(e.target.value);
                   }}
                 />
-              </p>
+              </div>
             </div>
           </div>
           <div className="btnEditAndCancel">
@@ -160,7 +181,7 @@ export default function ProfileMain(props) {
         <div className="pictureAndName">
           <div className="avatarPic"></div>
           <p className="profileName">{user.fullname}</p>
-          {user.id === test1.userId || test1.admin === 1  ? (
+          {user.id === test1.userId || test1.admin === 1 ? (
             <div className="editProfile">
               <Button
                 variant="contained"
@@ -177,7 +198,7 @@ export default function ProfileMain(props) {
         <div className="bioAndInfoContainer">
           <div className="bioContainer">
             <span className="bioTitle">Biographie :</span>
-            <p className="userBio">{user.bio}</p> 
+            <p className="userBio">{user.bio}</p>
           </div>
           <div className="infoContainer">
             <span className="infoTitle">Information :</span>
