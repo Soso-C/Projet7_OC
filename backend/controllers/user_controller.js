@@ -81,13 +81,46 @@ module.exports.deleteUser = async (req, res) => {
   const user = verifyUid(req.headers.authorization);
 
   // Si notre tokenid = params id ou que notre tokenid est admin alors on peut faire la request.
-  if (user.id === id || user.admin === 1) {
-    db.query("DELETE FROM users WHERE id = ?;", [id], (err, result) => {
+  if (user.id == id || user.admin === 1) {
+    //Step 1 on supprime tous les commentaires lié a l'id de l'user
+
+    db.query(
+      "DELETE FROM comments WHERE user_id = ?",
+      [user.id],
+      (err, result) => {
+        if (err) {
+          return res.status(500).json({ error: "ID non trouvé" });
+        } else {
+          return res.status(200).json({
+            message: "Les commentaires de l'user ont bien été supprimé !",
+          });
+        }
+      }
+    );
+
+    //Step 2 on delete tous les post lié a l'id de l'user
+
+    db.query("DELETE FROM posts WHERE user_id= ?", [user.id], (err, result) => {
       if (err) {
-        res.status(500).json({ error: "ID non trouvé" });
+        return res.status(500).json({ error: "ID non trouvé" });
       } else {
-        res.status(200).json({ message: "L'user a bien été supprimé !" });
+        return res
+          .status(200)
+          .json({ message: "Les posts de  l'users ont bien été supprimé !" });
       }
     });
+
+    // Last Step on delete enfin l'user
+    db.query("DELETE FROM users WHERE id = ?;", [user.id], (err, result) => {
+      if (err) {
+        return res.status(500).json({ error: "ID non trouvé" });
+      } else {
+        return res
+          .status(200)
+          .json({ message: "L'user a bien été supprimé !" });
+      }
+    });
+  } else {
+    return res.status(401).json({ message: "Non Autorisé !" });
   }
 };

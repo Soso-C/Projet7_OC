@@ -59,6 +59,19 @@ export default function ProfileMain(props) {
     });
   };
 
+
+  // Delete Profile func
+
+  const deleteUser = () => {
+    Axios.delete(`http://localhost:3001/api/user/${test1.userId}`, {
+      headers: { Authorization: `Bearer ${test1.token}` },
+    }).then((res) => {
+      alert("Publication, commentaire et compte supprimée avec succes vous devez créé un nouveau compte pour vous connecter!");
+      localStorage.removeItem("token");
+      window.location.href = "/sign-up";
+    });
+  }
+
   // Si isEdit est true alors on affiche le editmode si non le profil basique
   return isEdit ? (
     <>
@@ -167,6 +180,7 @@ export default function ProfileMain(props) {
                 variant="contained"
                 startIcon={<CancelIcon />}
                 color="error"
+                onClick={deleteUser}
               >
                 Supprimer
               </Button>
