@@ -80,7 +80,7 @@ module.exports.deleteUser = async (req, res) => {
 
   const user = verifyUid(req.headers.authorization);
 
-  // Si notre tokenid = params id ou que notre tokenid est admin alors on peut faire la request.
+  // Si notre tokenid = params id ou que notre tokenid est admin alors on peut faire la request pour supprimer l'utilisateur.
   if (user.id == id || user.admin === 1) {
     //Step 1 on supprime tous les commentaires lié a l'id de l'user
 

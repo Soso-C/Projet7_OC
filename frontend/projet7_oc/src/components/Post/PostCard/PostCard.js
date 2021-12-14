@@ -41,7 +41,6 @@ export default function PostCard(props) {
         <CardHeader
           avatar={
             <Avatar sx={{ bgcolor: red[500] }} aria-label="pseudo">
-              S
             </Avatar>
           }
           action={
@@ -49,7 +48,7 @@ export default function PostCard(props) {
               <MoreVertIcon />
             </IconButton>
           }
-          title="User Name"
+          title={post.author_name}
           subheader={dateParser(post.post_date)}
         />
         <CardContent>
@@ -65,7 +64,7 @@ export default function PostCard(props) {
           component="img"
           height="350"
           image={test + post.img_url}
-          alt={post.title}
+          alt=""
         />
         <CardActions disableSpacing>
           <IconButton aria-label="share">

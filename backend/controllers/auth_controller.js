@@ -55,7 +55,7 @@ module.exports.signIn = async (req, res) => {
               username: results[0].fullname,
               admin: results[0].isAdmin,
               token: jwt.sign(
-                { userId: results[0].id, admin: results[0].isAdmin },
+                { userId: results[0].id, admin: results[0].isAdmin , username: results[0].fullname },
                 process.env.SECRETTOKEN,
                 { expiresIn: '24h' }
               )

@@ -16,6 +16,7 @@ const verifyUid = (authorization) => {
   return {
     id: decodedToken.userId,
     admin: decodedToken.admin,
+    username: decodedToken.username,
   };
 };
 
@@ -62,8 +63,8 @@ module.exports.createPost = async (req, res) => {
       const img = req.file !== null ? "./images/posts/" + fileName : "";
 
       db.query(
-        "INSERT INTO posts (title, img_url, user_id) VALUES (?, ?, ?);",
-        [title, img, user.id],
+        "INSERT INTO posts (title, img_url, user_id, author_name) VALUES (?, ?, ?, ?);",
+        [title, img, user.id, user.username],
         (err, results) => {
           if (!err) {
             res.status(201).json({ message: "Post créé avec succes !" });

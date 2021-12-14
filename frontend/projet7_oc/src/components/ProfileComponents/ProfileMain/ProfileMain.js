@@ -67,8 +67,8 @@ export default function ProfileMain(props) {
       headers: { Authorization: `Bearer ${test1.token}` },
     }).then((res) => {
       alert("Publication, commentaire et compte supprimée avec succes vous devez créé un nouveau compte pour vous connecter!");
-      localStorage.removeItem("token");
       window.location.href = "/sign-up";
+      localStorage.removeItem("token");
     });
   }
 
