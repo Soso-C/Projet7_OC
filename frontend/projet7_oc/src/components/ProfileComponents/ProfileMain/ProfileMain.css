@@ -187,3 +187,14 @@
 #outlined-basic{
   padding: 10px 10px;
 }
+
+/*  Modal */
+#deleteModalConfirmOrCancelContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#modal-modal-description{
+  text-align: center;
+}

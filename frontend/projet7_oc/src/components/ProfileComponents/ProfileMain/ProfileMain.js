@@ -11,6 +11,10 @@ import CancelIcon from "@mui/icons-material/Cancel";
 import Button from "@mui/material/Button";
 import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Modal from "@mui/material/Modal";
+import CheckIcon from "@mui/icons-material/Check";
 
 export default function ProfileMain(props) {
   const test1 = JSON.parse(localStorage.getItem("token"));
@@ -59,20 +63,41 @@ export default function ProfileMain(props) {
     });
   };
 
-
   // Delete Profile func
 
   const deleteUser = () => {
     Axios.delete(`http://localhost:3001/api/user/${test1.userId}`, {
       headers: { Authorization: `Bearer ${test1.token}` },
     }).then((res) => {
-      alert("Publication, commentaire et compte supprimée avec succes vous devez créé un nouveau compte pour vous connecter!");
+      alert(
+        "Publication, commentaire et compte supprimée avec succes vous devez créé un nouveau compte pour vous connecter!"
+      );
       window.location.href = "/sign-up";
       localStorage.removeItem("token");
     });
-  }
+  };
 
-  // Si isEdit est true alors on affiche le editmode si non le profil basique
+  /****************************************************************************** Modal Confirmation Delete  ***************************************************************************/
+  const Modalstyle = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "background.paper",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
+
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  /*************************************************************************************************************************************************************************************/
+
+
+  // Si isEdit est true alors on affiche le EditMode si non le profil basique
   return isEdit ? (
     <>
       <div className="Profile">
@@ -180,16 +205,51 @@ export default function ProfileMain(props) {
                 variant="contained"
                 startIcon={<CancelIcon />}
                 color="error"
-                onClick={deleteUser}
+                onClick={handleOpen}
               >
                 Supprimer
               </Button>
+              <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box sx={Modalstyle}>
+                  <Typography
+                    id="modal-modal-description"
+                    sx={{ mt: 2, pb: 5 }}
+                  >
+                    Voulez vous vraiment supprimer votre compte ?
+                  </Typography>
+                  <Stack id="deleteModalConfirmOrCancelContainer">
+                    <Button
+                      variant="contained"
+                      startIcon={<CancelIcon />}
+                      color="error"
+                      onClick={handleClose}
+                    >
+                      Annuler
+                    </Button>
+                    <Button
+                      variant="contained"
+                      startIcon={<CheckIcon />}
+                      color="success"
+                      onClick={deleteUser}
+                    >
+                      Confirmer
+                    </Button>
+                  </Stack>
+                </Box>
+              </Modal>
             </div>
           </div>
         </div>
       </div>
     </>
-  ) : (
+  ) : 
+  /*******************************************************************  Fin du Edit Mode ici ***************************************************************************************/
+  (
     <div className="Profile">
       <div className="profileContainer">
         <div className="pictureAndName">
