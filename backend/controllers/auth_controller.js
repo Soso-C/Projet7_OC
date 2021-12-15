@@ -1,8 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const db = require("../config/db");
-const dotenv = require("dotenv")
-
+const dotenv = require("dotenv");
 
 // Post pour créer user
 module.exports.signUp = async (req, res) => {
@@ -38,7 +37,7 @@ module.exports.signIn = async (req, res) => {
 
       // si email non trouvé
     } else if (results.length == 0) {
-      res.status(401).json({ error: "L'email n'existe pas dans la DB" });
+      res.status(401).json({ error: "Email / mot de passe incorrect !" });
 
       // si email trouvé on compare le pwd donné et celui de la db
     } else {
@@ -46,33 +45,30 @@ module.exports.signIn = async (req, res) => {
         .compare(password, results[0].password)
         .then((valid) => {
           if (!valid) {
-            res.status(401).json({ error: "Mot de passe incorrect!" });
+            res.status(401).json({ error: "Email / mot de passe incorrect !" });
           }
           // Si pwd et email ok alors return une réponse 200 et on créé un token d'auth avec l'user id, la clé secrete et l'expiration dans 24h ainsi que d'autre infos user.
           else {
-            res.status(200).json({ 
+            res.status(200).json({
               userId: results[0].id,
               username: results[0].fullname,
               admin: results[0].isAdmin,
               token: jwt.sign(
-                { userId: results[0].id, admin: results[0].isAdmin , username: results[0].fullname },
+                {
+                  userId: results[0].id,
+                  admin: results[0].isAdmin,
+                  username: results[0].fullname,
+                },
                 process.env.SECRETTOKEN,
-                { expiresIn: '24h' }
-              )
+                { expiresIn: "24h" }
+              ),
             });
           }
         })
         .catch((error) => res.status(500).json({ error }));
     }
   });
-  
 };
 
-
-// Se Déconnecter 
-module.exports.logout = (req, res) => {
-  
-};
-
-
-
+// Se Déconnecter
+module.exports.logout = (req, res) => {};

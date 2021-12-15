@@ -18,14 +18,14 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { fontWeight } from "@mui/system";
 
 export default function PostCard(props) {
   const post = props.post;
 
   let test1 = JSON.parse(localStorage.getItem("token"));
   const test = "http://localhost:3001/";
-
-  
+ 
 
   // Permet de supprimer un post depuis l'id de notre Post
   const deletePost = () => {

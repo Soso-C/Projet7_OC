@@ -17,6 +17,10 @@ const Login = () => {
     navigate("/sign-up");
   }
 
+  const displayEror = (err) => {
+    document.querySelector(".error-password").innerHTML = err;
+  };
+
   // Func qui va controler si notre email / pwd sont existant et valide dans notre base de données si oui alors on sera log si non non.
 
   function loginData(e) {
@@ -25,14 +29,18 @@ const Login = () => {
     Axios.post("http://localhost:3001/api/user/login", {
       email: email,
       password: password,
-    }).then((res) => {
-      Axios.defaults.headers.common[
-        "authorization"
-      ] = `Bearer ${res.data.token}`;
-      localStorage.setItem("token", JSON.stringify(res.data));
-      alert("Connexion réussie");
-      window.location.href = "/";
-    });
+    })
+      .then((res) => {
+        Axios.defaults.headers.common[
+          "authorization"
+        ] = `Bearer ${res.data.token}`;
+        localStorage.setItem("token", JSON.stringify(res.data));
+        alert("Connexion réussie");
+        window.location.href = "/";
+      })
+      .catch((err) => {
+        displayEror(err.response.data.error);
+      });
   }
 
   return (

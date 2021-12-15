@@ -69,11 +69,13 @@ export default function ProfileMain(props) {
       headers: { Authorization: `Bearer ${test1.token}` },
     }).then((res) => {
       alert(
-        "Publication, commentaire et compte supprimée avec succes vous devez créé un nouveau compte pour vous connecter!"
+        "Publication, commentaire et compte supprimée avec succes vous devez créer un nouveau compte pour vous connecter!"
       );
       window.location.href = "/sign-up";
       localStorage.removeItem("token");
-    });
+    }).catch((err) => {
+      alert(err.response.data.error)
+    })
   };
 
   /****************************************************************************** Modal Confirmation Delete  ***************************************************************************/

@@ -1,7 +1,7 @@
 const db = require("../config/db");
 const jwt = require("jsonwebtoken");
 
-/******************************************************************************** VERIFYUID  ******************************************************************************************/
+/***********************************************************************************  VERIFYUID  ***************************************************************************************/
 
 // Function qui permet de decode le token lors de l'envoie de la request avec authorization en params et on return l'id du token et la var admin qu'on utlisera pour comparer a la db.
 // Cette fonction permettra de créer/supprimer/modifier des post/comments etc en comparant les variable qu'on retourne directement depuis notre token donné lors du login.
@@ -15,7 +15,7 @@ const verifyUid = (authorization) => {
   };
 };
 
-/********************************************************************************** USER CONTROLLER ***********************************************************************************/
+/*********************************************************************************  USER CONTROLLER  **********************************************************************************/
 
 // Get tous les users
 
@@ -91,6 +91,7 @@ module.exports.deleteUser = async (req, res) => {
         if (err) {
           return res.status(500).json({ error: "ID non trouvé" });
         } else {
+          console.log("test1");
           return res.status(200).json({
             message: "Les commentaires de l'user ont bien été supprimé !",
           });
@@ -104,20 +105,20 @@ module.exports.deleteUser = async (req, res) => {
       if (err) {
         return res.status(500).json({ error: "ID non trouvé" });
       } else {
-        return res
+        console.log("test2");
+        res
           .status(200)
           .json({ message: "Les posts de  l'users ont bien été supprimé !" });
       }
     });
 
     // Last Step on delete enfin l'user
-    db.query("DELETE FROM users WHERE id = ?;", [user.id], (err, result) => {
+    db.query("DELETE FROM users WHERE id = ?;", [id], (err, result) => {
       if (err) {
-        return res.status(500).json({ error: "ID non trouvé" });
+        return res.status(500).json({ error: "Pas authorisé" });
       } else {
-        return res
-          .status(200)
-          .json({ message: "L'user a bien été supprimé !" });
+        res.status(200).json({ message: "L'user a bien été supprimé !" });
+        res.redirect("/sign-up");
       }
     });
   } else {
