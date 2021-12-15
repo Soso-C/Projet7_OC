@@ -4,7 +4,6 @@ const { promisify } = require("util");
 const pipeline = promisify(require("stream").pipeline);
 const jwt = require("jsonwebtoken");
 
-
 /******************************************************************************** VERIFYUID  ******************************************************************************************/
 
 // Function qui permet de decode le token lors de l'envoie de la request avec authorization en params et on return l'id du token et la var admin qu'on utlisera pour comparer a la db.
@@ -56,9 +55,9 @@ module.exports.createPost = async (req, res) => {
     return res
       .status(500)
       .json({ error: "Le post doit faire au moins 1 caractere" });
-  } else { // sinon on fait la request
+  } else {
+    // sinon on fait la request
     try {
-
       const title = req.body.title;
       const img = req.file !== null ? "./images/posts/" + fileName : "";
 
@@ -124,34 +123,54 @@ module.exports.modifyPost = async (req, res) => {
 // Delete un post
 module.exports.deletePost = async (req, res) => {
   const user = verifyUid(req.headers.authorization);
-
   const id = req.params.id;
 
-  if (user.admin === 1) {
-    db.query("DELETE FROM posts WHERE id = ?;", [id], (err, result) => {
+  // on cherche notre img url de notre postid pour pouvoir recupérer son path pour la delete avec fs/unlink lors de la delete Request et on récup également l'uId pour controler
+  db.query(
+    "SELECT img_url, user_id FROM posts WHERE id = ?;",
+    [id],
+    (err, imgPost) => {
       if (err) {
         res.status(500).json({ err });
-      } else {
-        res
-          .status(200)
-          .json({ message: "Le post a bien été supprimé by Admin !" });
-      }
-    });
-  } else {
-    db.query(
-      "DELETE FROM posts WHERE id = ? AND user_id = ?",
-      [id, user.id],
-      (err, result) => {
-        if (err) {
-          res.status(500).json({ err });
-        } else {
-          res
-            .status(200)
-            .json({ message: "Le post a bien été supprimé by User !" });
+      } else { // si ya une réponse alors on vérifie notre user si il est admin ou il est owner de l'id
+        if (user.admin === 1 || user.id === imgPost[0].user_id) {
+          console.log(imgPost[0].img_url);
+          // si note token.id est admin alors on execute cette request
+          if (user.admin === 1) {
+            db.query("DELETE FROM posts WHERE id = ?;", [id], (err, result) => {
+              if (err) {
+                res.status(500).json({ err });
+              } else {
+                fs.unlink(`${imgPost[0].img_url}`, (err) => {
+                  console.log(err);
+                });
+                res
+                  .status(200)
+                  .json({ message: "Le post a bien été supprimé by Admin !" });
+              }
+            });
+          } else { // si tokenid = user_post id on fait cette request.
+            db.query(
+              "DELETE FROM posts WHERE id = ? AND user_id = ?",
+              [id, user.id],
+              (err, result) => {
+                if (err) {
+                  res.status(500).json({ err });
+                } else {
+                  fs.unlink(`${imgPost[0].img_url}`, (err) => {
+                    console.log(err);
+                  });
+                  res
+                    .status(200)
+                    .json({ message: "Le post a bien été supprimé by User !" });
+                }
+              }
+            );
+          }
         }
       }
-    );
-  }
+    }
+  );
 };
 
 /**************************************************************************************** Comments Post  *******************************************************************/
@@ -159,7 +178,6 @@ module.exports.deletePost = async (req, res) => {
 // Créé un commentaire
 
 exports.createComment = (req, res) => {
-
   const user = verifyUid(req.headers.authorization);
   const { pId, comment } = req.body;
 
@@ -218,13 +236,10 @@ exports.getOneComment = (req, res) => {
   });
 };
 
-
 // Delete un comment
 exports.deleteOneComment = (req, res) => {
-
   const cId = req.param.id;
   const user = verifyUid(req.headers.authorization);
-
 
   // Si notre token.admin = 1 alors on delete depuis l'id donné en parametre.
   if (user.admin === 1) {
@@ -253,5 +268,4 @@ exports.deleteOneComment = (req, res) => {
       }
     );
   }
-
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import "./ProfileMain.css";
 import { useState } from "react";
-// import { useParams } from "react-router-dom";
+import { dateParser } from "../../../utils/Utils";
 import Axios from "axios";
 
 // Material UI
@@ -22,10 +22,9 @@ export default function ProfileMain(props) {
   const user = props.user;
   const [isEdit, setIsEdit] = useState(false);
 
-  // DB infos useState
+  // DB infos useState (marche pas je sais pas pourquoi le state prend pas en compte ma data)
   const [username, setUsername] = useState("");
-  const [bio, setBio] = useState(user.bio);
-  console.log(bio);
+  const [bio, setBio] = useState("");
   const [work, setWork] = useState("");
   const [country, setCountry] = useState("");
   const [age, setAge] = useState("");
@@ -248,7 +247,8 @@ export default function ProfileMain(props) {
         </div>
       </div>
     </>
-  ) : 
+  ) 
+  : 
   /*******************************************************************  Fin du Edit Mode ici ***************************************************************************************/
   (
     <div className="Profile">
@@ -274,7 +274,9 @@ export default function ProfileMain(props) {
           <div className="bioContainer">
             <span className="bioTitle">Biographie :</span>
             <p className="userBio">{user.bio}</p>
+            <span id="createdAt">Membre depuis : {dateParser(user.user_created)}</span>
           </div>
+          
           <div className="infoContainer">
             <span className="infoTitle">Information :</span>
             <p>Métier : {user.metier}</p>
