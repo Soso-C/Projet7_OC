@@ -30,9 +30,6 @@ export default function MakeComment(props) {
       <div className="comContainer">
         <div className="makeComContainer">
           <div className="comAvatarAndDate">
-            {/* <Avatar sx={{ bgcolor: red[500] }} aria-label="pseudo">
-              S
-            </Avatar> */}
           </div>
           <input
             type="text"

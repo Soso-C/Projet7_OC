@@ -1,8 +1,8 @@
 import React from "react";
 import "./PostCard.css";
 import Axios from "axios";
-import { dateParser } from "../../../utils/Utils";
 import MakeComment from "../../Comments/MakeComment/MakeComment";
+import { dateParser } from "../../../utils/Utils";
 
 // Material ui
 import Card from "@mui/material/Card";
@@ -21,7 +21,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function PostCard(props) {
   const post = props.post;
-  console.log(post.img_url);
 
   let test1 = JSON.parse(localStorage.getItem("token"));
   const test = "http://localhost:3001/";
@@ -35,7 +34,9 @@ export default function PostCard(props) {
     }).then((res) => {
       alert("Publication supprimée avec succes !");
       window.location.reload();
-    });
+    }).catch((err) => {
+      alert(err.data.error)
+    })
   };
 
   return (

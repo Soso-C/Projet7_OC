@@ -40,6 +40,7 @@ export default function MakePost() {
     }).then((res) => {
       if (!res.data.message) {
         alert("Veuillez insérer une image");
+        console.log(res)
       } else {
         alert("Publication créée avec succes !");
         window.location.reload();

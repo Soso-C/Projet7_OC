@@ -19,43 +19,54 @@ const verifyUid = (authorization) => {
   };
 };
 
-/******************************************************************************* Post *************************************************************************************************/
+/*************************************************************************************** Post ******************************************************************************************/
 
 // Créer un post
 module.exports.createPost = async (req, res) => {
+
   let fileName;
   const user = verifyUid(req.headers.authorization);
-  // Error
-  try {
-    // Si notre file du front est pas en jpg/png/jpeg alors on return une erreur
-    if (
-      req.file.detectedMimeType != "image/jpg" &&
-      req.file.detectedMimeType != "image/png" &&
-      req.file.detectedMimeType != "image/jpeg"
-    )
-      throw Error("invalid file");
 
-    // si sa taille dépasse les 4M+ alors on return une erreur
-    if (req.file.size > 4000000) throw Error("max size");
-  } catch (err) {
-    return res.status(201).json({ err });
-  }
+/*************************************************************************** Start Error Input Controller *****************************************************************************/
 
-  // une variable qui aura comme param le name et la date actuelle pour donné un nom a notre fichier
-  fileName = req.body.name + Date.now() + ".jpg";
-
-  // créer notre fichier a tel destination
-  await pipeline(
-    req.file.stream,
-    fs.createWriteStream(`${__dirname}/../images/posts/${fileName}`)
-  );
-
-  // si notre title  n'a rien ou n'a pas min 1 caract alors on return une erreur
+  // si notre post_title n'a rien ou n'a pas min 1 caract alors on return une erreur
   if (req.body.title === null || req.body.title.length < 1) {
     return res
       .status(500)
       .json({ error: "Le post doit faire au moins 1 caractere" });
-  } else {
+  }
+  // si le title > 100 alors on return une error
+  if (req.body.title.length > 100) {
+    return res
+      .status(500)
+      .json({ error: "Le post doit faire moins 100 caracteres" });
+  }
+  /****************************************************************************** Fin Error Input Controller **************************************************************************/
+
+  // si notre title n'est pas vide ou fais pas plus de 100 alors on fait ca, cela permet de secure et pas stock des img dans le back si la condition n'est pas true.
+  else {
+    try {
+      // Si notre file du front est pas en jpg/png/jpeg alors on return une erreur
+      if (
+        req.file.detectedMimeType != "image/jpg" &&
+        req.file.detectedMimeType != "image/png" &&
+        req.file.detectedMimeType != "image/jpeg"
+      )
+        throw Error("invalid file");
+
+      // si sa taille dépasse les 4M+ alors on return une erreur
+      if (req.file.size > 4000000) throw Error("max size");
+    } catch (err) {
+      return res.status(201).json({ err });
+    }
+    // une variable qui aura comme param le name(qui sera l'id user) et la date actuelle pour donné un nom a notre image enregistrer dans le back.
+    fileName = req.body.name + Date.now() + ".jpg";
+
+    // créer notre fichier a tel destination
+    await pipeline(
+      req.file.stream,
+      fs.createWriteStream(`${__dirname}/../images/posts/${fileName}`)
+    );
     // sinon on fait la request
     try {
       const title = req.body.title;
@@ -125,22 +136,23 @@ module.exports.deletePost = async (req, res) => {
   const user = verifyUid(req.headers.authorization);
   const id = req.params.id;
 
-  // on cherche notre img url de notre postid pour pouvoir recupérer son path pour la delete avec fs/unlink lors de la delete Request et on récup également l'uId pour controler
+  // on cherche img url de postid pour pouvoir recupérer son path pour la delete avec fs/unlink lors de la delete Request et on récup également l'uId pour controler
   db.query(
     "SELECT img_url, user_id FROM posts WHERE id = ?;",
     [id],
     (err, imgPost) => {
       if (err) {
         res.status(500).json({ err });
-      } else { // si ya une réponse alors on vérifie notre user si il est admin ou il est owner de l'id
+      } else {
+        // si ya une réponse alors on vérifie notre user si il est admin ou il est owner de l'id
         if (user.admin === 1 || user.id === imgPost[0].user_id) {
-          console.log(imgPost[0].img_url);
           // si note token.id est admin alors on execute cette request
           if (user.admin === 1) {
             db.query("DELETE FROM posts WHERE id = ?;", [id], (err, result) => {
               if (err) {
                 res.status(500).json({ err });
               } else {
+                // On passe l'url de l'img récupérer lors du SELECT qu'on met comme path pour delete et pour pouvoir supprimer l'img de notre back
                 fs.unlink(`${imgPost[0].img_url}`, (err) => {
                   console.log(err);
                 });
@@ -149,7 +161,8 @@ module.exports.deletePost = async (req, res) => {
                   .json({ message: "Le post a bien été supprimé by Admin !" });
               }
             });
-          } else { // si tokenid = user_post id on fait cette request.
+          } else {
+            // si tokenid = user_post id on fait cette request.
             db.query(
               "DELETE FROM posts WHERE id = ? AND user_id = ?",
               [id, user.id],
@@ -157,6 +170,7 @@ module.exports.deletePost = async (req, res) => {
                 if (err) {
                   res.status(500).json({ err });
                 } else {
+                  // On passe l'url de l'img récupérer lors du SELECT qu'on met comme path pour delete et pour pouvoir supprimer l'img de notre back
                   fs.unlink(`${imgPost[0].img_url}`, (err) => {
                     console.log(err);
                   });
