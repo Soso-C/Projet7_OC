@@ -26,7 +26,7 @@ module.exports.createPost = async (req, res) => {
   let fileName;
   const user = verifyUid(req.headers.authorization);
 
-  /*************************************************************************** Start Error Input Controller *****************************************************************************/
+  /*************************************************************************** Start Error Input Controller ****************************************************************************/
 
   // si notre post_title n'a rien ou n'a pas min 1 caract alors on return une erreur
   if (req.body.title === null || req.body.title.length < 1) {
@@ -93,6 +93,7 @@ module.exports.createPost = async (req, res) => {
 
 // Get tous les posts en fonction de la date de publication.
 module.exports.getAllPosts = async (req, res) => {
+
   db.query("SELECT * FROM posts ORDER BY post_date DESC;", (err, result) => {
     if (err) {
       res.status(500).json({ err });
@@ -104,7 +105,9 @@ module.exports.getAllPosts = async (req, res) => {
 
 // Get 1 post avec son id en params
 module.exports.getOnePost = async (req, res) => {
+
   const id = req.params.id;
+
   db.query("SELECT * FROM posts WHERE id= ?;", [id], (err, result) => {
     if (err) {
       res.status(500).json({ err });
@@ -135,10 +138,11 @@ module.exports.modifyPost = async (req, res) => {
 
 // Delete un post
 module.exports.deletePost = async (req, res) => {
+
   const user = verifyUid(req.headers.authorization);
   const id = req.params.id;
 
-  // on cherche img url de postid pour pouvoir recupérer son path pour la delete avec fs/unlink lors de la delete Request et on récup également l'uId pour controler
+  // on cherche img_url de post_id pour pouvoir recupérer son path pour la delete avec fs.unlink lors de la delete Request et on récup également l'uId pour controler
   db.query(
     "SELECT img_url, user_id FROM posts WHERE id = ?;",
     [id],
@@ -154,7 +158,7 @@ module.exports.deletePost = async (req, res) => {
               if (err) {
                 res.status(500).json({ err });
               } else {
-                // On passe l'url de l'img récupérer lors du SELECT qu'on met comme path pour delete et pour pouvoir supprimer l'img de notre back
+                // On passe l'url de l'img récupérer lors du SELECT qu'on met comme path pour delete l'img de notre back
                 fs.unlink(`${imgPost[0].img_url}`, (err) => {
                   console.log(err);
                 });
@@ -172,7 +176,7 @@ module.exports.deletePost = async (req, res) => {
                 if (err) {
                   res.status(500).json({ err });
                 } else {
-                  // On passe l'url de l'img récupérer lors du SELECT qu'on met comme path pour delete et pour pouvoir supprimer l'img de notre back
+                  // On passe l'url de l'img récupérer lors du SELECT qu'on met comme path pour delete l'img de notre back
                   fs.unlink(`${imgPost[0].img_url}`, (err) => {
                     console.log(err);
                   });
@@ -200,11 +204,19 @@ exports.createComment = (req, res) => {
   const user = verifyUid(req.headers.authorization);
   const { pId, comment } = req.body;
 
+  /*************************************************************************** Start Error Controller ****************************************************************************/
   if (req.body.comment === null || req.body.comment.length < 2) {
     return res
       .status(500)
-      .json({ error: "Le commentaire doit faire au moins 2 caracteres" });
-  } else {
+      .json({ error: "Le commentaire doit faire 2 caracteres minimum" });
+  }
+  if (req.body.comment.length > 50) {
+    return res
+    .status(500)
+    .json({ error: "Le commentaire doit faire moins de 50 caracteres" });
+  }
+  /*************************************************************************** End Error Controller ****************************************************************************/
+  else {
     db.query(
       "INSERT INTO comments (post_id, user_id, comments) VALUES (?, ?, ?)",
       [pId, user.id, comment],

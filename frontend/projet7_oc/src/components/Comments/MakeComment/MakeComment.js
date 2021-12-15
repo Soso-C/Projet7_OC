@@ -22,6 +22,8 @@ export default function MakeComment(props) {
     }).then((res) => {
       alert("Commentaire envoyée !")
       window.location.href = "/"
+    }).catch((err) => {
+      alert(err.response.data.error)
     })
   };
 
