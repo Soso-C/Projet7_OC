@@ -23,11 +23,10 @@ const verifyUid = (authorization) => {
 
 // Créer un post
 module.exports.createPost = async (req, res) => {
-
   let fileName;
   const user = verifyUid(req.headers.authorization);
 
-/*************************************************************************** Start Error Input Controller *****************************************************************************/
+  /*************************************************************************** Start Error Input Controller *****************************************************************************/
 
   // si notre post_title n'a rien ou n'a pas min 1 caract alors on return une erreur
   if (req.body.title === null || req.body.title.length < 1) {
@@ -40,6 +39,9 @@ module.exports.createPost = async (req, res) => {
     return res
       .status(500)
       .json({ error: "Le post doit faire moins 100 caracteres" });
+  }
+  if (req.file === null) {
+    return res.status(500).json({ error: "Le post doit contenir une image" });
   }
   /****************************************************************************** Fin Error Input Controller **************************************************************************/
 
@@ -181,6 +183,9 @@ module.exports.deletePost = async (req, res) => {
               }
             );
           }
+        } else {
+          // si user != tokenid ou admin alors return Non authorisé
+          return res.status(500).json({ error: "Non Authorisé !" });
         }
       }
     }

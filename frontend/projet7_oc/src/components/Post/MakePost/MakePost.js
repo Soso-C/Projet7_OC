@@ -18,7 +18,6 @@ const Input = styled("input")({
 });
 
 export default function MakePost() {
-  
   let test1 = JSON.parse(localStorage.getItem("token"));
   const [title, setTitle] = useState("");
   const [file, setFile] = useState();
@@ -37,15 +36,14 @@ export default function MakePost() {
 
     Axios.post("http://localhost:3001/api/post/", data, {
       headers: { Authorization: `Bearer ${test1.token}` },
-    }).then((res) => {
-      if (!res.data.message) {
-        alert("Veuillez insérer une image");
-        console.log(res)
-      } else {
+    })
+      .then((res) => {
         alert("Publication créée avec succes !");
         window.location.reload();
-      }
-    });
+      })
+      .catch((err) => {
+        alert(err.response.data.error);
+      });
   };
 
   return (

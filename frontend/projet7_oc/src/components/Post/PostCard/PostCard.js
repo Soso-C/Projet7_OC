@@ -34,8 +34,10 @@ export default function PostCard(props) {
     }).then((res) => {
       alert("Publication supprimée avec succes !");
       window.location.reload();
-    }).catch((err) => {
-      alert(err.data.error)
+    }).catch((err) => { // si user pas authorisé et try de delete un post alors on clear son localStorage et on le redirige a l'accueil
+      alert(err.response.data.error)
+      localStorage.removeItem('token')
+      window.location.href = "/sign-in"
     })
   };
 
