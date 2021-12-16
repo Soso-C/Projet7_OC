@@ -16,6 +16,7 @@ router.delete("/:id", auth, postController.deletePost);
 // Comments
 router.post("/comment-post", auth, postController.createComment);
 router.get("/comment-post/:id", auth, postController.getAllComments);
+router.delete("/comment-post/:id", auth, postController.deleteOneComment)
 // router.get("/comment/:id", auth, postController.getOneComment);
 
 

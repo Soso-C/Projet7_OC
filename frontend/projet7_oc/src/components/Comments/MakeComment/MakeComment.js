@@ -13,7 +13,6 @@ export default function MakeComment(props) {
   const [comment, setComment] = useState("");
   const [postId, setPostId] = useState(props.postId);
 
-  
   /******************************************************************** Get Commentaires  *********************************************************************/
   // Récupérer les commentaires du postID
 
@@ -64,13 +63,13 @@ export default function MakeComment(props) {
             }}
             value={comment}
           />
-          <IconButton onClick={sendCom}>
+          <IconButton onClick={sendCom} id='sendComs'>
             <SendIcon />
           </IconButton>
         </div>
         <div className="comsList">
           {comData.map((com) => (
-            <Comment com={com} key={com.id} />
+            <Comment com={com} key={com.id}/>
           ))}
         </div>
       </div>

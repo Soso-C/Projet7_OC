@@ -2,7 +2,7 @@ import React from "react";
 import "./PostCard.css";
 import Axios from "axios";
 import { dateParser } from "../../../utils/Utils";
-
+import { useState } from "react";
 
 // Material ui
 import Card from "@mui/material/Card";
@@ -25,20 +25,30 @@ export default function PostCard(props) {
 
   let test1 = JSON.parse(localStorage.getItem("token"));
   const test = "http://localhost:3001/";
- 
+
+  // Toggle commentaire show/hide
+
+  const [openCom, setOpenCom] = useState(false);
+
+  const toggleComs = () => {
+    setOpenCom(!openCom);
+  };
 
   // Permet de supprimer un post depuis l'id de notre Post
   const deletePost = () => {
-    Axios.delete(`http://localhost:3001/api/post/${post.id}`,{
+    Axios.delete(`http://localhost:3001/api/post/${post.id}`, {
       headers: { Authorization: `Bearer ${test1.token}` },
-    }).then((res) => {
-      alert("Publication supprimée avec succes !");
-      window.location.reload();
-    }).catch((err) => { // si user pas authorisé et try de delete un post alors on clear son localStorage et on le redirige a l'accueil
-      alert(err.response.data.error)
-      localStorage.removeItem('token')
-      window.location.href = "/sign-in"
     })
+      .then((res) => {
+        alert("Publication supprimée avec succes !");
+        window.location.reload();
+      })
+      .catch((err) => {
+        // si user pas authorisé et try de delete un post alors on clear son localStorage et on le redirige a l'accueil
+        alert(err.response.data.error);
+        localStorage.removeItem("token");
+        window.location.href = "/sign-in";
+      });
   };
 
   return (
@@ -46,8 +56,7 @@ export default function PostCard(props) {
       <Card sx={{ width: 600 }} id="card1">
         <CardHeader
           avatar={
-            <Avatar sx={{ bgcolor: red[500] }} aria-label="pseudo">
-            </Avatar>
+            <Avatar sx={{ bgcolor: red[500] }} aria-label="pseudo"></Avatar>
           }
           action={
             <IconButton aria-label="settings">
@@ -73,7 +82,7 @@ export default function PostCard(props) {
           alt=""
         />
         <CardActions disableSpacing>
-          <IconButton aria-label="share">
+          <IconButton aria-label="share" onClick={toggleComs}>
             <CommentOutlinedIcon />
           </IconButton>
           <p className="pPostCard">8 commentaires</p>
@@ -87,10 +96,11 @@ export default function PostCard(props) {
               <DeleteIcon />
             </IconButton>
           ) : (
-            <div></div>
+            <></>
           )}
         </CardActions>
-        <MakeComment postId={post.id} />
+        {/* si on clic sur le bouton commentaire alors il passe true et affiche makecomment si non rien */}
+        {openCom === true ? <MakeComment postId={post.id} /> : <></>}
       </Card>
     </div>
   );
