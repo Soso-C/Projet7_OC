@@ -1,6 +1,4 @@
 import React from "react";
-import Avatar from "@mui/material/Avatar";
-import { red } from "@mui/material/colors";
 import "./Comment.css";
 import { dateParser } from "../../../utils/Utils";
 import Axios from "axios";
@@ -8,11 +6,12 @@ import Axios from "axios";
 // Material ui
 import { IconButton } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Avatar from "@mui/material/Avatar";
+import { red } from "@mui/material/colors";
 
 export default function Comment(props) {
   let test1 = JSON.parse(localStorage.getItem("token"));
   const com = props.com;
-
 
   const deleteComs = () => {
     Axios.delete(`http://localhost:3001/api/post/comment-post/${com.id}`, {
@@ -32,8 +31,16 @@ export default function Comment(props) {
       });
   };
 
+  console.log(com.post_id.length)
   return (
-    <div className="commentWrapper">
+    // si user = com uId alors on met le BG en blue si non de base
+    <div
+      className={
+        test1.userId === com.user_id
+          ? "commentWrapper" + " " + "ownerCom"
+          : "commentWrapper"
+      }
+    >
       <div className="comPicNameDate">
         <div className="comAvatarName">
           <Avatar
