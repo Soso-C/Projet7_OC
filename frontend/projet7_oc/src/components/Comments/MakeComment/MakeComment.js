@@ -28,7 +28,7 @@ export default function MakeComment(props) {
       });
   }, [test1.token]);
 
-/****************************************************************************************************************************************************************/
+  /****************************************************************************************************************************************************************/
   // Envoyer un commentaire avec son postID
   const sendCom = () => {
     Axios.post(
@@ -63,13 +63,14 @@ export default function MakeComment(props) {
             }}
             value={comment}
           />
-          <IconButton onClick={sendCom} id='sendComs'>
+          <IconButton onClick={sendCom} id="sendComs">
             <SendIcon />
           </IconButton>
         </div>
         <div className="comsList">
+          {/* on affiche tous nos commentaires avec la fonction .map et on donne com en props  */}
           {comData.map((com) => (
-            <Comment com={com} key={com.id}/>
+            <Comment com={com} key={com.id} />
           ))}
         </div>
       </div>

@@ -1,5 +1,5 @@
 .comContainer {
-    height: 250px;
+    height: 200px;
 }
 
 
@@ -39,7 +39,7 @@
 
 
 .comsList {
-    height: 195px;
+    height: 145px;
     overflow-y: scroll;
 }
 
