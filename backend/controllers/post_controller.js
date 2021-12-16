@@ -297,12 +297,11 @@ exports.getOneComment = (req, res) => {
 
 // Delete un comment
 exports.deleteOneComment = (req, res) => {
-  
   const cId = req.params.id;
   const user = verifyUid(req.headers.authorization);
 
   // Si notre token.admin = 1 alors on delete depuis l'id donné en parametre.
-  if (user.admin === 1) {
+  if (user.admin == 1) {
     db.query("DELETE FROM comments WHERE id= ?;", [cId], (err, result) => {
       if (err) {
         res.status(500).json({ err });
