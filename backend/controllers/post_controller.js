@@ -93,7 +93,6 @@ module.exports.createPost = async (req, res) => {
 
 // Get tous les posts en fonction de la date de publication.
 module.exports.getAllPosts = async (req, res) => {
-
   db.query("SELECT * FROM posts ORDER BY post_date DESC;", (err, result) => {
     if (err) {
       res.status(500).json({ err });
@@ -105,7 +104,6 @@ module.exports.getAllPosts = async (req, res) => {
 
 // Get 1 post avec son id en params
 module.exports.getOnePost = async (req, res) => {
-
   const id = req.params.id;
 
   db.query("SELECT * FROM posts WHERE id= ?;", [id], (err, result) => {
@@ -138,11 +136,10 @@ module.exports.modifyPost = async (req, res) => {
 
 // Delete un post
 module.exports.deletePost = async (req, res) => {
-
   const user = verifyUid(req.headers.authorization);
   const id = req.params.id;
 
-  // on cherche img_url de post_id pour pouvoir recupérer son path pour la delete avec fs.unlink lors de la delete Request et on récup également l'uId pour controler
+  // Step1 on cherche img_url de post_id pour pouvoir recupérer son path pour la delete avec fs.unlink lors de la delete Request et on récup également l'uId pour controler
   db.query(
     "SELECT img_url, user_id FROM posts WHERE id = ?;",
     [id],
@@ -154,6 +151,22 @@ module.exports.deletePost = async (req, res) => {
         if (user.admin === 1 || user.id === imgPost[0].user_id) {
           // si note token.id est admin alors on execute cette request
           if (user.admin === 1) {
+            //Step 2  on delete tous les commentaires lié au post
+            db.query(
+              "DELETE FROM comments WHERE post_id = ?",
+              [id],
+              (err, result) => {
+                if (err) {
+                  return res.status(500).json({ error: "ID non trouvé" });
+                } else {
+                  return res.status(200).json({
+                    message:
+                      "Les commentaires de l'user ont bien été supprimé !",
+                  });
+                }
+              }
+            );
+            // Step3 on delete le post
             db.query("DELETE FROM posts WHERE id = ?;", [id], (err, result) => {
               if (err) {
                 res.status(500).json({ err });
@@ -169,6 +182,22 @@ module.exports.deletePost = async (req, res) => {
             });
           } else {
             // si tokenid = user_post id on fait cette request.
+            //Step2 on delete tous les commentaires lié au post
+            db.query(
+              "DELETE FROM comments WHERE post_id = ?",
+              [id],
+              (err, result) => {
+                if (err) {
+                  return res.status(500).json({ error: "ID non trouvé" });
+                } else {
+                  return res.status(200).json({
+                    message:
+                      "Les commentaires de l'user ont bien été supprimé !",
+                  });
+                }
+              }
+            );
+            // Step3 on delete le post
             db.query(
               "DELETE FROM posts WHERE id = ? AND user_id = ?",
               [id, user.id],
@@ -212,11 +241,10 @@ exports.createComment = (req, res) => {
   }
   if (req.body.comment.length > 50) {
     return res
-    .status(500)
-    .json({ error: "Le commentaire doit faire moins de 50 caracteres" });
-  }
-  /*************************************************************************** End Error Controller ****************************************************************************/
-  else {
+      .status(500)
+      .json({ error: "Le commentaire doit faire moins de 50 caracteres" });
+  } else {
+    /*************************************************************************** End Error Controller ****************************************************************************/
     db.query(
       "INSERT INTO comments (post_id, user_id, comments, author_name) VALUES (?, ?, ?, ?)",
       [pId, user.id, comment, user.username],
