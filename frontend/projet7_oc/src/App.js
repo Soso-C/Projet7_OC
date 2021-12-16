@@ -11,11 +11,11 @@ import NotFound from "./components/NotFound";
 function App() {
   return (
     <div className="App">
-      {/* Si le localStorage contient quelque chose alors cela veut dire que notre user est auth alors on montre tel ou tel routes (provisoire) */}
+      {/* Si le localStorage contient quelque chose alors cela veut dire (logiquement) que notre user est auth alors on montre tel ou tel routes (provisoire) */}
       {localStorage.length > 0 ? (
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/profil/:id" element={<Profil />} />
+          <Route path="/profil/mon-profil" element={<Profil />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       ) : (

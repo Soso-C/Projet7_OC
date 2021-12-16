@@ -125,3 +125,30 @@ module.exports.deleteUser = async (req, res) => {
     return res.status(401).json({ message: "Non Autorisé !" });
   }
 };
+
+/********************************************************************************* User Profile ***************************************************************************************/
+
+// Show profil (pour le moment les profils sont personnels  donc on sécure commme cela pour pas que des personnes puissent avoir acces aux infos des autres personnes)
+
+module.exports.getUserProfile = async (req, res) => {
+  const id = req.params.id;
+
+  const user = verifyUid(req.headers.authorization);
+
+  // Si notre tokenid est = id alors on montre les infos du profil si non non.
+  if (user.id == id) {
+    db.query(
+      "SELECT id, fullname, bio, user_created, picture, age, metier, country, github_url FROM users WHERE id= ?;",
+      [id],
+      (err, result) => {
+        if (err) {
+          res.status(500).json({ err });
+        } else {
+          res.status(200).json(result);
+        }
+      }
+    );
+  } else {
+    res.status(500).json({ message: "Non authorisé" });
+  }
+};

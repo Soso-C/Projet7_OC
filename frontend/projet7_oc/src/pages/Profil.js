@@ -12,7 +12,7 @@ const Profil = () => {
 
   // useEffect permet de récupérer la data et de l'afficher une seul fois avec les [].
   useEffect(() => {
-    Axios.get(`http://localhost:3001/api/user/${test1.userId}`, {
+    Axios.get(`http://localhost:3001/api/user/profil/${test1.userId}`, {
       headers: { Authorization: `Bearer ${test1.token}` },
     }).then((res) => {
       setUserData(res.data[0])

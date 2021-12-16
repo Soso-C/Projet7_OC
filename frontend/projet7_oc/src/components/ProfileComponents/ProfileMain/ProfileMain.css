@@ -85,9 +85,9 @@
   padding-right: 1em;
 }
 
-.githubLink {
+#githubLink {
   text-decoration: none;
-  color: black;
+  color: #1775ee;
 }
 
 .editProfile {

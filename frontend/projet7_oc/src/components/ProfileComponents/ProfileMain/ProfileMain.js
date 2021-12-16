@@ -15,6 +15,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import CheckIcon from "@mui/icons-material/Check";
+import IconButton from "@mui/material/IconButton";
 
 export default function ProfileMain(props) {
   const test1 = JSON.parse(localStorage.getItem("token"));
@@ -286,14 +287,15 @@ export default function ProfileMain(props) {
             <p>Age : {user.age} ans</p>
             <div className="socialWrapper">
               <p>GitHub :</p>
-              <a
+              <IconButton
                 href={user.github_url}
+                id="githubLink"
+                size="medium"
                 target="_blank"
                 rel="noreferrer"
-                className="githubLink"
               >
                 <GitHubIcon />
-              </a>
+              </IconButton>
             </div>
           </div>
         </div>

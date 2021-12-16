@@ -21,5 +21,8 @@ router.put("/:id", auth, userController.modifyUser);
 //Delete user
 router.delete("/:id", auth, userController.deleteUser);
 
+// Show Profile
+router.get("/profil/:id",auth, userController.getUserProfile)
+
 
 module.exports = router;
