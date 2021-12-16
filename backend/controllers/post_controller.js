@@ -218,8 +218,8 @@ exports.createComment = (req, res) => {
   /*************************************************************************** End Error Controller ****************************************************************************/
   else {
     db.query(
-      "INSERT INTO comments (post_id, user_id, comments) VALUES (?, ?, ?)",
-      [pId, user.id, comment],
+      "INSERT INTO comments (post_id, user_id, comments, author_name) VALUES (?, ?, ?, ?)",
+      [pId, user.id, comment, user.username],
       (err, result) => {
         if (err) {
           res.status(500).json({ err });
@@ -235,10 +235,10 @@ exports.createComment = (req, res) => {
 // Get all comments d'un post
 
 exports.getAllComments = (req, res) => {
-  const pId = req.param.id;
+  const pId = req.params.id;
 
   db.query(
-    "SELECT * FROM comments WHERE post_id = ?;",
+    "SELECT * FROM comments WHERE post_id = ? ORDER BY createdAt DESC;",
     [pId],
     (err, comment) => {
       if (err) {

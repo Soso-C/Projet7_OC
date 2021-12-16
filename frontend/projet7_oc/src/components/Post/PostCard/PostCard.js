@@ -1,9 +1,10 @@
 import React from "react";
 import "./PostCard.css";
 import Axios from "axios";
-import MakeComment from "../../Comments/MakeComment/MakeComment";
+import Comments from "../../Comments/Comments";
+
 import { dateParser } from "../../../utils/Utils";
-import Comment from "../../Comments/Comment/Comment";
+
 
 // Material ui
 import Card from "@mui/material/Card";
@@ -20,6 +21,7 @@ import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { fontWeight } from "@mui/system";
+import MakeComment from "../../Comments/MakeComment/MakeComment";
 
 export default function PostCard(props) {
   const post = props.post;
@@ -92,7 +94,6 @@ export default function PostCard(props) {
           )}
         </CardActions>
         <MakeComment postId={post.id} />
-        <Comment />
       </Card>
     </div>
   );

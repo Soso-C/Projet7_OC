@@ -36,3 +36,9 @@
     padding-bottom: 0.5em;
     white-space: nowrap;
 }
+
+
+.comsList {
+    height: 200px;
+    overflow-y: scroll;
+}

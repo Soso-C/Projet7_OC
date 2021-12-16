@@ -3,7 +3,8 @@ import Avatar from "@mui/material/Avatar";
 import { red } from "@mui/material/colors";
 import "./Comment.css";
 
-export default function Comment() {
+export default function Comment(props) {
+    const com = props.com
     return (
         <div className="commentWrapper" >
           <div className="comPicNameDate">
@@ -13,10 +14,10 @@ export default function Comment() {
             </div>
             <div className="unameAndBodyCom">
               <div className="comsNameDateCenter">
-              <span id="ComUname">Andrea Galbani</span>
-              <span>14 Dec 2021 15:24</span>
+              <span id="ComUname">{com.author_name}</span>
+              <span>{com.createdAt}</span>
               </div>
-              <p className="bodyComs">Lorem ipsum dolor sit, amet consectetur adipisicing elitdipisicing elitdipisicing elitdipisicing elit</p>
+              <p className="bodyComs">{com.comments}</p>
             </div>          
           </div>
         </div>
