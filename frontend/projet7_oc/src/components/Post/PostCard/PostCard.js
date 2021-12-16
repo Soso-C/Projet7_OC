@@ -1,8 +1,6 @@
 import React from "react";
 import "./PostCard.css";
 import Axios from "axios";
-import Comments from "../../Comments/Comments";
-
 import { dateParser } from "../../../utils/Utils";
 
 
@@ -20,7 +18,6 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { fontWeight } from "@mui/system";
 import MakeComment from "../../Comments/MakeComment/MakeComment";
 
 export default function PostCard(props) {

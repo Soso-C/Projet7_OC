@@ -2,6 +2,7 @@ import React from 'react'
 import Avatar from "@mui/material/Avatar";
 import { red } from "@mui/material/colors";
 import "./Comment.css";
+import { dateParser } from "../../../utils/Utils";
 
 export default function Comment(props) {
     const com = props.com
@@ -15,7 +16,7 @@ export default function Comment(props) {
             <div className="unameAndBodyCom">
               <div className="comsNameDateCenter">
               <span id="ComUname">{com.author_name}</span>
-              <span>{com.createdAt}</span>
+              <span>{dateParser(com.createdAt)}</span>
               </div>
               <p className="bodyComs">{com.comments}</p>
             </div>          

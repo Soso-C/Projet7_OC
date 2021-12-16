@@ -21,13 +21,11 @@ export default function MakeComment(props) {
 
   // useEffect permet de récupérer la data et de l'afficher une seul fois avec les [].
   useEffect(() => {
-    Axios.get(`http://localhost:3001/api/post/comment-post/219`, {
+    Axios.get(`http://localhost:3001/api/post/comment-post/${postId}`, {
       headers: { Authorization: `Bearer ${test1.token}` },
     }) // on montre notre token qui est save dans le localstorage pour voir nos coms
       .then((res) => {
         setComData(res.data);
-        console.log(postId);
-        console.log(res);
       });
   }, [test1.token]);
 
