@@ -3,6 +3,7 @@ import "./PostCard.css";
 import Axios from "axios";
 import MakeComment from "../../Comments/MakeComment/MakeComment";
 import { dateParser } from "../../../utils/Utils";
+import Comment from "../../Comments/Comment/Comment";
 
 // Material ui
 import Card from "@mui/material/Card";
@@ -91,6 +92,7 @@ export default function PostCard(props) {
           )}
         </CardActions>
         <MakeComment postId={post.id} />
+        <Comment />
       </Card>
     </div>
   );
