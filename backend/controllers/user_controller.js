@@ -108,7 +108,7 @@ module.exports.deleteUser = async (req, res) => {
         console.log("test2");
         res
           .status(200)
-          .json({ message: "Les posts de  l'users ont bien été supprimé !" });
+          .json({ message: "Les posts de l'users ont bien été supprimé !" });
       }
     });
 
@@ -128,7 +128,7 @@ module.exports.deleteUser = async (req, res) => {
 
 /********************************************************************************* User Profile ***************************************************************************************/
 
-// Show profil (pour le moment les profils sont personnels  donc on sécure commme cela pour pas que des personnes puissent avoir acces aux infos des autres personnes)
+// Show profil (pour le moment les profils sont personnels donc on sécure commme cela pour pas que des personnes puissent avoir acces aux infos des autres personnes)
 
 module.exports.getUserProfile = async (req, res) => {
   const id = req.params.id;
@@ -149,6 +149,6 @@ module.exports.getUserProfile = async (req, res) => {
       }
     );
   } else {
-    res.status(500).json({ message: "Non authorisé" });
+    res.status(500).json({ message: "Non Authorisé !" });
   }
 };
