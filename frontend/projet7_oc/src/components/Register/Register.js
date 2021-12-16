@@ -86,7 +86,7 @@ const Register = () => {
     } else {
       displayError(passwordErr, "");
       validPassword = true;
-      console.log("Etape 1")
+      console.log("Etape 1");
     }
   };
 
@@ -137,11 +137,12 @@ const Register = () => {
         email: email,
         password: password,
         fullname: fullname,
-      }).then(res => {
-        window.location.href = '/sign-in'
-        alert("Compte créé avec succes veuillez vous connecter !")
       })
-      .catch()
+        .then((res) => {
+          window.location.href = "/sign-in";
+          alert("Compte créé avec succes veuillez vous connecter !");
+        })
+        .catch();
     }
   }
 

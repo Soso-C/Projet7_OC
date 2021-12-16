@@ -5,9 +5,7 @@ const dotenv = require("dotenv");
 
 // Post pour créer user
 module.exports.signUp = async (req, res) => {
-  const fullname = req.body.fullname;
-  const password = req.body.password;
-  const email = req.body.email;
+  const { fullname, password, email } = req.body;
 
   // On récupere le pwd de l'user on le salt x10 et hash avec bcrypt on attend que tout soit fait et on envoie tout ca a la db.
   bcrypt.hash(password, 10).then((hash) => {
