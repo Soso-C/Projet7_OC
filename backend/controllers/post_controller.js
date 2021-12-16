@@ -328,3 +328,25 @@ exports.deleteOneComment = (req, res) => {
     );
   }
 };
+
+
+// Count les comments d'un post
+
+exports.countAllComments = (req, res) => {
+  const pId = req.params.id;
+
+  db.query(
+    "SELECT COUNT(*) FROM comments WHERE post_id = ?",
+    [pId],
+    (err, count) => {
+      if (err) {
+        res.status(500).json({ err });
+        console.log(err);
+        throw err;
+      } else {
+        console.log(count)
+        res.status(200).json(count);
+      }
+    }
+  );
+};

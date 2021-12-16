@@ -2,7 +2,7 @@ import React from "react";
 import "./PostCard.css";
 import Axios from "axios";
 import { dateParser } from "../../../utils/Utils";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 // Material ui
 import Card from "@mui/material/Card";
@@ -25,6 +25,21 @@ export default function PostCard(props) {
 
   let test1 = JSON.parse(localStorage.getItem("token"));
   const test = "http://localhost:3001/";
+
+  // Count comments post
+
+  const [countData, setCountData] = useState([]);
+
+  // useEffect permet de récupérer la data et de l'afficher une seul fois avec les [].
+  useEffect(() => {
+    Axios.get(`http://localhost:3001/api/post/comment-count/${post.id}`, {
+      headers: { Authorization: `Bearer ${test1.token}` },
+    }) // on montre notre token qui est save dans le localstorage pour voir nos post
+      .then((res) => {
+        setCountData(res.data[0]);
+        console.log(res.data[0]);
+      });
+  }, [test1.token]);
 
   // Toggle commentaire show/hide
 
@@ -85,7 +100,7 @@ export default function PostCard(props) {
           <IconButton aria-label="share" onClick={toggleComs}>
             <CommentOutlinedIcon />
           </IconButton>
-          <p className="pPostCard">8 commentaires</p>
+          <p className="pPostCard"> commentaire </p>
           <IconButton aria-label="add to favorites">
             <FavoriteIcon className="favIcon" />
           </IconButton>

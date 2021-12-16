@@ -18,5 +18,7 @@ router.post("/comment-post", auth, postController.createComment);
 router.get("/comment-post/:id", auth, postController.getAllComments);
 router.delete("/comment-post/:id", auth, postController.deleteOneComment)
 
+// Count Comments
+router.get("/comment-count/:id", auth, postController.countAllComments)
 
 module.exports = router;

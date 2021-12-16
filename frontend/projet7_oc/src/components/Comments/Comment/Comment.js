@@ -31,7 +31,7 @@ export default function Comment(props) {
       });
   };
 
-  console.log(com.post_id.length)
+
   return (
     // si user = com uId alors on met le BG en blue si non de base
     <div
