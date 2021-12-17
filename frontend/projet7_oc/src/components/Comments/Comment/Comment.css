@@ -57,6 +57,9 @@
   background-color: #1775ee;
 }
 
+/* 
+A test plus tard animation pour toggleComs
+
 .animatedToggle {
   transition: 
   opacity 0.4s ease-in-out
@@ -69,4 +72,4 @@
   transition: 
   height 0.4s ease-in-out,
   opacity 0.4s 0.4s ease-in-out;
-}
+} */

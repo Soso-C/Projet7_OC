@@ -262,7 +262,7 @@ exports.createComment = (req, res) => {
 
 // Get all comments d'un post
 
-exports.getAllComments = (req, res) => {
+exports.getAllComments = async (req, res) => {
   const pId = req.params.id;
 
   db.query(
@@ -332,7 +332,7 @@ exports.deleteOneComment = (req, res) => {
 
 // Count les comments d'un post
 
-exports.countAllComments = (req, res) => {
+exports.countAllComments = async (req, res) => {
   const pId = req.params.id;
 
   db.query(
@@ -342,7 +342,6 @@ exports.countAllComments = (req, res) => {
       if (err) {
         res.status(500).json({ err });
         console.log(err);
-        throw err;
       } else {
         console.log(count)
         res.status(200).json(count);

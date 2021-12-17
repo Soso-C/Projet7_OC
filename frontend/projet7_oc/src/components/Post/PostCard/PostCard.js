@@ -26,20 +26,29 @@ export default function PostCard(props) {
   let test1 = JSON.parse(localStorage.getItem("token"));
   const test = "http://localhost:3001/";
 
-  // Count comments post
+  /******************************************************************************** Count Comment Post *********************************************************************************/
 
-  const [countData, setCountData] = useState([]);
+  const [countData, setCountData] = useState(0);
 
-  // useEffect permet de récupérer la data et de l'afficher une seul fois avec les [].
+  // Appel API qui permet de stock nos commentaires dans un state.
   useEffect(() => {
-    Axios.get(`http://localhost:3001/api/post/comment-count/${post.id}`, {
-      headers: { Authorization: `Bearer ${test1.token}` },
-    }) // on montre notre token qui est save dans le localstorage pour voir nos post
-      .then((res) => {
-        setCountData(res.data[0]);
-        console.log(res.data[0]);
-      });
-  }, [test1.token]);
+    const fetchCount = async () => {
+      try {
+        const fetchData = await Axios.get(
+          `http://localhost:3001/api/post/comment-count/${post.id}`,
+          {
+            headers: { Authorization: `Bearer ${test1.token}` },
+          }
+        ); // on récupere la value du 'COUNT' de notre réponse SQL.
+        setCountData(fetchData.data[0]["COUNT(*)"]);
+      } catch (err) {}
+    };
+    fetchCount();
+  }, [post.id, test1.token]);
+
+  console.log(countData);
+
+  /***************************************************************************************************************************************************************************************/
 
   // Toggle commentaire show/hide
 
@@ -100,7 +109,12 @@ export default function PostCard(props) {
           <IconButton aria-label="share" onClick={toggleComs}>
             <CommentOutlinedIcon />
           </IconButton>
-          <p className="pPostCard"> commentaire </p>
+          {/* Si les commentaires du post sont supérieur a 2 alors on ajoute un S si non non */}
+          <p className="pPostCard">
+            {countData >= 2
+              ? `${countData} commentaires`
+              : `${countData} commentaire`}
+          </p>
           <IconButton aria-label="add to favorites">
             <FavoriteIcon className="favIcon" />
           </IconButton>
