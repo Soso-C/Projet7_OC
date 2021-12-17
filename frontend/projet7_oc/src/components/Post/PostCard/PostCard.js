@@ -44,9 +44,7 @@ export default function PostCard(props) {
       } catch (err) {}
     };
     fetchCount();
-  }, [post.id, test1.token]);
-
-  console.log(countData);
+  }, [test1.token]);
 
   /***************************************************************************************************************************************************************************************/
 
@@ -129,7 +127,11 @@ export default function PostCard(props) {
           )}
         </CardActions>
         {/* si on clic sur le bouton commentaire alors il passe true et affiche makecomment si non rien */}
-        {openCom === true ? <MakeComment postId={post.id} /> : <></>}
+        {openCom === true ? (
+          <MakeComment postId={post.id}/>
+        ) : (
+          <></>
+        )}
       </Card>
     </div>
   );
