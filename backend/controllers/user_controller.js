@@ -74,14 +74,15 @@ module.exports.modifyUser = async (req, res) => {
 };
 
 // Delete un user
+// Manque de delete toutes les images du post de l'user avant de le supprimer.
 
 module.exports.deleteUser = async (req, res) => {
   const id = req.params.id;
 
   const user = verifyUid(req.headers.authorization);
 
-  // Si notre tokenid = params id ou que notre tokenid est admin alors on peut faire la request pour supprimer l'utilisateur.
-  if (user.id == id || user.admin === 1) {
+  // Si notre tokenid = params id alors on peut faire la request pour supprimer l'utilisateur.
+  if (user.id == id) {
     //Step 1 on supprime tous les commentaires lié a l'id de l'user
 
     db.query(
@@ -136,7 +137,7 @@ module.exports.deleteUser = async (req, res) => {
           },
         };
       } else {
-        res.status(200).json(result);
+        res.status(200).json({ message: "L'user a bien était supprimée !" });
       }
     });
   } else {
@@ -170,3 +171,4 @@ module.exports.getUserProfile = async (req, res) => {
     res.status(500).json({ message: "Non Authorisé !" });
   }
 };
+
