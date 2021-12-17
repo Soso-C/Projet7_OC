@@ -150,82 +150,122 @@ module.exports.deletePost = async (req, res) => {
         // si ya une réponse alors on vérifie notre user si il est admin ou il est owner de l'id
         if (user.admin === 1 || user.id === imgPost[0].user_id) {
           // si note token.id est admin alors on execute cette request
+
           if (user.admin === 1) {
             //Step 2  on delete tous les commentaires lié au post
+
             db.query(
               "DELETE FROM comments WHERE post_id = ?",
               [id],
               (err, result) => {
                 if (err) {
-                  return res.status(500).json({ error: "ID non trouvé" });
+                  // on return des object perso qui était des res.status(200) avant mais cela faisais une  HTTP headers Error donc il faut retourné ca pour pas crash car c'est limité a un seul res.status(200) par function si j'ai bien compris.
+                  result = {
+                    ...result,
+                    comments: {
+                      error: "ID non trouvé",
+                    },
+                  };
                 } else {
-                  return res.status(200).json({
-                    message:
-                      "Les commentaires de l'user ont bien été supprimé !",
-                  });
+                  result = {
+                    ...result,
+                    comments: {
+                      message:
+                        "Les commentaires de l'user ont bien été supprimé !",
+                    },
+                  };
                 }
               }
             );
+
             // Step3 on delete le post
+
             db.query("DELETE FROM posts WHERE id = ?;", [id], (err, result) => {
               if (err) {
-                res.status(500).json({ err });
+                result = {
+                  ...result,
+                  post: {
+                    error: "ID non trouvé",
+                  },
+                };
               } else {
+                result = {
+                  ...result,
+                  post: {
+                    message: "Le post a bien été supprimé by Admin !",
+                  },
+                };
                 // On passe l'url de l'img récupérer lors du SELECT qu'on met comme path pour delete l'img de notre back
                 fs.unlink(`${imgPost[0].img_url}`, (err) => {
                   console.log(err);
                 });
-                res
-                  .status(200)
-                  .json({ message: "Le post a bien été supprimé by Admin !" });
               }
             });
           } else {
             // si tokenid = user_post id on fait cette request.
             //Step2 on delete tous les commentaires lié au post
+
             db.query(
               "DELETE FROM comments WHERE post_id = ?",
-              [id],
+              [id, user.id],
               (err, result) => {
                 if (err) {
-                  return res.status(500).json({ error: "ID non trouvé" });
+                  result = {
+                    ...result,
+                    comments: {
+                      error: "ID non trouvé",
+                    },
+                  };
                 } else {
-                  return res.status(200).json({
-                    message:
-                      "Les commentaires de l'user ont bien été supprimé !",
-                  });
+                  result = {
+                    ...result,
+                    comments: {
+                      message: "Commentaires supprimé By User",
+                    },
+                  };
                 }
               }
             );
+
             // Step3 on delete le post
+
             db.query(
               "DELETE FROM posts WHERE id = ? AND user_id = ?",
               [id, user.id],
               (err, result) => {
                 if (err) {
-                  res.status(500).json({ err });
+                  result = {
+                    ...result,
+                    post: {
+                      error: "ID non trouvé",
+                    },
+                  };
                 } else {
-                  // On passe l'url de l'img récupérer lors du SELECT qu'on met comme path pour delete l'img de notre back
+                  result = {
+                    ...result,
+                    post: {
+                      message: "Le post a bien été supprimé by User !",
+                    },
+                  };
+                  // On passe l'url de l'img récupérée lors du SELECT qu'on met comme path pour delete l'img de notre back
                   fs.unlink(`${imgPost[0].img_url}`, (err) => {
                     console.log(err);
                   });
-                  res
-                    .status(200)
-                    .json({ message: "Le post a bien été supprimé by User !" });
+                  res.status(200).json({ result });
                 }
               }
             );
           }
         } else {
           // si user != tokenid ou admin alors return Non authorisé
-          return res.status(500).json({ error: "Non Authorisé !" });
+          res.status(500).json({ error: "Non Authorisé !" });
         }
       }
     }
   );
 };
 
-/**************************************************************************************** Comments Post  *******************************************************************/
+/**************************************************************************************** Comments Post  *************************************************************************/
 
 // Créé un commentaire
 
@@ -329,7 +369,6 @@ exports.deleteOneComment = (req, res) => {
   }
 };
 
-
 // Count les comments d'un post
 
 exports.countAllComments = async (req, res) => {
@@ -343,7 +382,7 @@ exports.countAllComments = async (req, res) => {
         res.status(500).json({ err });
         console.log(err);
       } else {
-        console.log(count)
+        console.log(count);
         res.status(200).json(count);
       }
     }

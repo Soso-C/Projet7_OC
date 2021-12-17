@@ -44,7 +44,7 @@ export default function PostCard(props) {
       } catch (err) {}
     };
     fetchCount();
-  }, [test1.token]);
+  }, [test1.token,post.id]);
 
   /***************************************************************************************************************************************************************************************/
 
@@ -116,7 +116,7 @@ export default function PostCard(props) {
           <IconButton aria-label="add to favorites">
             <FavoriteIcon className="favIcon" />
           </IconButton>
-          <p className="pPostCard">10 likes</p>
+          <p className="pPostCard">0 like</p>
           {/* Affiche le btn a l'user si il est l'owner ou bien admin si non le cache*/}
           {test1.userId === post.user_id || test1.admin === 1 ? (
             <IconButton onClick={deletePost} id="deletePost">

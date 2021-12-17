@@ -18,7 +18,7 @@ export default function MakeComment(props) {
 
   const [comData, setComData] = useState([]);
 
-  // useEffect permet de récupérer la data et de l'afficher une seul fois avec les [].
+  // appel api pour récupérer les commentaires
   useEffect(() => {
     Axios.get(`http://localhost:3001/api/post/comment-post/${postId}`, {
       headers: { Authorization: `Bearer ${test1.token}` },
