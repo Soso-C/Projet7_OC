@@ -89,12 +89,19 @@ module.exports.deleteUser = async (req, res) => {
       [user.id],
       (err, result) => {
         if (err) {
-          return res.status(500).json({ error: "ID non trouvé" });
+          result = {
+            ...result,
+            comments: {
+              error: "ID non trouvé",
+            },
+          };
         } else {
-          console.log("test1");
-          return res.status(200).json({
-            message: "Les commentaires de l'user ont bien été supprimé !",
-          });
+          result = {
+            ...result,
+            comments: {
+              message: "Tous les commentaires son supprimée",
+            },
+          };
         }
       }
     );
@@ -103,22 +110,33 @@ module.exports.deleteUser = async (req, res) => {
 
     db.query("DELETE FROM posts WHERE user_id= ?", [user.id], (err, result) => {
       if (err) {
-        return res.status(500).json({ error: "ID non trouvé" });
+        result = {
+          ...result,
+          posts: {
+            error: "ID non trouvé",
+          },
+        };
       } else {
-        console.log("test2");
-        res
-          .status(200)
-          .json({ message: "Les posts de l'users ont bien été supprimé !" });
+        result = {
+          ...result,
+          posts: {
+            message: "Tous les commentaires ont étaient supprimé",
+          },
+        };
       }
     });
 
     // Last Step on delete enfin l'user
     db.query("DELETE FROM users WHERE id = ?;", [id], (err, result) => {
       if (err) {
-        return res.status(500).json({ error: "Pas authorisé" });
+        result = {
+          ...result,
+          comments: {
+            error: "ID non trouvé",
+          },
+        };
       } else {
-        res.status(200).json({ message: "L'user a bien été supprimé !" });
-        res.redirect("/sign-up");
+        res.status(200).json(result);
       }
     });
   } else {

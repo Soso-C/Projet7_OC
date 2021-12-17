@@ -159,7 +159,8 @@ module.exports.deletePost = async (req, res) => {
               [id],
               (err, result) => {
                 if (err) {
-                  // on return des object perso qui était des res.status(200) avant mais cela faisais une  HTTP headers Error donc il faut retourné ca pour pas crash car c'est limité a un seul res.status(200) par function si j'ai bien compris.
+                  /* on return des object perso qui était des "res.status(200)"" avant mais cela faisais une HTTP headers Error donc il faut retourné ca 
+                  pour pas crash car c'est limité a un seul res.send par function si j'ai bien compris mais cela return un code 200 meme si il y aura erreur ou pas (a revoir).*/
                   result = {
                     ...result,
                     comments: {
