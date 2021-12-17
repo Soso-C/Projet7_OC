@@ -1,5 +1,6 @@
 const db = require("../config/db");
 const jwt = require("jsonwebtoken");
+const fs = require("fs");
 
 /***********************************************************************************  VERIFYUID  ***************************************************************************************/
 
@@ -84,7 +85,6 @@ module.exports.deleteUser = async (req, res) => {
   // Si notre tokenid = params id alors on peut faire la request pour supprimer l'utilisateur.
   if (user.id == id) {
     //Step 1 on supprime tous les commentaires lié a l'id de l'user
-
     db.query(
       "DELETE FROM comments WHERE user_id = ?",
       [user.id],
@@ -107,7 +107,53 @@ module.exports.deleteUser = async (req, res) => {
       }
     );
 
-    //Step 2 on delete tous les post lié a l'id de l'user
+    // Step 2 on recupere les url des images dans un array et supprimes toutes les images de notre back
+
+    db.query(
+      "SELECT img_url FROM posts WHERE user_id = ?;",
+      [id],
+      (err, imgPost) => {
+        if (err) {
+          imgPost = {
+            ...imgPost,
+            img: {
+              error: "ID non trouvé",
+            },
+          };
+        } else {
+          // Recupere nos tableau d'objet img url + string
+          const arrayImg = imgPost;
+
+          const testArray = [];
+
+          console.log(arrayImg);
+
+          // on parcour notre array et on recupere seulement les strings (img_url) qu'on push dans notre array vide qui sera un tableau de string de img url
+          arrayImg.forEach(function (item, index) {
+            console.log(item.img_url, index);
+            testArray.push(item.img_url);
+          });
+
+          console.log(testArray);
+
+          imgPost = {
+            ...imgPost,
+            img: {
+              message: "Img trouvée",
+            },
+          };
+
+          // on itere sur notre array de string (img_url) qui est le path pour delete nos img et on les delete une par une avec fs.unlink
+          testArray.map((img) =>
+            fs.unlink(img, (err) => {
+              if (err) throw err;
+            })
+          );
+        }
+      }
+    );
+
+    // Step 3 on delete tous les post lié a l'id de l'user
 
     db.query("DELETE FROM posts WHERE user_id= ?", [user.id], (err, result) => {
       if (err) {
@@ -128,6 +174,7 @@ module.exports.deleteUser = async (req, res) => {
     });
 
     // Last Step on delete enfin l'user
+
     db.query("DELETE FROM users WHERE id = ?;", [id], (err, result) => {
       if (err) {
         result = {
@@ -171,4 +218,3 @@ module.exports.getUserProfile = async (req, res) => {
     res.status(500).json({ message: "Non Authorisé !" });
   }
 };
-
