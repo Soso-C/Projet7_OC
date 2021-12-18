@@ -17,11 +17,11 @@ const Register = () => {
   }
 
   const clearErr = () => {
-    fullnameErr.innerHTML = ""
-    passwordErr.innerHTML = ""
-    emailErr.innerHTML = ""
-    cPwdErr.innerHTML = ""
-  }
+    fullnameErr.innerHTML = "";
+    passwordErr.innerHTML = "";
+    emailErr.innerHTML = "";
+    cPwdErr.innerHTML = "";
+  };
   // Target la balise sous l'input ou on injectera un message d'erreur si erreur.
   let fullnameErr = document.querySelector(".error-fullname");
   let emailErr = document.querySelector(".error-email");
@@ -49,41 +49,43 @@ const Register = () => {
     };
     // console.log(formData)
 
-    const validate = await registerSchema.validate(formData)
-    .catch((err) => {
-      if (err.errors[0].fullname){
-        clearErr()
-        displayError(fullnameErr, err.errors[0].fullname)
-      }else if (err.errors[0].password) {
-        clearErr()
-        displayError(passwordErr, err.errors[0].password)
-      }else if (err.errors[0].email) {
-        clearErr()
-        displayError(emailErr, err.errors[0].email)
+    const validate = await registerSchema.validate(formData).catch((err) => {
+      if (err.errors[0].fullname) {
+        clearErr();
+        displayError(fullnameErr, err.errors[0].fullname);
+      } else if (err.errors[0].password) {
+        clearErr();
+        displayError(passwordErr, err.errors[0].password);
+      } else if (err.errors[0].email) {
+        clearErr();
+        displayError(emailErr, err.errors[0].email);
+      } else if (err.errors[0].cpassword) {
+        clearErr();
+        displayError(cPwdErr, err.errors[0].cpassword);
+      } else {
+        clearErr();
       }
-      else if (err.errors[0].cpassword) {
-        clearErr()
-        displayError(cPwdErr, err.errors[0].cpassword)
-      } 
-      else {
-        clearErr()
-      }
-      console.log(err.errors)
+      console.log(err.errors);
     });
-    // const isValid = await registerSchema.isValid(formData).then((valid) => {
-    //   console.log(valid)
-    // });
 
-    // Axios.post("http://localhost:3001/api/user/signup", {
-    //     
-    //   })
-    //     .then((res) => {
-    //       window.location.href = "/sign-in";
-    //       alert("Compte créé avec succes veuillez vous connecter !");
-    //     })
-    //     .catch();
 
-  };
+
+    const isValid = await registerSchema.isValid(formData) 
+      .then((valid) => {
+        console.log(valid)
+        Axios.post("http://localhost:3001/api/user/signup", {
+          formData
+        })
+        .then((res) => {
+          window.location.href = "/sign-in";
+          alert("Compte créé avec succes veuillez vous connecter !");
+        })
+      });
+    }
+
+    
+
+  ;
 
   return (
     <div className="login">

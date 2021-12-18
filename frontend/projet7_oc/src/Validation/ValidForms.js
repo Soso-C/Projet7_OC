@@ -11,12 +11,10 @@ export const registerSchema = yup.object().shape({
       {
         message: {
           password:
-            "Une majuscule, un caractere spécial et un nombre est requis",
+            "8 caracteres, une majuscule, un caractere spécial et un nombre est requis",
         },
       }
-    )
-    .min(8, { password: "8 caractere min" })
-    .max(15, { password: "15 caracteres max" }),
+    ),
   confirmPassword: yup
     .string()
     .required({ cpassword: "Mot de passe requis" })
