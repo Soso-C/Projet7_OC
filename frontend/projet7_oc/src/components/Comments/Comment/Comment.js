@@ -32,7 +32,7 @@ export default function Comment(props) {
   };
 
   return (
-    // si user = com uId alors on met le BG en blue si non de base
+    // si user = com uId alors on met le BG en blue pour montrer ses messages.
     <div
       className={
         test1.userId === com.user_id

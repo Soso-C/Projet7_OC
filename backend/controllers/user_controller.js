@@ -120,7 +120,8 @@ module.exports.deleteUser = async (req, res) => {
               error: "ID non trouvé",
             },
           };
-        } else {
+        } else {// Si response alors on recupere nos img_url dans un array qu'on parcour avec fs_unlink pour delete chaque post_img de l'user de notre backend
+
           // Recupere nos tableau d'objet img url + string
           const arrayImg = imgPost;
 
@@ -128,7 +129,7 @@ module.exports.deleteUser = async (req, res) => {
 
           console.log(arrayImg);
 
-          // on parcour notre array et on recupere seulement les strings (img_url) qu'on push dans notre array vide qui sera un tableau de string de img url
+          // on parcour notre array et on recupere seulement les strings (img_url) qu'on push dans notre array vide qui sera un array de string de img url
           arrayImg.forEach(function (item, index) {
             console.log(item.img_url, index);
             testArray.push(item.img_url);
