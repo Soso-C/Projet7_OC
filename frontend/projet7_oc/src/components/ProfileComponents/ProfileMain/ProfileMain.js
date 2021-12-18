@@ -68,15 +68,17 @@ export default function ProfileMain(props) {
   const deleteUser = () => {
     Axios.delete(`http://localhost:3001/api/user/${test1.userId}`, {
       headers: { Authorization: `Bearer ${test1.token}` },
-    }).then((res) => {
-      alert(
-        "Publication, commentaire et compte supprimée avec succes vous devez créer un nouveau compte pour vous connecter!"
-      );
-      window.location.href = "/sign-up";
-      localStorage.removeItem("token");
-    }).catch((err) => {
-      alert(err.response.data.error)
     })
+      .then((res) => {
+        alert(
+          "Publication, commentaire et compte supprimée avec succes vous devez créer un nouveau compte pour vous connecter!"
+        );
+        window.location.href = "/sign-up";
+        localStorage.removeItem("token");
+      })
+      .catch((err) => {
+        alert(err.response.data.error);
+      });
   };
 
   /****************************************************************************** Modal Confirmation Delete  ***************************************************************************/
@@ -98,7 +100,6 @@ export default function ProfileMain(props) {
   const handleClose = () => setOpen(false);
 
   /*************************************************************************************************************************************************************************************/
-
 
   // Si isEdit est true alors on affiche le EditMode si non le profil basique
   return isEdit ? (
@@ -250,10 +251,8 @@ export default function ProfileMain(props) {
         </div>
       </div>
     </>
-  ) 
-  : 
-  /*******************************************************************  Fin du Edit Mode ici ***************************************************************************************/
-  (
+  ) : (
+    /*******************************************************************  Fin du Edit Mode ici ***************************************************************************************/
     <div className="Profile">
       <div className="profileContainer">
         <div className="pictureAndName">
@@ -277,14 +276,15 @@ export default function ProfileMain(props) {
           <div className="bioContainer">
             <span className="bioTitle">Biographie :</span>
             <p className="userBio">{user.bio}</p>
-            <span id="createdAt">Membre depuis : {dateParser(user.user_created)}</span>
+            <span id="createdAt">
+              Membre depuis : {dateParser(user.user_created)}
+            </span>
           </div>
-          
           <div className="infoContainer">
             <span className="infoTitle">Information :</span>
             <p>Métier : {user.metier}</p>
             <p>Pays : {user.country}</p>
-            <p>Age : {user.age} ans</p>
+            <p>Age : {user.age != null ? `${user.age}  ans` : ""}</p>
             <div className="socialWrapper">
               <p>GitHub :</p>
               <IconButton

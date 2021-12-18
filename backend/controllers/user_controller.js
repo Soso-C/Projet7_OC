@@ -142,8 +142,8 @@ module.exports.deleteUser = async (req, res) => {
               message: "Img trouvée",
             },
           };
-
-          // on itere sur notre array de string (img_url) qui est le path pour delete nos img et on les delete une par une avec fs.unlink
+          
+          // on itere sur notre array de string (img_url) qui est donc le path pour delete nos img et on les delete une par une avec fs.unlink
           testArray.map((img) =>
             fs.unlink(img, (err) => {
               if (err) throw err;
