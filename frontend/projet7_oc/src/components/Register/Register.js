@@ -1,19 +1,27 @@
 import "./Register.css";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { registerSchema } from "../../Validation/ValidForms";
+import * as yup from "yup";
 import Axios from "axios";
 
 const Register = () => {
   const [fullname, setFullname] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   // Affiche un message d'erreur dans la div sous l'input en question
   function displayError(tag, message) {
     tag.innerHTML = message;
   }
 
+  const clearErr = () => {
+    fullnameErr.innerHTML = ""
+    passwordErr.innerHTML = ""
+    emailErr.innerHTML = ""
+    cPwdErr.innerHTML = ""
+  }
   // Target la balise sous l'input ou on injectera un message d'erreur si erreur.
   let fullnameErr = document.querySelector(".error-fullname");
   let emailErr = document.querySelector(".error-email");
@@ -30,20 +38,52 @@ const Register = () => {
 
   // Post du form a notre base de données si il y a pas d'erreur.
 
-  function sendForm(e) {
+  const sendForm = async (e) => {
     e.preventDefault();
 
-    Axios.post("http://localhost:3001/api/user/signup", {
+    let formData = {
+      fullname: fullname,
       email: email,
       password: password,
-      fullname: fullname,
-    })
-      .then((res) => {
-        window.location.href = "/sign-in";
-        alert("Compte créé avec succes veuillez vous connecter !");
-      })
-      .catch();
-  }
+      confirmPassword: confirmPassword,
+    };
+    // console.log(formData)
+
+    const validate = await registerSchema.validate(formData)
+    .catch((err) => {
+      if (err.errors[0].fullname){
+        clearErr()
+        displayError(fullnameErr, err.errors[0].fullname)
+      }else if (err.errors[0].password) {
+        clearErr()
+        displayError(passwordErr, err.errors[0].password)
+      }else if (err.errors[0].email) {
+        clearErr()
+        displayError(emailErr, err.errors[0].email)
+      }
+      else if (err.errors[0].cpassword) {
+        clearErr()
+        displayError(cPwdErr, err.errors[0].cpassword)
+      } 
+      else {
+        clearErr()
+      }
+      console.log(err.errors)
+    });
+    // const isValid = await registerSchema.isValid(formData).then((valid) => {
+    //   console.log(valid)
+    // });
+
+    // Axios.post("http://localhost:3001/api/user/signup", {
+    //     
+    //   })
+    //     .then((res) => {
+    //       window.location.href = "/sign-in";
+    //       alert("Compte créé avec succes veuillez vous connecter !");
+    //     })
+    //     .catch();
+
+  };
 
   return (
     <div className="login">
@@ -66,7 +106,6 @@ const Register = () => {
               onChange={(e) => {
                 setFullname(e.target.value);
               }}
-              required
             />
             <div className="error-fullname"></div>
             <input
@@ -78,7 +117,6 @@ const Register = () => {
               onChange={(e) => {
                 setEmail(e.target.value);
               }}
-              required
             />
             <div className="error-email"></div>
             <input
@@ -90,7 +128,6 @@ const Register = () => {
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
-              required
             />
             <div className="error-password"></div>
             <input
@@ -98,11 +135,10 @@ const Register = () => {
               className="inputLogin"
               type="password"
               id="cpassword"
-              value={passwordConfirm}
+              value={confirmPassword}
               onChange={(e) => {
-                setPasswordConfirm(e.target.value);
+                setConfirmPassword(e.target.value);
               }}
-              required
             />
             <div className="error-confirmPwd"></div>
             <button className="signUpButton" type="submit">

@@ -82,7 +82,7 @@
     font-size: 1.2em;
 }
 
-.error-name, .error-email, .error-password, .error-lastname {
+.error-fullname, .error-email, .error-password, .error-confirmPwd {
     color: red;
     text-align: left;
     padding-left: 0.2em;

@@ -5,24 +5,40 @@ import * as yup from "yup";
 export const registerSchema = yup.object().shape({
   password: yup
     .string()
-    .required("Entrez un mot de passe")
+    .required({ password: "Un mot de passe est requis" })
     .matches(
-      /^.*(?=.{8,40})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
-      "Password au minimum 8 caracteres et 40 caractere max, une majuscule, un nombre et un caractere spécial"
-    ),
+      /^.*(?=.{8,30})((?=.*[!@#$%^&*()\-_=+{};:,<.>]){1})(?=.*\d)((?=.*[a-z]){1})((?=.*[A-Z]){1}).*$/,
+      {
+        message: {
+          password:
+            "Une majuscule, un caractere spécial et un nombre est requis",
+        },
+      }
+    )
+    .min(8, { password: "8 caractere min" })
+    .max(15, { password: "15 caracteres max" }),
   confirmPassword: yup
     .string()
-    .required("Confirmez votre mot de passe")
-    .oneOf([yup.ref("password"), null], "Les mot de passe sont pas identique"),
+    .required({ cpassword: "Mot de passe requis" })
+    .oneOf([yup.ref("password"), null], {
+      cpassword: "Mot de passe pas identique",
+    }),
   email: yup
     .string()
     .email()
-    .required("Un email est requis"),
+    .required({ email: "Un email est requis" })
+    .matches(/^[a-zA-Z0-9.-]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$/, {
+      email: "Veuillez entrer un email valide",
+    }),
   fullname: yup
-  .string()
-  .required("Entrez votre nom et prénom")
-  .matches(/^[a-zA-Z]{3,}(?: [a-zA-Z]+){0,2}$/)
-  .max(35,"Maxium 35 caracteres")
+    .string()
+    .required({ fullname: "Entrez un fullname" })
+    .matches(/^[a-zA-Z]{3,}(?: [a-zA-Z]+){0,2}$/, {
+      fullname:
+        "Votre nom prénom doivent contenir un espace et pas de caracteres spéciaux ex: Bill Gates",
+    })
+    .min(6, { fullname: "6 caracteres minimum sont requis" })
+    .max(25, { fullname: "25 caracteres maximum" }),
 });
 
 // Validateur d'input pour la connexion de l'user.

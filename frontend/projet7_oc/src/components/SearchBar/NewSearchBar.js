@@ -17,8 +17,8 @@ export default function NewSearchBar() {
   };
 
   return (
-    <div>
-      <div className="navContainer">
+    <>
+      <nav className="navContainer">
         <div className="logo">
           <h2>Groupomania</h2>
         </div>
@@ -42,7 +42,7 @@ export default function NewSearchBar() {
             </IconButton>
           </Link>
         </div>
-      </div>
-    </div>
+      </nav>
+    </>
   );
 }
