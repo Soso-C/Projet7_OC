@@ -3,6 +3,7 @@ import "./ProfileMain.css";
 import { useState } from "react";
 import { dateParser } from "../../../utils/Utils";
 import Axios from "axios";
+import { editProfilSchema } from "../../../Validation/ValidForms";
 
 // Material UI
 import GitHubIcon from "@mui/icons-material/GitHub";
@@ -21,6 +22,8 @@ export default function ProfileMain(props) {
   const test1 = JSON.parse(localStorage.getItem("token"));
 
   const user = props.user;
+
+  // Si true alors on passe en Edit mode
   const [isEdit, setIsEdit] = useState(false);
 
   // DB infos useState (marche pas je sais pas pourquoi le state prend pas en compte ma data)
@@ -28,7 +31,7 @@ export default function ProfileMain(props) {
   const [bio, setBio] = useState("");
   const [work, setWork] = useState("");
   const [country, setCountry] = useState("");
-  const [age, setAge] = useState("");
+  const [age, setAge] = useState(18);
   const [urlGit, setUrlGit] = useState("");
 
   // Passe a false la partie edit
@@ -41,26 +44,45 @@ export default function ProfileMain(props) {
     setIsEdit(true);
   };
 
-  // Envoie la data a la DB pour upload le profile
-  const uploadProfil = () => {
-    Axios.put(
-      `http://localhost:3001/api/user/${test1.userId}`,
-      {
-        fullname: username,
-        bio: bio,
-        country: country,
-        metier: work,
-        age: age,
-        github: urlGit,
-      },
-      {
-        headers: { Authorization: `Bearer ${test1.token}` },
-      }
-    ).then((res) => {
-      alert("Profil mis a jour !");
-      closeEdit();
-      window.location.href = "/profil/mon-profil";
+  // Envoie la data a la DB pour upload le profil
+  const uploadProfil = async () => {
+
+    // la data qu'on va envoyé a notre DB
+    let formData = {
+      fullname: username,
+      bio: bio,
+      country: country,
+      metier: work,
+      age: age,
+      github: urlGit,
+    };
+
+    // return les erreurs en alert
+    const validate = await editProfilSchema.validate(formData).catch((err) => {
+      alert(Object.values(err.errors[0]));
     });
+
+    // si schema est valid sans erreur alors on envoie le form et on update le profile
+    const isValid = await editProfilSchema
+      .isValid(formData)
+      .then((valid) => {
+        if (valid) {
+          Axios.put(
+            `http://localhost:3001/api/user/${test1.userId}`,
+            formData,
+            {
+              headers: { Authorization: `Bearer ${test1.token}` },
+            }
+          ).then((res) => {
+            alert("Profil mis a jour !");
+            closeEdit();
+            window.location.href = "/profil/mon-profil";
+          });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   // Delete Profile func
@@ -166,6 +188,7 @@ export default function ProfileMain(props) {
                     setAge(e.target.value);
                   }}
                 />
+                <span className="testErr"></span>
               </div>
               <div className="titleAndInputProfil">
                 <p>Git :</p>

@@ -40,6 +40,7 @@ module.exports.createPost = async (req, res) => {
       .status(500)
       .json({ error: "Le post doit faire moins 100 caracteres" });
   }
+  // si le file est vide alors on return une error.
   if (req.file === null) {
     return res.status(500).json({ error: "Le post doit contenir une image" });
   }
@@ -308,7 +309,7 @@ exports.getAllComments = async (req, res) => {
   const pId = req.params.id;
 
   db.query(
-    "SELECT * FROM comments WHERE post_id = ? ORDER BY createdAt DESC;",
+    "SELECT * FROM comments WHERE post_id = ?;",
     [pId],
     (err, comment) => {
       if (err) {
@@ -384,7 +385,6 @@ exports.countAllComments = async (req, res) => {
         res.status(500).json({ err });
         console.log(err);
       } else {
-        console.log(count);
         res.status(200).json(count);
       }
     }

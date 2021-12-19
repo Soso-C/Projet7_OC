@@ -27,8 +27,7 @@ export const registerSchema = yup.object().shape({
     .required({ email: "Un email est requis" })
     .matches(/^[a-zA-Z0-9.-]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$/, {
       message: {
-        email:
-        "Entrez un email valide !",
+        email: "Entrez un email valide !",
       },
     }),
   fullname: yup
@@ -37,7 +36,7 @@ export const registerSchema = yup.object().shape({
     .matches(/^[a-zA-Z]{2,}(?: [a-zA-Z]+){0,2}$/, {
       message: {
         fullname:
-        "Doit contenir un espace et pas de caracteres spéciaux ex: Bill Gates",
+          "Doit contenir un espace et pas de caracteres spéciaux ex: Bill Gates",
       },
     })
     .min(6, { fullname: "6 caracteres minimum sont requis" })
@@ -58,29 +57,50 @@ export const loginSchema = yup.object().shape({
         },
       }
     ),
-    email: yup
+  email: yup
     .string()
     .email({ email: "Entrez un email valide" })
     .required({ email: "Un email est requis" })
     .matches(/^[a-zA-Z0-9.-]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$/, {
       message: {
-        email:
-        "Entrez un email valide !",
+        email: "Entrez un email valide !",
       },
     }),
 });
 
 // Validateur d'input pour la création d'un post.
-export const postSchema = yup.object().shape({
-
-});
+export const postSchema = yup.object().shape({});
 
 // Validateur d'input pour la création d'un commentaire.
-export const comSchema = yup.object().shape({
-  
-});
+export const comSchema = yup.object().shape({});
 
 // Validateur d'input pour lors de la modification du compte.
 export const editProfilSchema = yup.object().shape({
-
+  fullname: yup
+    .string()
+    .required({ fullname: "Entrez votre nom et prénom" })
+    .matches(/^[a-zA-Z]{2,}(?: [a-zA-Z]+){0,2}$/, {
+      message: {
+        fullname:
+          "Doit contenir un espace et pas de caracteres spéciaux ex: Bill Gates",
+      },
+    })
+    .min(6, { fullname: "6 caracteres minimum sont requis" })
+    .max(25, { fullname: "25 caracteres maximum" }),
+  github: yup
+    .string()
+    .max(250, 'max 250')
+    // .matches(
+    //   /^((http|https):\/\/)?(www.)?(?!.*(http|https|www.))[a-zA-Z0-9_-]+(\.[a-zA-Z]+)+(\/)?.([\w\?[a-zA-Z-_%\/@?]+)*([^\/\w\?[a-zA-Z0-9_-]+=\w+(&[a-zA-Z0-9_]+=\w+)*)?$/,
+    //   "Entrez un url valide"
+    // )
+    .notRequired(),
+  bio: yup.string().max(250, "250 caracteres maximum").notRequired(),
+  age: yup
+  .number()
+  .min(18, { age: "minimum 18 ans" })
+  .max(100, { age: "maximum 100 ans"})
+  .notRequired(),
+  metier: yup.string().max(50, "50 caracteres max").notRequired(),
+  country: yup.string().max(50, "50 caracteres max").notRequired(),
 });
