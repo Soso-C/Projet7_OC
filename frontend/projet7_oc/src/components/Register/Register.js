@@ -40,6 +40,7 @@ const Register = () => {
     navigate("/sign-in");
   }
 
+
   // Post du form a notre base de données si il y a pas d'erreur.
 
   const sendForm = async (e) => {
@@ -79,7 +80,7 @@ const Register = () => {
         if (valid) {
           Axios.post("http://localhost:3001/api/user/signup", formData)
             .then((res) => {
-              window.location.href = "/sign-in";
+              navigate("/sign-in");
               alert("Compte créé avec succes veuillez vous connecter !");
             })
             .catch((err) => {

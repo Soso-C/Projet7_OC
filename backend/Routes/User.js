@@ -3,11 +3,15 @@ const router = express.Router();
 const authController = require("../controllers/auth_controller");
 const userController = require("../controllers/user_controller");
 
-// Auth Middleware
+// Yup Schema
+const userSchema = require("../validFormBack/UserValidation")
+
+// Middleware
 const auth = require('../middleware/auth_middleware');
+const valid = require("../middleware/validation_middleware")
 
 // Auth
-router.post("/signup", authController.signUp);
+router.post("/signup", valid(userSchema), authController.signUp);
 router.post("/login", authController.signIn);
 
 // userDB
