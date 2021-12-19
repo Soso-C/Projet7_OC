@@ -69,7 +69,12 @@ export const loginSchema = yup.object().shape({
 });
 
 // Validateur d'input pour la création d'un post.
-export const postSchema = yup.object().shape({});
+export const postSchema = yup.object().shape({
+  // title: yup
+  // .string()
+  // .max(100, { title: "100 caractères maximum" })
+  // inutile pour seulement 1 validation
+});
 
 // Validateur d'input pour la création d'un commentaire.
 export const comSchema = yup.object().shape({});
@@ -95,12 +100,12 @@ export const editProfilSchema = yup.object().shape({
     //   "Entrez un url valide"
     // )
     .notRequired(),
-  bio: yup.string().max(250, "250 caracteres maximum").notRequired(),
+  bio: yup.string().max(250, { bio: "250 caracteres max" }).notRequired(),
   age: yup
   .number()
   .min(18, { age: "minimum 18 ans" })
   .max(100, { age: "maximum 100 ans"})
   .notRequired(),
-  metier: yup.string().max(50, "50 caracteres max").notRequired(),
-  country: yup.string().max(50, "50 caracteres max").notRequired(),
+  metier: yup.string().max(50, { metier: "50 caracteres max" }).notRequired(),
+  country: yup.string().max(50, { country: "50 caracteres max" }).notRequired(),
 });

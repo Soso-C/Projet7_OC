@@ -7,11 +7,11 @@ const userController = require("../controllers/user_controller");
 const userSchema = require("../validFormBack/UserValidation")
 const profilSchema = require("../validFormBack/ProfilValidation")
 
-// Middleware Auth
-const auth = require('../middleware/auth_middleware');
-
 // Middleware SchemaYup
 const valid = require("../middleware/validation_middleware")
+
+// Middleware Auth
+const auth = require('../middleware/auth_middleware');
 
 // Auth
 router.post("/signup", valid(userSchema), authController.signUp);

@@ -28,17 +28,11 @@ module.exports.createPost = async (req, res) => {
 
   /*************************************************************************** Start Error Input Controller ****************************************************************************/
 
-  // si notre post_title n'a rien ou n'a pas min 1 caract alors on return une erreur
-  if (req.body.title === null || req.body.title.length < 1) {
+  // si le title > 50 alors on return une error
+  if (req.body.title.length > 70) {
     return res
       .status(500)
-      .json({ error: "Le post doit faire au moins 1 caractere" });
-  }
-  // si le title > 100 alors on return une error
-  if (req.body.title.length > 100) {
-    return res
-      .status(500)
-      .json({ error: "Le post doit faire moins 100 caracteres" });
+      .json({ error: "Le post doit faire moins 50 caracteres" });
   }
   // si le file est vide alors on return une error.
   if (req.file === null) {

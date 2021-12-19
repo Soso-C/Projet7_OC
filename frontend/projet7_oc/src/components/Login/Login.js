@@ -21,7 +21,7 @@ const Login = () => {
     document.querySelector(".error-password").innerHTML = err;
   };
 
-  // Func qui va controler si notre email / pwd existe et valide dans notre base de données si oui alors on sera log et on recup notre token.
+  // Appel a notre API, si notre PWD/Email sont valide alors on sera log et on recup notre token.
 
   function loginData(e) {
     e.preventDefault();

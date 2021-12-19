@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import "./MakePost.css";
 import Axios from "axios";
+import { postSchema } from "../../../Validation/ValidForms";
 
 // Material ui
 import { red } from "@mui/material/colors";
@@ -26,7 +27,7 @@ export default function MakePost() {
   const nameFile = `post${test1.userId}`;
 
   // Envoyer la data a la DB
-  const sendData = () => {
+  const sendData = async () => {
     const data = new FormData();
 
     data.append("file", file);
@@ -34,7 +35,9 @@ export default function MakePost() {
     data.append("title", title);
     data.append("userId", test1.userId);
 
-    Axios.post("http://localhost:3001/api/post/", data, {
+    // si title < 70 alors on peut faire la request pour créer notre post
+    if (title.length < 70){
+      Axios.post("http://localhost:3001/api/post/", data, {
       headers: { Authorization: `Bearer ${test1.token}` },
     })
       .then((res) => {
@@ -44,6 +47,11 @@ export default function MakePost() {
       .catch((err) => {
         alert(err.response.data.error);
       });
+
+    }else (
+      alert("70 caractères maximum")
+    )
+    
   };
 
   return (

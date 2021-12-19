@@ -5,7 +5,6 @@ import { registerSchema } from "../../Validation/ValidForms";
 import Axios from "axios";
 
 const Register = () => {
-  
   const [fullname, setFullname] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
@@ -13,12 +12,11 @@ const Register = () => {
 
   // usenavigate pour pouvoir de passé de sign-in a sign-up
   const navigate = useNavigate();
- 
+
   // Navigate to sign-in
   function handleClick() {
     navigate("/sign-in");
   }
-
 
   /**************************************************************************** Gestion d'erreur inputs **************************************************************************/
 
@@ -41,14 +39,11 @@ const Register = () => {
   let passwordErr = document.querySelector(".error-password");
   let cPwdErr = document.querySelector(".error-confirmPwd");
 
- /**********************************************************************************************************************************************************************************/ 
-
-
+  /**********************************************************************************************************************************************************************************/
 
   // Post du form a notre base de données si il y a pas d'erreur.
 
   const sendForm = async (e) => {
-
     e.preventDefault();
 
     let formData = {

@@ -46,7 +46,6 @@ export default function ProfileMain(props) {
 
   // Envoie la data a la DB pour upload le profil
   const uploadProfil = async () => {
-
     // la data qu'on va envoyé a notre DB
     let formData = {
       fullname: username,
