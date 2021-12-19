@@ -18,11 +18,12 @@ const Register = () => {
     tag.innerHTML = message;
   }
 
+  // Clear les erreurs
   const clearErr = () => {
-    fullnameErr.innerHTML = null;
-    passwordErr.innerHTML = null;
-    emailErr.innerHTML = null;
-    cPwdErr.innerHTML = null;
+    fullnameErr.innerHTML = "";
+    passwordErr.innerHTML = "";
+    emailErr.innerHTML = "";
+    cPwdErr.innerHTML = "";
   };
 
   // Target la balise sous l'input ou on injectera un message d'erreur si erreur.

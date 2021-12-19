@@ -74,7 +74,7 @@ export default function MakePost() {
         <div className="wrapper-right">
           <label htmlFor="icon-button-file">
             <Input
-              accept=".jpg, .jpeg, .png"
+              accept=".jpg, .jpeg, .png, .gif"
               id="icon-button-file"
               type="file"
               onChange={(e) => {
