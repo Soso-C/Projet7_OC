@@ -5,6 +5,13 @@ const multer = require("multer");
 const upload = multer();
 
 
+// Yup Schema
+const profilSchema = require("../validFormBack/ProfilValidation")
+
+// Middleware SchemaYup
+const valid = require("../middleware/validation_middleware")
+
+
 // Middleware Auth
 const auth = require('../middleware/auth_middleware');
 
@@ -13,7 +20,7 @@ const auth = require('../middleware/auth_middleware');
 router.post("/", auth, upload.single("file"), postController.createPost);
 router.get("/", auth, postController.getAllPosts);
 router.get("/:id", auth, postController.getOnePost);
-router.put("/:id", auth, postController.modifyPost);
+router.put("/:id", auth, valid(profilSchema), postController.modifyPost);
 router.delete("/:id", auth, postController.deletePost);
 
 // Comments
