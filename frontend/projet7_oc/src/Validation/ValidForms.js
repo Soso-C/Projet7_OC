@@ -11,7 +11,7 @@ export const registerSchema = yup.object().shape({
       {
         message: {
           password:
-            "8 caracteres, une majuscule, un caractere spécial et un nombre est requis",
+            "8 - 30 caracteres, une majuscule, un caractere spécial et un nombre est requis",
         },
       }
     ),
@@ -26,14 +26,19 @@ export const registerSchema = yup.object().shape({
     .email()
     .required({ email: "Un email est requis" })
     .matches(/^[a-zA-Z0-9.-]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$/, {
-      email: "Veuillez entrer un email valide",
+      message: {
+        email:
+        "Entrez un email valide !",
+      },
     }),
   fullname: yup
     .string()
-    .required({ fullname: "Entrez un fullname" })
-    .matches(/^[a-zA-Z]{3,}(?: [a-zA-Z]+){0,2}$/, {
-      fullname:
-        "Votre nom prénom doivent contenir un espace et pas de caracteres spéciaux ex: Bill Gates",
+    .required({ fullname: "Entrez votre nom et prénom" })
+    .matches(/^[a-zA-Z]{2,}(?: [a-zA-Z]+){0,2}$/, {
+      message: {
+        fullname:
+        "Doit contenir un espace et pas de caracteres spéciaux ex: Bill Gates",
+      },
     })
     .min(6, { fullname: "6 caracteres minimum sont requis" })
     .max(25, { fullname: "25 caracteres maximum" }),

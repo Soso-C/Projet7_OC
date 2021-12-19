@@ -11,17 +11,20 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const [isSubmit, setIsSubmit] = useState(false);
+
   // Affiche un message d'erreur dans la div sous l'input en question
   function displayError(tag, message) {
     tag.innerHTML = message;
   }
 
   const clearErr = () => {
-    fullnameErr.innerHTML = "";
-    passwordErr.innerHTML = "";
-    emailErr.innerHTML = "";
-    cPwdErr.innerHTML = "";
+    fullnameErr.innerHTML = null;
+    passwordErr.innerHTML = null;
+    emailErr.innerHTML = null;
+    cPwdErr.innerHTML = null;
   };
+
   // Target la balise sous l'input ou on injectera un message d'erreur si erreur.
   let fullnameErr = document.querySelector(".error-fullname");
   let emailErr = document.querySelector(".error-email");
@@ -42,13 +45,13 @@ const Register = () => {
     e.preventDefault();
 
     let formData = {
-      fullname: fullname,
-      email: email,
-      password: password,
-      confirmPassword: confirmPassword,
+      fullname,
+      email,
+      password,
+      confirmPassword,
     };
-    // console.log(formData)
 
+    // Retourne les erreurs des inputs sous l'input en question
     const validate = await registerSchema.validate(formData).catch((err) => {
       if (err.errors[0].fullname) {
         clearErr();
@@ -68,24 +71,25 @@ const Register = () => {
       console.log(err.errors);
     });
 
-
-
-    const isValid = await registerSchema.isValid(formData) 
+    // Si mes inputs ont aucune erreurs et que isValid est true alors on fais une request pour créer l'user
+    const isValid = await registerSchema
+      .isValid(formData)
       .then((valid) => {
-        console.log(valid)
-        Axios.post("http://localhost:3001/api/user/signup", {
-          formData
-        })
-        .then((res) => {
-          window.location.href = "/sign-in";
-          alert("Compte créé avec succes veuillez vous connecter !");
-        })
+        if (valid) {
+          Axios.post("http://localhost:3001/api/user/signup", formData)
+            .then((res) => {
+              window.location.href = "/sign-in";
+              alert("Compte créé avec succes veuillez vous connecter !");
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+      })
+      .catch((err) => {
+        console.log(err);
       });
-    }
-
-    
-
-  ;
+  };
 
   return (
     <div className="login">
@@ -98,7 +102,7 @@ const Register = () => {
           </span>
         </div>
         <div className="loginBottom">
-          <form action="" className="registerBox" onSubmit={sendForm}>
+          <form className="registerBox" onSubmit={sendForm}>
             <input
               placeholder="Nom Prénom"
               className="inputLogin"
