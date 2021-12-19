@@ -6,15 +6,17 @@ const userController = require("../controllers/user_controller");
 // Yup Schema
 const userSchema = require("../validFormBack/UserValidation")
 
-// Middleware
+// Middleware Auth
 const auth = require('../middleware/auth_middleware');
+
+// Middleware SchemaYup
 const valid = require("../middleware/validation_middleware")
 
 // Auth
 router.post("/signup", valid(userSchema), authController.signUp);
 router.post("/login", authController.signIn);
 
-// userDB
+// Get userDB
 router.get("/", auth, userController.getAllUsers);
 router.get("/:id", auth, userController.getOneUser);
 

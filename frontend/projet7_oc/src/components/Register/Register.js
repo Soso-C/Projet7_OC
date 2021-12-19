@@ -2,7 +2,6 @@ import "./Register.css";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { registerSchema } from "../../Validation/ValidForms";
-import * as yup from "yup";
 import Axios from "axios";
 
 const Register = () => {
@@ -11,7 +10,8 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  const [isSubmit, setIsSubmit] = useState(false);
+
+  /**************************************************************************** Gestion d'erreur inputs **************************************************************************/
 
   // Affiche un message d'erreur dans la div sous l'input en question
   function displayError(tag, message) {
@@ -32,6 +32,8 @@ const Register = () => {
   let passwordErr = document.querySelector(".error-password");
   let cPwdErr = document.querySelector(".error-confirmPwd");
 
+ /**********************************************************************************************************************************************************************************/ 
+
   // usenavigate pour pouvoir de passé de sign-in a sign-up
   const navigate = useNavigate();
 
@@ -44,6 +46,7 @@ const Register = () => {
   // Post du form a notre base de données si il y a pas d'erreur.
 
   const sendForm = async (e) => {
+
     e.preventDefault();
 
     let formData = {
@@ -53,7 +56,7 @@ const Register = () => {
       confirmPassword,
     };
 
-    // Retourne les erreurs des inputs sous l'input en question
+    // Retourne les erreurs de notre schema yup et les affiche sous l'input en question
     const validate = await registerSchema.validate(formData).catch((err) => {
       if (err.errors[0].fullname) {
         clearErr();
@@ -73,7 +76,7 @@ const Register = () => {
       console.log(err.errors);
     });
 
-    // Si mes inputs ont aucune erreurs et que isValid est true alors on fais une request pour créer l'user
+    // Si mes inputs ont aucune erreur et que isValid est true alors on fait une request pour créer l'user
     const isValid = await registerSchema
       .isValid(formData)
       .then((valid) => {

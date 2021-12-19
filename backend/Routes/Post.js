@@ -3,10 +3,13 @@ const router = express.Router();
 const postController = require('../controllers/post_controller');
 const multer = require("multer");
 const upload = multer();
+
+
+// Middleware Auth
 const auth = require('../middleware/auth_middleware');
 
 
-// Post
+// Posts
 router.post("/", auth, upload.single("file"), postController.createPost);
 router.get("/", auth, postController.getAllPosts);
 router.get("/:id", auth, postController.getOnePost);
