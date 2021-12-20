@@ -1,17 +1,23 @@
 import { createContext, useState } from "react";
 
-export const EditToggleProfile = createContext();
+// pas utile ducoup car se remet a 0 lors d'un reload ou changement de page je vais rester sur localStorage.
 
 
-const EditToggleProfileProvider = props => {
+// export const AuthContext = createContext();
 
-    const [isEdit, setIsEdit] = useState(false)
+// export const AuthProvider = ({ children }) => {
+//     const [authState,setAuthState] = useState({
+//         id: "",
+//         token: "",
+//         fullname: "",
+//         admin: "",
+//     })
+//     console.log(authState)
 
-    return (
-        <EditToggleProfile.Provider value={{isEdit}}>
-            {props.children}
-        </EditToggleProfile.Provider>
-    )
-}
+//     return(
+//         <AuthContext.Provider value={[authState,setAuthState]}>
+//             {children}
+//         </AuthContext.Provider>
+//     )
+// }
 
-export default EditToggleProfileProvider;

@@ -100,3 +100,15 @@
   width: 100%;
   align-self: center;
 }
+
+/* Responsive */
+
+@media screen and (max-width: 630px) {
+  .container {
+    width: 100%;
+  }
+  .wrapper-right{
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+}

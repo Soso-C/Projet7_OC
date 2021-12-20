@@ -46,3 +46,11 @@
 #sendComs {
     color: #42b72a;
 }
+
+
+@media screen and (max-width: 450px) {
+
+    .comContainer{
+        height: 210px;
+    }
+}

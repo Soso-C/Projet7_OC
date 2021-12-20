@@ -2,6 +2,7 @@ import React from "react";
 import "./NewSearchBar.css";
 import { Link } from "react-router-dom";
 
+
 // Material UI import
 import HomeIcon from "@mui/icons-material/Home";
 import AccountCircle from "@mui/icons-material/AccountCircle";
@@ -11,6 +12,7 @@ import IconButton from "@mui/material/IconButton";
 let test1 = JSON.parse(localStorage.getItem("token"));
 
 export default function NewSearchBar() {
+
   const logout = () => {
     localStorage.removeItem("token");
     window.location.href = "/sign-in";

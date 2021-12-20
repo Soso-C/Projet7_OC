@@ -97,9 +97,9 @@ export default function PostCard(props) {
             {post.title}
           </Typography>
         </CardContent>
-        <CardMedia
+        <CardMedia id='imgPostCard'
           component="img"
-          height="350"
+          height="350px"
           image={test + post.img_url}
           alt=""
         />

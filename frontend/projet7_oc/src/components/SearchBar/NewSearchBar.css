@@ -36,3 +36,12 @@
 a {
   text-decoration: none;
 }
+
+/* 
+responsive */
+
+@media screen and (max-width: 630px) {
+  .HiUsername p {
+    display: none;
+  }
+}

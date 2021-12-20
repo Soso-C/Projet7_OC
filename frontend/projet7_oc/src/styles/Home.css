@@ -2,3 +2,9 @@
   /* padding-bottom: 5em; */
 }
 
+@media screen and (max-width: 630px) {
+  .Home {
+    padding: 0 0.5em;
+  }
+}
+

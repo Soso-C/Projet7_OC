@@ -102,7 +102,7 @@ export const editProfilSchema = yup.object().shape({
     .notRequired(),
   bio: yup.string().max(250, { bio: "250 caracteres max" }).notRequired(),
   age: yup
-  .number()
+  .number({ age: "Doit etre un nombre" })
   .min(18, { age: "minimum 18 ans" })
   .max(100, { age: "maximum 100 ans"})
   .notRequired(),

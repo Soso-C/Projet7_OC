@@ -74,3 +74,24 @@ A test plus tard animation pour toggleComs
   height 0.4s ease-in-out,
   opacity 0.4s 0.4s ease-in-out;
 } */
+
+
+
+/* responsive */
+
+@media screen and (max-width: 630px) {
+  .comsNameDateCenter {
+    padding:0;
+  }
+  .unameAndBodyCom {
+    padding-right: 0;
+  }
+  #ComUname{
+    margin-right: 0;
+    font-size: 0.95em;
+  }
+  .comsNameDateCenter span {
+    font-size: 0.95em;
+    padding-right: 1em;
+  }
+}

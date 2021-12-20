@@ -1,13 +1,14 @@
 import React from "react";
 import "./Login.css";
 import { useNavigate } from "react-router";
-import { useState } from "react";
 import Axios from "axios";
+import { useState } from "react";
+
 
 const Login = () => {
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [userData, setUserData] = useState([]);
 
   // Navigate de sign-in to sign-up
 
@@ -31,12 +32,10 @@ const Login = () => {
       password: password,
     })
       .then((res) => {
-        Axios.defaults.headers.common[
-          "authorization"
-        ] = `Bearer ${res.data.token}`;
         localStorage.setItem("token", JSON.stringify(res.data));
+        console.log(res.data)
         alert("Connexion réussie");
-        window.location.href = "/";
+        window.location.href = "/"    
       })
       .catch((err) => {
         displayEror(err.response.data.error);
