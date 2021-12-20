@@ -24,6 +24,7 @@ export default function PostCard(props) {
   const post = props.post;
 
   let test1 = JSON.parse(localStorage.getItem("token"));
+
   const test = "http://localhost:3001/";
 
   /******************************************************************************** Count Comment Post *********************************************************************************/
@@ -44,7 +45,7 @@ export default function PostCard(props) {
       } catch (err) {}
     };
     fetchCount();
-  }, [test1.token,post.id]);
+  }, [test1.token, post.id]);
 
   /***************************************************************************************************************************************************************************************/
 
@@ -66,13 +67,11 @@ export default function PostCard(props) {
         window.location.reload();
       })
       .catch((err) => {
-        // si user pas authorisé et try de delete un post alors on clear son localStorage et on le redirige a l'accueil
         alert(err.response.data.error);
-        localStorage.removeItem("token");
-        window.location.href = "/sign-in";
       });
   };
 
+  
   return (
     <div className="postCardWrap">
       <Card sx={{ width: 600 }} id="card1">
@@ -97,9 +96,10 @@ export default function PostCard(props) {
             {post.title}
           </Typography>
         </CardContent>
-        <CardMedia id='imgPostCard'
+        <CardMedia
+          id="imgPostCard"
           component="img"
-          height="350px"
+          height="350"
           image={test + post.img_url}
           alt=""
         />
@@ -107,7 +107,7 @@ export default function PostCard(props) {
           <IconButton aria-label="share" onClick={toggleComs}>
             <CommentOutlinedIcon />
           </IconButton>
-          {/* Si les commentaires du post sont supérieur a 2 alors on ajoute un S si non non */}
+          {/* Si les commentaires du post sont supérieur ou = a 2 alors on ajoute un S si non non */}
           <p className="pPostCard">
             {countData >= 2
               ? `${countData} commentaires`
@@ -127,11 +127,7 @@ export default function PostCard(props) {
           )}
         </CardActions>
         {/* si on clic sur le bouton commentaire alors il passe true et affiche makecomment si non rien */}
-        {openCom === true ? (
-          <MakeComment postId={post.id}/>
-        ) : (
-          <></>
-        )}
+        {openCom === true ? <MakeComment postId={post.id} /> : <></>}
       </Card>
     </div>
   );

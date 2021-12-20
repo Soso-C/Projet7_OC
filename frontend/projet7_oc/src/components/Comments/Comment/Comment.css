@@ -89,9 +89,16 @@ A test plus tard animation pour toggleComs
   #ComUname{
     margin-right: 0;
     font-size: 0.95em;
+    padding: 0
   }
   .comsNameDateCenter span {
     font-size: 0.95em;
+    padding-right: 2em;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .comsNameDateCenter span {
     padding-right: 1em;
   }
 }

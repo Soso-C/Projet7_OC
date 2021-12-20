@@ -145,6 +145,7 @@ module.exports.deletePost = async (req, res) => {
       } else {
         // si ya une réponse alors on vérifie notre user si il est admin ou il est owner de l'id
         if (user.admin === 1 || user.id === imgPost[0].user_id) {
+
           // si note token.id est admin alors on execute cette request
 
           if (user.admin === 1) {
@@ -155,8 +156,7 @@ module.exports.deletePost = async (req, res) => {
               [id],
               (err, result) => {
                 if (err) {
-                  /* on return des object perso qui était des "res.status(200)"" avant mais cela faisais une HTTP headers Error donc il faut retourné ca 
-                  pour pas crash car c'est limité a un seul res.send par function si j'ai bien compris mais cela return un code 200 meme si il y aura erreur ou pas (a revoir).*/
+                  // on return des object perso qui était des res.status(200) avant mais cela faisais une  HTTP headers Error donc il faut retourné ca pour pas crash car c'est limité a un seul res.status(200) par function si j'ai bien compris.
                   result = {
                     ...result,
                     comments: {
@@ -186,12 +186,7 @@ module.exports.deletePost = async (req, res) => {
                   },
                 };
               } else {
-                result = {
-                  ...result,
-                  post: {
-                    message: "Le post a bien été supprimé by Admin !",
-                  },
-                };
+                res.status(200).json({ result });
                 // On passe l'url de l'img récupérer lors du SELECT qu'on met comme path pour delete l'img de notre back
                 fs.unlink(`${imgPost[0].img_url}`, (err) => {
                   console.log(err);
@@ -201,7 +196,6 @@ module.exports.deletePost = async (req, res) => {
           } else {
             // si tokenid = user_post id on fait cette request.
             //Step2 on delete tous les commentaires lié au post
-
             db.query(
               "DELETE FROM comments WHERE post_id = ?",
               [id, user.id],

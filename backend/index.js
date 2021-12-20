@@ -16,7 +16,7 @@ const auth = require("./middleware/auth_middleware")
 
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // maximum 100 connexion en 15 minutes
-  max: 100
+  max: 1000
 });
 
 app.use(apiLimiter);

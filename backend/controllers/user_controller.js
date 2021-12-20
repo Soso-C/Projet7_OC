@@ -121,20 +121,17 @@ module.exports.deleteUser = async (req, res) => {
             },
           };
         } else {
-          // Recupere nos tableau d'objet img url + string
+          // Recupere nos tableau d'objet img url + string.
           const arrayImg = imgPost;
 
+          // sera notre futur array qui contiendra les url img.
           const testArray = [];
-
-          console.log(arrayImg);
 
           // on parcour notre array et on recupere seulement les strings (img_url) qu'on push dans notre array vide qui sera un tableau de string de img url
           arrayImg.forEach(function (item, index) {
             console.log(item.img_url, index);
             testArray.push(item.img_url);
           });
-
-          console.log(testArray);
 
           imgPost = {
             ...imgPost,

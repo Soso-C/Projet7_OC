@@ -1,6 +1,6 @@
 import React from "react";
 import "./Comment.css";
-import { dateParser } from "../../../utils/Utils";
+import { dateParserCom } from "../../../utils/Utils";
 import Axios from "axios";
 
 // Material ui
@@ -13,6 +13,7 @@ export default function Comment(props) {
   let test1 = JSON.parse(localStorage.getItem("token"));
   const com = props.com;
 
+  // Appel API pour delete le commentaire.
   const deleteComs = () => {
     Axios.delete(`http://localhost:3001/api/post/comment-post/${com.id}`, {
       headers: { Authorization: `Bearer ${test1.token}` },
@@ -23,11 +24,8 @@ export default function Comment(props) {
         alert("Commentaire supprimée avec succes !");
         window.location.reload();
       })
-      // si l'user n'est pas authorisé et try de delete le com alors on clear son localStorage et on le redirige a l'accueil
       .catch((err) => {
         alert(err.response.data.error);
-        localStorage.removeItem("token");
-        window.location.href = "/sign-in";
       });
   };
 
@@ -51,7 +49,7 @@ export default function Comment(props) {
         <div className="unameAndBodyCom">
           <div className="comsNameDateCenter">
             <span id="ComUname">{com.author_name}</span>
-            <span>{dateParser(com.createdAt)}</span>
+            <span>{dateParserCom(com.createdAt)}</span>
             {test1.userId === com.user_id || test1.admin === 1 ? (
               <IconButton onClick={deleteComs} id="deleteComsIcon" size="small">
                 <DeleteIcon />
