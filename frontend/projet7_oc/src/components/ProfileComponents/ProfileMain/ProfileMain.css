@@ -245,4 +245,7 @@
   #modalDelete {
     width: 290px;
   }
+  #createdAt{
+    padding-left: 1em;
+  }
 }
