@@ -93,7 +93,7 @@ export default function PostCard(props) {
             color="text.primary"
             className="title_post"
           >
-            {post.title}
+           <span id="postTitle">{post.title}</span> 
           </Typography>
         </CardContent>
         <CardMedia
