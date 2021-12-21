@@ -7,7 +7,7 @@ const loginSchema = yup.object({
     .string()
     .required({ password: "Un mot de passe est requis" })
     // 3 en attendant car mdp test mais mettre a 8 apres
-    .min(3, { password: "Min 8 caracteres" }),
+    .min(4, { password: "Min 8 caracteres" }),
   email: yup
     .string()
     .email({ email: "Entrez un email valide" })

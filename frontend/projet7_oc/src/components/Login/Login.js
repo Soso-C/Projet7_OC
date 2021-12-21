@@ -59,6 +59,7 @@ const Login = () => {
     // Si mes inputs ont aucune erreur et que isValid est true alors on fait une request pour créer l'user
     const isValid = await loginSchema.isValid(formData).then((valid) => {
       if (valid) {
+        clearErr()
         Axios.post("http://localhost:3001/api/user/login", formData)
           .then((res) => {
             localStorage.setItem("token", JSON.stringify(res.data));
@@ -76,7 +77,7 @@ const Login = () => {
     <div className="login">
       <div className="loginWrapper">
         <div className="loginTop">
-          <img className="loginLogo" src={logo} />
+          <img className="loginLogo" src={logo} alt="logo groupomania"/>
         </div>
         <span className="loginDesc">
           Avec Groupomania, partagez et restez en contact avec votre entreprise
