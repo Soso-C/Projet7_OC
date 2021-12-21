@@ -209,3 +209,40 @@
 #modal-modal-description{
   text-align: center;
 }
+
+
+/* Responsive */
+
+@media screen and (max-width: 810px) {
+  .bioAndInfoContainer{
+    flex-direction: column;
+  }
+  .bioContainer, .infoContainer{
+    width: 100%;
+    margin-bottom: 2em;
+  }
+
+  #userBio {
+    width: 85%;
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .titleAndInputProfil {
+  font-size: 0.95em;
+  }
+  .infoContainer p, .bioContainer p {
+    padding-left: 1em;
+    padding-right: 1em;
+  }
+  .btnEditAndCancel {
+    justify-content: center;
+  }
+  .editProfile{
+    top: -40px;
+    right: -15px
+  }
+  #modalDelete {
+    width: 290px;
+  }
+}

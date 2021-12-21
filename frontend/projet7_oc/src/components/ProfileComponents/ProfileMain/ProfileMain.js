@@ -241,7 +241,7 @@ export default function ProfileMain(props) {
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
               >
-                <Box sx={Modalstyle}>
+                <Box sx={Modalstyle} id="modalDelete">
                   <Typography
                     id="modal-modal-description"
                     sx={{ mt: 2, pb: 5 }}
