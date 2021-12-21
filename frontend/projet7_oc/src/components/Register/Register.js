@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { registerSchema } from "../../Validation/ValidForms";
 import Axios from "axios";
+import logo from "../../assets/Groupomania_Logos/icon5.png"
 
 const Register = () => {
   const [fullname, setFullname] = useState("");
@@ -79,6 +80,7 @@ const Register = () => {
       .then((valid) => {
         if (valid) {
           Axios.post("http://localhost:3001/api/user/signup", formData)
+          // si ok alors on récupere le token on le stock dans le localStorage et on connecte l'user et le redirige vers "/"
             .then((res) => {
               localStorage.setItem("token", JSON.stringify(res.data));
               alert("Compte créé avec succes, Bienvenu sur Groupomania!");
@@ -98,12 +100,12 @@ const Register = () => {
     <div className="login">
       <div className="loginWrapper">
         <div className="loginTop">
-          <h3 className="loginLogo">Groupomania</h3>
+        <img className="registerLogo" src={logo}/>
+        </div>
           <span className="loginDesc">
             Avec Groupomania, partagez et restez en contact avec votre
             entreprise
           </span>
-        </div>
         <div className="loginBottom">
           <form className="registerBox" onSubmit={sendForm}>
             <input

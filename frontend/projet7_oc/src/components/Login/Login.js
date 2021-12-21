@@ -3,6 +3,7 @@ import "./Login.css";
 import { useNavigate } from "react-router";
 import Axios from "axios";
 import { useState } from "react";
+import logo from "../../assets/Groupomania_Logos/icon5.png"
 
 
 const Login = () => {
@@ -45,12 +46,12 @@ const Login = () => {
     <div className="login">
       <div className="loginWrapper">
         <div className="loginTop">
-          <h3 className="loginLogo">Groupomania</h3>
+          <img className="loginLogo" src={logo}/>
+        </div>
           <span className="loginDesc">
             Avec Groupomania, partagez et restez en contact avec votre
             entreprise
           </span>
-        </div>
         <form action="/" className="loginBottom" onSubmit={loginData}>
           <div className="loginBox">
             <input

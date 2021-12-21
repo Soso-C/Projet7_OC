@@ -10,7 +10,7 @@ const jwt = require("jsonwebtoken");
 // Cette fonction permettra de créer/supprimer/modifier des post/comments etc en comparant les variable qu'on retourne directement depuis notre token donné lors du login.
 
 const verifyUid = (authorization) => {
-  // Récupere seuelemnt le token et supprime Bearer
+  // Récupere seulement le token et supprime Bearer
   const token = authorization.split(" ")[1];
   // Decode le token avec notre clé secrete et si valide return l'id/admin/username pour pouvoir ensuite les utiliser lors de nos request sql.
   const decodedToken = jwt.verify(token, process.env.SECRETTOKEN);

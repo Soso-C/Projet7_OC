@@ -1,107 +1,105 @@
-.login {
-    width: 100vw;
-    height: 100vh;
-    background-color: #f0f2f5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
-
 .loginWrapper {
-    height: 70%;
-    display: flex;
-    flex-direction: column;
+  height: 70%;
+  display: flex;
+  flex-direction: column;
 }
 
-.loginLogo {
-    font-size: 50px;
-    font-weight: 800;
-    color: #1775ee;
-    margin: 0.5em 0;
+.registerLogo {
+  margin: 0 auto;
+  padding: 0;
+  width: 250px;
+  height: 250px;
+  display: flex;
 }
 
-.loginDesc {
-    font-size: 24px;
-}
-
-.registerBox{
-    height: 450px;
-    padding: 20px;
-    margin-top: 3em;
-    background-color: white; 
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+.registerBox {
+  height: 450px;
+  padding: 20px;
+  margin-top: 3em;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 #notRegistered {
-    margin: 20px;
-    font-size: 1em;
-    border-bottom: 1px solid #dadde1;
-    width: 100%;
-    align-self: center;
+  margin: 20px;
+  font-size: 1em;
+  border-bottom: 1px solid #dadde1;
+  width: 100%;
+  align-self: center;
 }
 
 .inputLogin {
-    height: 50px;
-    border-radius: 10px;
-    border: 1px solid #dadde1;
-    font-size: 1.2em;
-    padding-left: 20px;
+  height: 50px;
+  border-radius: 10px;
+  border: 1px solid #dadde1;
+  font-size: 1.2em;
+  padding-left: 20px;
 }
 
-.inputLogin:focus{
-    outline: none;
+.inputLogin:focus {
+  outline: none;
 }
 
-.loginButton:hover, .registerButton:hover {
-    cursor: pointer;
+.loginButton:hover,
+.registerButton:hover {
+  cursor: pointer;
 }
 
 .signUpButton {
-    cursor: pointer;
-    height: 50px;
-    border-radius: 10px;
-    border: none;
-    background-color: #1775ee;
-    color: white;
-    font-size: 1.2em;
+  cursor: pointer;
+  height: 50px;
+  border-radius: 10px;
+  border: none;
+  background-color: #1775ee;
+  color: white;
+  font-size: 1.2em;
 }
 
 .signInButton {
-    cursor: pointer;
-    width: 50%;
-    height: 50px;
-    border-radius: 10px;
-    border: none;
-    align-self: center;
-    background-color: #42b72a;
-    color: white;
-    font-size: 1.2em;
+  cursor: pointer;
+  width: 50%;
+  height: 50px;
+  border-radius: 10px;
+  border: none;
+  align-self: center;
+  background-color: #42b72a;
+  color: white;
+  font-size: 1.2em;
 }
 
-.error-fullname, .error-email, .error-password, .error-confirmPwd {
-    color: red;
-    text-align: left;
-    padding-left: 0.2em;
-    padding: 0.2em;
+.error-fullname,
+.error-email,
+.error-password,
+.error-confirmPwd {
+  color: red;
+  text-align: left;
+  padding-left: 0.2em;
+  padding: 0.2em;
 }
 
 /* Shake l'input + border red */
 
 .errorInput {
-
-    animation: shake 0.2s ease-in-out 0s 2;
-    border: 1px solid red;
+  animation: shake 0.2s ease-in-out 0s 2;
+  border: 1px solid red;
 }
 
 /* Animation Css shake input */
 
 @keyframes shake {
-    0% { margin-left: 0rem; }
-    25% { margin-left: 0.5rem; }
-    75% { margin-left: -0.5rem; }
-    100% { margin-left: 0rem; }
+  0% {
+    margin-left: 0rem;
   }
+  25% {
+    margin-left: 0.5rem;
+  }
+  75% {
+    margin-left: -0.5rem;
+  }
+  100% {
+    margin-left: 0rem;
+  }
+}
