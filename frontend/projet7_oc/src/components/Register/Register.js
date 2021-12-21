@@ -69,8 +69,8 @@ const Register = () => {
         displayError(cPwdErr, err.errors[0].cpassword);
       } else {
         clearErr();
+        console.log(err.errors);
       }
-      console.log(err.errors);
     });
 
     // Si mes inputs ont aucune erreur et que isValid est true alors on fait une request pour créer l'user
@@ -106,7 +106,7 @@ const Register = () => {
         <div className="loginBottom">
           <form className="registerBox" onSubmit={sendForm}>
             <input
-              placeholder="Nom Prénom"
+              placeholder="Nom Prenom"
               className="inputLogin"
               type="text"
               id="fname"

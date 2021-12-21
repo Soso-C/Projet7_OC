@@ -65,7 +65,7 @@ module.exports.createPost = async (req, res) => {
       req.file.stream,
       fs.createWriteStream(`${__dirname}/../images/posts/${fileName}`)
     );
-    // sinon on fait la request
+    // sinon on try la request
     try {
       const title = req.body.title;
       const img = req.file !== null ? "./images/posts/" + fileName : "";
@@ -232,17 +232,12 @@ module.exports.deletePost = async (req, res) => {
                     },
                   };
                 } else {
-                  result = {
-                    ...result,
-                    post: {
-                      message: "Le post a bien été supprimé by User !",
-                    },
-                  };
+
                   // On passe l'url de l'img récupérée lors du SELECT qu'on met comme path pour delete l'img de notre back
                   fs.unlink(`${imgPost[0].img_url}`, (err) => {
                     console.log(err);
                   });
-                  res.status(200).json({ result });
+                  res.status(200).json({ message: "Le post a bien été supprimé by User !" });
                 }
               }
             );
