@@ -3,7 +3,7 @@ import "./Login.css";
 import { useNavigate } from "react-router";
 import Axios from "axios";
 import { useState } from "react";
-import logo from "../../assets/Groupomania_Logos/icon5.png"
+import logo from "../../assets/Groupomania_Logos/icon5Svg.svg"
 
 
 const Login = () => {

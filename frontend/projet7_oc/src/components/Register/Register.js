@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { registerSchema } from "../../Validation/ValidForms";
 import Axios from "axios";
-import logo from "../../assets/Groupomania_Logos/icon5.png"
+import logo from "../../assets/Groupomania_Logos/icon5Svg.svg"
 
 const Register = () => {
   const [fullname, setFullname] = useState("");
@@ -117,6 +117,7 @@ const Register = () => {
               onChange={(e) => {
                 setFullname(e.target.value);
               }}
+              required
             />
             <div className="error-fullname"></div>
             <input
