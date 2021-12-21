@@ -67,20 +67,37 @@ module.exports.createPost = async (req, res) => {
     );
     // sinon on try la request
     try {
+
       const title = req.body.title;
       const img = req.file !== null ? "./images/posts/" + fileName : "";
 
-      db.query(
-        "INSERT INTO posts (title, img_url, user_id, author_name) VALUES (?, ?, ?, ?);",
-        [title, img, user.id, user.username],
-        (err, results) => {
-          if (!err) {
-            res.status(201).json({ message: "Post créé avec succes !" });
-          } else {
-            res.status(500).json({ err });
-          }
+      // On récupere le pseudo de l'user en relation a l'id de l'user pour pouvoir ensuite l'utiliser son fullname pour le post de la request
+      db.query("SELECT fullname FROM users where id = ?", [user.id],(err, results) => {
+        if (!err) {
+
+          // on fait la request pour créer le post
+          db.query(
+            "INSERT INTO posts (title, img_url, user_id, author_name) VALUES (?, ?, ?, ?);",
+            [title, img, user.id, results[0].fullname],
+            (err, results) => {
+              if (!err) {
+                res.status(201).json({ message: "Post créé avec succes !" });
+              } else {
+                res.status(500).json({ err });
+              }
+            }
+          );
+
+        }else {
+          results = {
+            ...results,
+            comments: {
+              error: "ID non trouvé",
+            },
         }
-      );
+      }})
+
+      
     } catch (err) {
       return res.status(500).send({ message: err });
     }
