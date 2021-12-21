@@ -20,10 +20,10 @@ const Profil = () => {
   }, [test1.token, test1.userId]);
 
   return (
-    <div>
+    <>
       <NewSearchBar />
       <ProfileMain user={userData} />  
-    </div>
+    </>
   );
 };
 
