@@ -30,9 +30,9 @@ export default function Comment(props) {
   };
 
   return (
-    // si user = com uId alors on met le BG en blue pour montrer ses messages.
     <div
       className={
+        // si user = com uId alors on met le BG en blue pour montrer ses messages.
         test1.userId === com.user_id
           ? "commentWrapper ownerCom"
           : "commentWrapper"
@@ -50,6 +50,7 @@ export default function Comment(props) {
           <div className="comsNameDateCenter">
             <span id="ComUname">{com.author_name}</span>
             <span>{dateParserCom(com.createdAt)}</span>
+            {/* Si l'user est l'owner du commentaire ou si l'user est admin alors on affiche le btn delete commentaire si non rien*/}
             {test1.userId === com.user_id || test1.admin === 1 ? (
               <IconButton onClick={deleteComs} id="deleteComsIcon" size="small">
                 <DeleteIcon />

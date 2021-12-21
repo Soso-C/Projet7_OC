@@ -10,7 +10,9 @@ const jwt = require("jsonwebtoken");
 // Cette fonction permettra de créer/supprimer/modifier des post/comments etc en comparant les variable qu'on retourne directement depuis notre token donné lors du login.
 
 const verifyUid = (authorization) => {
+  // Récupere seuelemnt le token et supprime Bearer
   const token = authorization.split(" ")[1];
+  // Decode le token avec notre clé secrete et si valide return l'id/admin/username pour pouvoir ensuite les utiliser lors de nos request sql.
   const decodedToken = jwt.verify(token, process.env.SECRETTOKEN);
   return {
     id: decodedToken.userId,
@@ -60,7 +62,7 @@ module.exports.createPost = async (req, res) => {
     // une variable qui aura comme param le name(qui sera l'id user) et la date actuelle pour donné un nom a notre image enregistrer dans le back.
     fileName = req.body.name + Date.now() + ".jpg";
 
-    // créer notre fichier a tel destination
+    // créer notre fichier a tel destination depuis la racine de notre dossier
     await pipeline(
       req.file.stream,
       fs.createWriteStream(`${__dirname}/../images/posts/${fileName}`)

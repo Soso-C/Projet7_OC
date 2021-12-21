@@ -33,7 +33,6 @@ const Login = () => {
     })
       .then((res) => {
         localStorage.setItem("token", JSON.stringify(res.data));
-        console.log(res.data)
         alert("Connexion réussie");
         window.location.href = "/"    
       })
