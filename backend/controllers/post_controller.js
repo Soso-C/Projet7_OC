@@ -67,37 +67,37 @@ module.exports.createPost = async (req, res) => {
     );
     // sinon on try la request
     try {
-
       const title = req.body.title;
       const img = req.file !== null ? "./images/posts/" + fileName : "";
 
       // On récupere le pseudo de l'user en relation a l'id de l'user pour pouvoir ensuite l'utiliser son fullname pour le post de la request
-      db.query("SELECT fullname FROM users where id = ?", [user.id],(err, results) => {
-        if (!err) {
-
-          // on fait la request pour créer le post
-          db.query(
-            "INSERT INTO posts (title, img_url, user_id, author_name) VALUES (?, ?, ?, ?);",
-            [title, img, user.id, results[0].fullname],
-            (err, results) => {
-              if (!err) {
-                res.status(201).json({ message: "Post créé avec succes !" });
-              } else {
-                res.status(500).json({ err });
+      db.query(
+        "SELECT fullname FROM users where id = ?",
+        [user.id],
+        (err, results) => {
+          if (!err) {
+            // on fait la request pour créer le post
+            db.query(
+              "INSERT INTO posts (title, img_url, user_id, author_name) VALUES (?, ?, ?, ?);",
+              [title, img, user.id, results[0].fullname],
+              (err, results) => {
+                if (!err) {
+                  res.status(201).json({ message: "Post créé avec succes !" });
+                } else {
+                  res.status(500).json({ err });
+                }
               }
-            }
-          );
-
-        }else {
-          results = {
-            ...results,
-            comments: {
-              error: "ID non trouvé",
-            },
+            );
+          } else {
+            results = {
+              ...results,
+              comments: {
+                error: "ID non trouvé",
+              },
+            };
+          }
         }
-      }})
-
-      
+      );
     } catch (err) {
       return res.status(500).send({ message: err });
     }
@@ -162,7 +162,6 @@ module.exports.deletePost = async (req, res) => {
       } else {
         // si ya une réponse alors on vérifie notre user si il est admin ou il est owner de l'id
         if (user.admin === 1 || user.id === imgPost[0].user_id) {
-
           // si note token.id est admin alors on execute cette request
 
           if (user.admin === 1) {
@@ -249,12 +248,13 @@ module.exports.deletePost = async (req, res) => {
                     },
                   };
                 } else {
-
                   // On passe l'url de l'img récupérée lors du SELECT qu'on met comme path pour delete l'img de notre back
                   fs.unlink(`${imgPost[0].img_url}`, (err) => {
                     console.log(err);
                   });
-                  res.status(200).json({ message: "Le post a bien été supprimé by User !" });
+                  res
+                    .status(200)
+                    .json({ message: "Le post a bien été supprimé by User !" });
                 }
               }
             );
@@ -288,16 +288,34 @@ exports.createComment = (req, res) => {
       .json({ error: "Le commentaire doit faire moins de 50 caracteres" });
   } else {
     /*************************************************************************** End Error Controller ****************************************************************************/
+
+    // On récupere le pseudo de l'user en relation du uid du token pour pouvoir ensuite utiliser son fullname pour le commentaire.
     db.query(
-      "INSERT INTO comments (post_id, user_id, comments, author_name) VALUES (?, ?, ?, ?)",
-      [pId, user.id, comment, user.username],
-      (err, result) => {
-        if (err) {
+      "SELECT fullname FROM users where id = ?",
+      [user.id],
+      (err, results) => {
+        if (!err) {
+          // si ok alors on créé le commentaire.
+          db.query(
+            "INSERT INTO comments (post_id, user_id, comments, author_name) VALUES (?, ?, ?, ?)",
+            [pId, user.id, comment, results[0].fullname],
+            (err, result) => {
+              if (err) {
+                res.status(500).json({ err });
+                console.log(err);
+              }
+              res.status(200).json(result);
+            }
+          );
+        } else {
+          results = {
+            ...results,
+            comments: {
+              error: "UserID non trouvé",
+            },
+          };
           res.status(500).json({ err });
-          console.log(err);
-          throw err;
         }
-        res.status(200).json(result);
       }
     );
   }
