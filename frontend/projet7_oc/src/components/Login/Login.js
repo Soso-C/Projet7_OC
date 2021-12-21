@@ -18,7 +18,7 @@ const Login = () => {
     navigate("/sign-up");
   }
 
-  // Permet d'afficher les erreurs sous l'input
+  // Variable de nos div(err) sous l'input
   let emailErr = document.querySelector(".error-email");
   let passwordErr = document.querySelector(".error-password");
 
@@ -33,7 +33,7 @@ const Login = () => {
     emailErr.innerHTML = "";
   };
 
-  // Appel a notre API, si notre PWD/Email sont valide alors on sera log et on recup notre token.
+  // Appel a notre API, si notre PWD/Email sont valide alors on sera log et on recup notre token
 
   async function loginData(e) {
     e.preventDefault();

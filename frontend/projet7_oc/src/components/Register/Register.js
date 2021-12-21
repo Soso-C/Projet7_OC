@@ -100,7 +100,7 @@ const Register = () => {
     <div className="register">
       <div className="registerWrapper">
         <div className="loginTop">
-        <img className="registerLogo" src={logo}/>
+        <img className="registerLogo" src={logo} alt="logo groupomania"/>
         </div>
           <span className="loginDesc">
             Avec Groupomania, partagez et restez en contact avec votre
