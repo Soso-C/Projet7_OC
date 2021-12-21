@@ -30,11 +30,11 @@ module.exports.createPost = async (req, res) => {
 
   /*************************************************************************** Start Error Input Controller ****************************************************************************/
 
-  // si le title > 50 alors on return une error
+  // si le title > 70 alors on return une error
   if (req.body.title.length > 70) {
     return res
       .status(500)
-      .json({ error: "Le post doit faire moins 50 caracteres" });
+      .json({ error: "Le post doit faire moins 70 caracteres" });
   }
   // si le file est vide alors on return une error.
   if (req.file === null) {
@@ -42,10 +42,10 @@ module.exports.createPost = async (req, res) => {
   }
   /****************************************************************************** Fin Error Input Controller **************************************************************************/
 
-  // si notre title n'est pas vide ou fais pas plus de 100 alors on fait ca, cela permet de secure et pas stock des img dans le back si la condition n'est pas true.
+  // si notre title fais pas plus de 70 et que l'image ne soit pas vide alors on exectue la request ci dessous.
   else {
     try {
-      // Si notre file du front est pas en jpg/png/jpeg alors on return une erreur
+      // Si notre img n'est pas en jpg/png/jpeg/gif alors on return une erreur
       if (
         req.file.detectedMimeType != "image/jpg" &&
         req.file.detectedMimeType != "image/png" &&
@@ -67,7 +67,7 @@ module.exports.createPost = async (req, res) => {
       req.file.stream,
       fs.createWriteStream(`${__dirname}/../images/posts/${fileName}`)
     );
-    // sinon on try la request
+    // si aucune erreur alors on passe a en dessous.
     try {
       const title = req.body.title;
       const img = req.file !== null ? "./images/posts/" + fileName : "";
@@ -162,7 +162,7 @@ module.exports.deletePost = async (req, res) => {
       if (err) {
         res.status(500).json({ err });
       } else {
-        // si ya une réponse alors on vérifie notre user si il est admin ou il est owner de l'id
+        // si ya une réponse alors on vérifie notre user si il est admin ou il est owner de post_id
         if (user.admin === 1 || user.id === imgPost[0].user_id) {
           // si note token.id est admin alors on execute cette request
 
@@ -174,7 +174,7 @@ module.exports.deletePost = async (req, res) => {
               [id],
               (err, result) => {
                 if (err) {
-                  // on return des object perso qui était des res.status(200) avant mais cela faisais une  HTTP headers Error donc il faut retourné ca pour pas crash car c'est limité a un seul res.status(200) par function si j'ai bien compris.
+                  // on return des object perso qui était des res.status(200) avant mais cela faisais une HTTP headers Error donc il faut retourné ca pour pas crash car c'est limité a un seul res.status(200) par function si j'ai bien compris.
                   result = {
                     ...result,
                     comments: {

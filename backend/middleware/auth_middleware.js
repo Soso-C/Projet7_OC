@@ -20,9 +20,7 @@ module.exports = (req, res, next) => {
         });
       }
       // Sinon si ok alors on passe au middleware suivant
-      else {
-        // console.log(userId, user[0].id)
-        req.user = user;
+      else {  
         return next();
       }
     });

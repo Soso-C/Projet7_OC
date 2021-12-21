@@ -6,7 +6,7 @@
   align-items: center;
   justify-content: center;
   text-align: center;
-  background-image: url("../../assets/Background_login/BG_login.jpg");
+  background-image: url("../../assets/Background_login/BG_login2.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   
@@ -115,5 +115,8 @@
 
     .loginWrapper {
         height: 100vh;
+    }
+    .registerButton {
+      width: 100%;
     }
 }
