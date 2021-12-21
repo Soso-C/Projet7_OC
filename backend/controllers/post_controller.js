@@ -286,8 +286,9 @@ exports.createComment = (req, res) => {
     return res
       .status(500)
       .json({ error: "Le commentaire doit faire moins de 50 caracteres" });
-  } else {
-    /*************************************************************************** End Error Controller ****************************************************************************/
+  } 
+  /*************************************************************************** End Error Controller ****************************************************************************/
+  else {
 
     // On récupere le pseudo de l'user en relation du uid du token pour pouvoir ensuite utiliser son fullname pour le commentaire.
     db.query(
@@ -295,6 +296,7 @@ exports.createComment = (req, res) => {
       [user.id],
       (err, results) => {
         if (!err) {
+
           // si ok alors on créé le commentaire.
           db.query(
             "INSERT INTO comments (post_id, user_id, comments, author_name) VALUES (?, ?, ?, ?)",
@@ -307,6 +309,7 @@ exports.createComment = (req, res) => {
               res.status(200).json(result);
             }
           );
+
         } else {
           results = {
             ...results,
@@ -372,7 +375,7 @@ exports.deleteOneComment = (req, res) => {
           .json({ message: "Le commentaire a bien été supprimé by Admin !" });
       }
     });
-    // Si non on prend l'id du commentaire en params et l'user id du token et non pas l'id en req.body
+    // Si non on prend l'id du commentaire en params et l'user id du token.
   } else {
     db.query(
       "DELETE FROM comments WHERE id = ? AND user_id = ?",

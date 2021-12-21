@@ -80,8 +80,9 @@ const Register = () => {
         if (valid) {
           Axios.post("http://localhost:3001/api/user/signup", formData)
             .then((res) => {
-              navigate("/sign-in");
-              alert("Compte créé avec succes veuillez vous connecter !");
+              localStorage.setItem("token", JSON.stringify(res.data));
+              alert("Compte créé avec succes, Bienvenu sur Groupomania!");
+              window.location.href = "/";
             })
             .catch((err) => {
               console.log(err);

@@ -3,23 +3,52 @@ const jwt = require("jsonwebtoken");
 const db = require("../config/db");
 const dotenv = require("dotenv");
 
-
-
 // Post pour créer user
 module.exports.signUp = async (req, res) => {
-  const { fullname, password, email} = req.body;
-
+  const { fullname, password, email } = req.body;
 
   // On récupere le pwd de l'user on le salt x10 et hash avec bcrypt on attend que tout soit fait et on envoie tout ca a la db.
   bcrypt.hash(password, 10).then((hash) => {
     db.query(
       "INSERT INTO users (fullname, email, password) VALUES (?, ?, ?);",
       [fullname, email, hash],
-      (err, results) => {
+      (err, result) => {
         if (err) {
           res.status(400).json({ err });
-        } else {
-          res.status(201).json({ message: "Utilisateur créé !" });
+        } // Si ok alors on créer l'user mais on donne également un token d'auth pour le connecter automatiquement apres enregistrement.
+        else {
+          result = {
+            ...result,
+            message: {
+              signUp: "User enregistrée !",
+            },
+          };
+          // On recupere l'id, admin et fullname de l'user en relation a l'email donné pour pouvoir ensuite les donner au token d'auth pour une connexion automatique apres signup.
+          db.query(
+            "SELECT id, isAdmin, fullname FROM users where email = ?",
+            [email],
+            (err, results) => {
+              if (err) {
+                res.status(400).json({ err });
+              } else {
+                // Si info trouvé alors donne un token pour se connecter
+                res.status(201).json({
+                  userId: results[0].id,
+                  username: results[0].fullname,
+                  admin: results[0].isAdmin,
+                  token: jwt.sign(
+                    {
+                      userId: results[0].id,
+                      admin: results[0].isAdmin,
+                      username: results[0].fullname,
+                    },
+                    process.env.SECRETTOKEN,
+                    { expiresIn: "24h" }
+                  ),
+                });
+              }
+            }
+          );
         }
       }
     );
