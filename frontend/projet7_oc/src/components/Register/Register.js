@@ -34,6 +34,13 @@ const Register = () => {
     passwordErr.innerHTML = "";
     emailErr.innerHTML = "";
     cPwdErr.innerHTML = "";
+
+    // clear error input
+    nameInput.classList.remove("errorInput");
+    lNameInput.classList.remove("errorInput");
+    emailInput.classList.remove("errorInput");
+    passwordInput.classList.remove("errorInput");
+    cPasswordInput.classList.remove("errorInput");
   };
 
   // Target la balise sous l'input ou on injectera un message d'erreur si erreur.
@@ -42,6 +49,13 @@ const Register = () => {
   let emailErr = document.querySelector(".error-email");
   let passwordErr = document.querySelector(".error-password");
   let cPwdErr = document.querySelector(".error-confirmPwd");
+
+  // Target les inputs
+  let nameInput = document.getElementById("name");
+  let lNameInput = document.getElementById("lname");
+  let emailInput = document.getElementById("email");
+  let passwordInput = document.getElementById("password");
+  let cPasswordInput = document.getElementById("cpassword");
 
   /**********************************************************************************************************************************************************************************/
 
@@ -63,18 +77,23 @@ const Register = () => {
       if (err.errors[0].name) {
         clearErr();
         displayError(nameErr, err.errors[0].name);
+        nameInput.classList.add("errorInput");
       } else if (err.errors[0].lastname) {
         clearErr();
         displayError(lastnameErr, err.errors[0].lastname);
+        lNameInput.classList.add("errorInput");
       } else if (err.errors[0].password) {
         clearErr();
         displayError(passwordErr, err.errors[0].password);
+        passwordInput.classList.add("errorInput");
       } else if (err.errors[0].email) {
         clearErr();
         displayError(emailErr, err.errors[0].email);
+        emailInput.classList.add("errorInput");
       } else if (err.errors[0].cpassword) {
         clearErr();
         displayError(cPwdErr, err.errors[0].cpassword);
+        cPasswordInput.classList.add("errorInput");
       } else {
         clearErr();
         console.log(err.errors);
