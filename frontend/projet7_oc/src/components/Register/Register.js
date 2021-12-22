@@ -60,12 +60,12 @@ const Register = () => {
 
     // Retourne les erreurs de notre schema yup et les affiche sous l'input en question
     const validate = await registerSchema.validate(formData).catch((err) => {
-      if (err.errors[0].name) {
+      if (err.errors[0].name) { 
         clearErr();
         displayError(nameErr, err.errors[0].name);
-      } if (err.errors[0].lastname) {
+      } else if (err.errors[0].lastname) {
         clearErr();
-        displayError(nameErr, err.errors[0].lastname);
+        displayError(lastnameErr, err.errors[0].lastname);
       }
       else if (err.errors[0].password) {
         clearErr();

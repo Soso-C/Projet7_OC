@@ -182,4 +182,19 @@
   .signUpButton {
     margin-top: 0.5em;
   }
+  .nameLnameContainer {
+    flex-direction: column;
+  }
+  .nameLastnInput{
+    width: auto;
+  }
+  #lname {
+    margin-left: 0;
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  .error-name, .error-lastname {
+    width: 100%;
+    text-align: left;
+  }
 }
