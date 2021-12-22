@@ -17,7 +17,7 @@ export const registerSchema = yup.object().shape({
     ),
   confirmPassword: yup
     .string()
-    .required({ cpassword: "Mot de passe requis" })
+    // .required({ cpassword: "Mot de passe requis" })
     .oneOf([yup.ref("password"), null], {
       cpassword: "Mot de passe pas identique",
     }),
