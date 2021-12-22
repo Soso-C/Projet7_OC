@@ -29,13 +29,15 @@ const Register = () => {
 
   // Clear les erreurs
   const clearErr = () => {
+
+    // Change le texte d'erreur a "" donc le fais disparaitre
     nameErr.innerHTML = "";
     lastnameErr.innerHTML = "";
     passwordErr.innerHTML = "";
     emailErr.innerHTML = "";
     cPwdErr.innerHTML = "";
 
-    // clear error input
+    // clear error input (border red + animation)
     nameInput.classList.remove("errorInput");
     lNameInput.classList.remove("errorInput");
     emailInput.classList.remove("errorInput");

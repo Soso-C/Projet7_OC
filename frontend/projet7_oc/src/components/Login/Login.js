@@ -22,6 +22,13 @@ const Login = () => {
   let emailErr = document.querySelector(".error-email");
   let passwordErr = document.querySelector(".error-password");
 
+
+  
+  // Target les inputs
+  let passwordInput = document.getElementById("password");
+  let emailInput = document.getElementById("email");
+
+
   // Affiche les erreurs
   function displayError(tag, message) {
     tag.innerHTML = message;
@@ -29,8 +36,13 @@ const Login = () => {
 
   // Clear les erreurs
   const clearErr = () => {
+    // clear les message d'erreur
     passwordErr.innerHTML = "";
     emailErr.innerHTML = "";
+
+    // clear les inputs
+    emailInput.classList.remove("errorInput");
+    passwordInput.classList.remove("errorInput");
   };
 
   // Appel a notre API, si notre PWD/Email sont valide alors on sera log et on recup notre token
@@ -48,13 +60,16 @@ const Login = () => {
       if (err.errors[0].email) {
         clearErr();
         displayError(emailErr, err.errors[0].email);
+        emailInput.classList.add("errorInput");
       } else if (err.errors[0].password) {
         clearErr();
         displayError(passwordErr, err.errors[0].password);
+        passwordInput.classList.add("errorInput");
       } else {
         clearErr();
       }
     });
+    
 
     // Si mes inputs ont aucune erreur et que isValid est true alors on fait une request pour créer l'user
     const isValid = await loginSchema.isValid(formData).then((valid) => {
@@ -68,6 +83,8 @@ const Login = () => {
           })
           .catch((err) => {
             alert(err.response.data.error);
+            passwordInput.classList.add("errorInput");
+            emailInput.classList.add("errorInput");
           });
       }
     });
@@ -85,6 +102,7 @@ const Login = () => {
         <form action="/" className="loginBottom" onSubmit={loginData}>
           <div className="loginBox">
             <input
+              id="email"
               placeholder="Adresse Email"
               className="inputLogin"
               type="email"
@@ -96,6 +114,7 @@ const Login = () => {
             />
             <div className="error-email"></div>
             <input
+              id="password"
               placeholder="Mot de Passe"
               className="inputLogin"
               type="password"
