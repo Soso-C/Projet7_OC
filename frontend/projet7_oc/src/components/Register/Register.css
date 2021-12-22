@@ -86,13 +86,22 @@
 
 .nameLnameContainer {
   display: flex;
+  justify-content: center;
+  margin-right: 1.5em;
 }
 
-#lname {
-  margin-left: 1em;
-}
+
 
 .nameLastnInput {
+  width: 100%;
+}
+
+.nomContainer {
+  width: 50%;
+  margin-left: 3em;
+}
+
+.prenomContainer {
   width: 50%;
 }
 
@@ -101,7 +110,6 @@
 }
 
 .error-name, .error-lastname {
-  width: 50%;
   text-align: left;
 }
 
@@ -186,7 +194,7 @@
     flex-direction: column;
   }
   .nameLastnInput{
-    width: auto;
+    width: 100%;
   }
   #lname {
     margin-left: 0;
@@ -196,5 +204,12 @@
   .error-name, .error-lastname {
     width: 100%;
     text-align: left;
+    padding-left: 0.5em;
+  }
+  .prenomContainer, .nomContainer{
+    width: 100%;
+  }
+  .nomContainer{
+    margin: 0;
   }
 }

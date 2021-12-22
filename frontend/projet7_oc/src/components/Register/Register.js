@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { registerSchema } from "../../Validation/ValidForms";
 import Axios from "axios";
-import logo from "../../assets/Groupomania_Logos/icon5Svg.svg"
+import logo from "../../assets/Groupomania_Logos/icon5Svg.svg";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -60,14 +60,13 @@ const Register = () => {
 
     // Retourne les erreurs de notre schema yup et les affiche sous l'input en question
     const validate = await registerSchema.validate(formData).catch((err) => {
-      if (err.errors[0].name) { 
+      if (err.errors[0].name) {
         clearErr();
         displayError(nameErr, err.errors[0].name);
       } else if (err.errors[0].lastname) {
         clearErr();
         displayError(lastnameErr, err.errors[0].lastname);
-      }
-      else if (err.errors[0].password) {
+      } else if (err.errors[0].password) {
         clearErr();
         displayError(passwordErr, err.errors[0].password);
       } else if (err.errors[0].email) {
@@ -88,7 +87,7 @@ const Register = () => {
       .then((valid) => {
         if (valid) {
           Axios.post("http://localhost:3001/api/user/signup", formData)
-          // si ok alors on récupere le token on le stock dans le localStorage et on connecte l'user et le redirige vers "/"
+            // si ok alors on récupere le token on le stock dans le localStorage et on connecte l'user et le redirige vers "/"
             .then((res) => {
               localStorage.setItem("token", JSON.stringify(res.data));
               alert("Compte créé avec succes, Bienvenu sur Groupomania!");
@@ -108,41 +107,44 @@ const Register = () => {
     <div className="register">
       <div className="registerWrapper">
         <div className="loginTop">
-        <img className="registerLogo" src={logo} alt="logo groupomania"/>
+          <img className="registerLogo" src={logo} alt="logo groupomania" />
         </div>
-          <span className="loginDesc">
-            Avec Groupomania, partagez et restez en contact avec votre
-            entreprise
-          </span>
+        <span className="loginDesc">
+          Avec Groupomania, partagez et restez en contact avec votre entreprise
+        </span>
         <div className="loginBottom">
           <form className="registerBox" onSubmit={sendForm}>
             <div className="nameLnameContainer">
-            <input
-              placeholder="Prénom"
-              className="inputLogin nameLastnInput"
-              type="text"
-              id="name"
-              value={name}
-              onChange={(e) => {
-                setName(e.target.value);
-              }}
-              required
-            />
-            <input
-              placeholder="Nom"
-              className="inputLogin nameLastnInput"
-              type="text"
-              id="lname"
-              value={lastname}
-              onChange={(e) => {
-                setLastname(e.target.value);
-              }}
-              required
-            />
+              <div className="prenomContainer">
+                <input
+                  placeholder="Prénom"
+                  className="inputLogin nameLastnInput"
+                  type="text"
+                  id="name"
+                  value={name}
+                  onChange={(e) => {
+                    setName(e.target.value);
+                  }}
+                  required
+                />
+                <div className="error-name"></div>
+              </div>
+              <div className="nomContainer">
+              <input
+                placeholder="Nom"
+                className="inputLogin nameLastnInput"
+                type="text"
+                id="lname"
+                value={lastname}
+                onChange={(e) => {
+                  setLastname(e.target.value);
+                }}
+                required
+              />
+              <div className="error-lastname"></div>
+              </div>
             </div>
             <div className="errorNameLastname">
-              <div className="error-name"></div>
-              <div className="error-lastname"></div>
             </div>
             <input
               placeholder="Adresse Email"
