@@ -17,10 +17,10 @@ const userSchema = yup.object({
       /^[a-zA-Z0-9.-]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$/,
       "Entrez un email valide !"
     ),
-  name: yup
+    name: yup
     .string()
     .required({ name: "Entrez votre prenom" })
-    .matches(/^[a-zA-Z]{2,}(?: [a-zA-Z]+){0,2}$/, {
+    .matches(/^[a-zA-Z]{1,}(?: [a-zA-Z]+){0,1}$/, {
       message: {
         name: "Pas de caracteres spécial",
       },
@@ -30,7 +30,7 @@ const userSchema = yup.object({
   lastname: yup
     .string()
     .required({ lastname: "Entrez votre nom" })
-    .matches(/^[a-zA-Z]{2,}(?: [a-zA-Z]+){0,2}$/, {
+    .matches(/^[a-zA-Z]{1,}(?: [a-zA-Z]+){0,1}$/, {
       message: {
         lastname: "Pas de caracteres spécial",
       },
