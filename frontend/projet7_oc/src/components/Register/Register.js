@@ -130,22 +130,21 @@ const Register = () => {
                 <div className="error-name"></div>
               </div>
               <div className="nomContainer">
-              <input
-                placeholder="Nom"
-                className="inputLogin nameLastnInput"
-                type="text"
-                id="lname"
-                value={lastname}
-                onChange={(e) => {
-                  setLastname(e.target.value);
-                }}
-                required
-              />
-              <div className="error-lastname"></div>
+                <input
+                  placeholder="Nom"
+                  className="inputLogin nameLastnInput"
+                  type="text"
+                  id="lname"
+                  value={lastname}
+                  onChange={(e) => {
+                    setLastname(e.target.value);
+                  }}
+                  required
+                />
+                <div className="error-lastname"></div>
               </div>
             </div>
-            <div className="errorNameLastname">
-            </div>
+            <div className="errorNameLastname"></div>
             <input
               placeholder="Adresse Email"
               className="inputLogin"
