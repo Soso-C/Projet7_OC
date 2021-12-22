@@ -6,20 +6,29 @@ const cookieParser = require("cookie-parser");
 const helmet = require('helmet');
 const rateLimit = require("express-rate-limit");
 const dotenv = require('dotenv').config()
+const path = require('path');
+
 const userRoute = require("./Routes/User");
 const postRoute = require("./Routes/Post");
-const path = require('path');
-const auth = require("./middleware/auth_middleware")
 
 
-// Ratelimite secure request
-
+// Ratelimit secure request sur toutes les routes
+// up a 500 car les request montre trop vite et parfois (429 to many request)
 const apiLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // maximum 100 connexion en 15 minutes
-  max: 1000
+  windowMs: 15 * 60 * 1000, // maximum 500 connexion en 15 minutes sur toutes les routes
+  max: 500
 });
 
 app.use(apiLimiter);
+
+// Ratelimit max 10, sur la login route a la 10 eme request bloque l'ip de l'user pendant 15min
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // maximum 10 connexions en 15 minutes sur le login
+  max: 10
+});
+
+app.use("/api/user/login", loginLimiter)
+
 
 
 // Cors
@@ -34,18 +43,18 @@ app.use((req, res, next) => {
 // Packages
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
 app.use(helmet());
-
-// jwt
+app.use(cookieParser());
 
 
 // Routes
 app.use("/api/user", userRoute);
 app.use("/api/post", postRoute);
 
+
 // Multer
 app.use('/images', express.static(path.join(__dirname, 'images')));
+
 
 // Server
 app.listen(3001, (req, res) => {
