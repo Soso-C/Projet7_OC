@@ -5,13 +5,13 @@ const dotenv = require("dotenv");
 
 // Post pour créer user
 module.exports.signUp = async (req, res) => {
-  const { fullname, password, email } = req.body;
+  const { name, lastname, password, email } = req.body;
 
   // On récupere le pwd de l'user on le salt x10 et hash avec bcrypt on attend que tout soit fait et on envoie tout ca a la db.
   bcrypt.hash(password, 10).then((hash) => {
     db.query(
-      "INSERT INTO users (fullname, email, password) VALUES (?, ?, ?);",
-      [fullname, email, hash],
+      "INSERT INTO users (nom, prenom, email, password) VALUES (?, ?, ?, ?);",
+      [lastname, name, email, hash],
       (err, result) => {
         if (err) {
           res.status(400).json({ err });
@@ -25,7 +25,7 @@ module.exports.signUp = async (req, res) => {
           };
           // On recupere l'id, admin et fullname de l'user en relation a l'email donné pour pouvoir ensuite les donner au token d'auth pour une connexion automatique apres signup.
           db.query(
-            "SELECT id, isAdmin, fullname FROM users where email = ?",
+            "SELECT id, isAdmin, nom, prenom FROM users where email = ?",
             [email],
             (err, results) => {
               if (err) {
@@ -34,13 +34,13 @@ module.exports.signUp = async (req, res) => {
                 // Si info trouvé alors donne un token pour se connecter
                 res.status(201).json({
                   userId: results[0].id,
-                  username: results[0].fullname,
+                  username: results[0].prenom,
                   admin: results[0].isAdmin,
                   token: jwt.sign(
                     {
                       userId: results[0].id,
                       admin: results[0].isAdmin,
-                      username: results[0].fullname,
+                      username: results[0].prenom,
                     },
                     process.env.SECRETTOKEN,
                     { expiresIn: "24h" }
@@ -81,13 +81,13 @@ module.exports.signIn = async (req, res) => {
           else {
             res.status(200).json({
               userId: results[0].id,
-              username: results[0].fullname,
+              username: results[0].prenom,
               admin: results[0].isAdmin,
               token: jwt.sign(
                 {
                   userId: results[0].id,
                   admin: results[0].isAdmin,
-                  username: results[0].fullname,
+                  username: results[0].prenom,
                 },
                 process.env.SECRETTOKEN,
                 { expiresIn: "24h" }

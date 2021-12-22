@@ -6,7 +6,8 @@ import Axios from "axios";
 import logo from "../../assets/Groupomania_Logos/icon5Svg.svg"
 
 const Register = () => {
-  const [fullname, setFullname] = useState("");
+  const [name, setName] = useState("");
+  const [lastname, setLastname] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -28,14 +29,16 @@ const Register = () => {
 
   // Clear les erreurs
   const clearErr = () => {
-    fullnameErr.innerHTML = "";
+    nameErr.innerHTML = "";
+    lastnameErr.innerHTML = "";
     passwordErr.innerHTML = "";
     emailErr.innerHTML = "";
     cPwdErr.innerHTML = "";
   };
 
   // Target la balise sous l'input ou on injectera un message d'erreur si erreur.
-  let fullnameErr = document.querySelector(".error-fullname");
+  let nameErr = document.querySelector(".error-name");
+  let lastnameErr = document.querySelector(".error-lastname");
   let emailErr = document.querySelector(".error-email");
   let passwordErr = document.querySelector(".error-password");
   let cPwdErr = document.querySelector(".error-confirmPwd");
@@ -48,7 +51,8 @@ const Register = () => {
     e.preventDefault();
 
     let formData = {
-      fullname,
+      name,
+      lastname,
       email,
       password,
       confirmPassword,
@@ -56,10 +60,14 @@ const Register = () => {
 
     // Retourne les erreurs de notre schema yup et les affiche sous l'input en question
     const validate = await registerSchema.validate(formData).catch((err) => {
-      if (err.errors[0].fullname) {
+      if (err.errors[0].name) {
         clearErr();
-        displayError(fullnameErr, err.errors[0].fullname);
-      } else if (err.errors[0].password) {
+        displayError(nameErr, err.errors[0].name);
+      } if (err.errors[0].lastname) {
+        clearErr();
+        displayError(nameErr, err.errors[0].lastname);
+      }
+      else if (err.errors[0].password) {
         clearErr();
         displayError(passwordErr, err.errors[0].password);
       } else if (err.errors[0].email) {
@@ -108,18 +116,34 @@ const Register = () => {
           </span>
         <div className="loginBottom">
           <form className="registerBox" onSubmit={sendForm}>
+            <div className="nameLnameContainer">
             <input
-              placeholder="Nom Prenom"
-              className="inputLogin"
+              placeholder="Prénom"
+              className="inputLogin nameLastnInput"
               type="text"
-              id="fname"
-              value={fullname}
+              id="name"
+              value={name}
               onChange={(e) => {
-                setFullname(e.target.value);
+                setName(e.target.value);
               }}
               required
             />
-            <div className="error-fullname"></div>
+            <input
+              placeholder="Nom"
+              className="inputLogin nameLastnInput"
+              type="text"
+              id="lname"
+              value={lastname}
+              onChange={(e) => {
+                setLastname(e.target.value);
+              }}
+              required
+            />
+            </div>
+            <div className="errorNameLastname">
+              <div className="error-name"></div>
+              <div className="error-lastname"></div>
+            </div>
             <input
               placeholder="Adresse Email"
               className="inputLogin"

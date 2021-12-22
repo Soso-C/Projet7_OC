@@ -2,17 +2,26 @@ const yup = require("yup");
 
 // Validateur d'input pour lors de la modification du compte.
 const userSchema = yup.object({
-  fullname: yup
+  name: yup
     .string()
-    .required({ fullname: "Entrez votre nom et prénom" })
+    .required({ name: "Entrez votre prenom" })
     .matches(/^[a-zA-Z]{2,}(?: [a-zA-Z]+){0,2}$/, {
       message: {
-        fullname:
-          "Doit contenir un espace et pas de caracteres spéciaux ex: Bill Gates",
+        name: "Pas de caracteres spécial",
       },
     })
-    .min(6, { fullname: "6 caracteres minimum sont requis" })
-    .max(25, { fullname: "25 caracteres maximum" }),
+    .min(3, { name: "3 caracteres minimum sont requis" })
+    .max(25, { name: "25 caracteres maximum" }),
+  lastname: yup
+    .string()
+    .required({ lastname: "Entrez votre nom" })
+    .matches(/^[a-zA-Z]{2,}(?: [a-zA-Z]+){0,2}$/, {
+      message: {
+        lastname: "Pas de caracteres spécial",
+      },
+    })
+    .min(3, { lastname: "3 caracteres minimum sont requis" })
+    .max(25, { lastname: "25 caracteres maximum" }),
   github: yup
     .string()
     .max(250, "max 250")

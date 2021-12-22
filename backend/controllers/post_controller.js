@@ -74,14 +74,14 @@ module.exports.createPost = async (req, res) => {
 
       // On récupere le pseudo de l'user en relation a l'id de l'user pour pouvoir ensuite l'utiliser son fullname pour le post de la request
       db.query(
-        "SELECT fullname FROM users where id = ?",
+        "SELECT nom, prenom FROM users where id = ?",
         [user.id],
         (err, results) => {
           if (!err) {
             // on fait la request pour créer le post
             db.query(
               "INSERT INTO posts (title, img_url, user_id, author_name) VALUES (?, ?, ?, ?);",
-              [title, img, user.id, results[0].fullname],
+              [title, img, user.id, results[0].prenom + " " + results[0].nom],
               (err, results) => {
                 if (!err) {
                   res.status(201).json({ message: "Post créé avec succes !" });
@@ -294,7 +294,7 @@ exports.createComment = (req, res) => {
 
     // On récupere le pseudo de l'user en relation du uid du token pour pouvoir ensuite utiliser son fullname pour le commentaire.
     db.query(
-      "SELECT fullname FROM users where id = ?",
+      "SELECT nom, prenom FROM users where id = ?",
       [user.id],
       (err, results) => {
         if (!err) {
@@ -302,7 +302,7 @@ exports.createComment = (req, res) => {
           // si ok alors on créé le commentaire.
           db.query(
             "INSERT INTO comments (post_id, user_id, comments, author_name) VALUES (?, ?, ?, ?)",
-            [pId, user.id, comment, results[0].fullname],
+            [pId, user.id, comment, results[0].prenom + " " + results[0].nom],
             (err, result) => {
               if (err) {
                 res.status(500).json({ err });

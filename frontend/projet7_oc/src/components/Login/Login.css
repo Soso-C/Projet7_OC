@@ -116,6 +116,9 @@
     .loginWrapper {
         height: 100vh;
     }
+    .loginTop {
+      height: 140px;
+    }
     .registerButton {
       width: 100%;
     }

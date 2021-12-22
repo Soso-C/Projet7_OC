@@ -1,14 +1,14 @@
 .register {
-    width: 100vw;
-    height: 100vh;
-    background-color: #f0f2f5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    background-image: url("../../assets/Background_login/BG_login2.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;   
+  width: 100vw;
+  height: 100vh;
+  background-color: #f0f2f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background-image: url("../../assets/Background_login/BG_login2.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .registerWrapper {
@@ -84,14 +84,48 @@
   font-size: 1.2em;
 }
 
-.error-fullname,
+.nameLnameContainer {
+  display: flex;
+}
+
+#lname {
+  margin-left: 1em;
+}
+
+.nameLastnInput {
+  width: 50%;
+}
+
+.errorNameLastname{
+  display: flex;
+}
+
+.error-name, .error-lastname {
+  width: 50%;
+  text-align: left;
+}
+
+.error-name{
+  padding-left: 5px;
+}
+
+.error-lastname{
+  padding-left: 1.5em;
+}
+
+.error-name,
+.error-lastname,
 .error-email,
 .error-password,
 .error-confirmPwd {
   color: red;
+}
+
+.error-email,
+.error-password,
+.error-confirmPwd {
   text-align: left;
-  padding-left: 0.2em;
-  padding: 0.2em;
+  padding-left: 0.5em;
 }
 
 /* Shake l'input + border red */
@@ -118,32 +152,34 @@
   }
 } */
 
-
 /* Responsive */
 
 @media screen and (max-width: 820px) {
-
-    .registerBox {
-        margin-left: 1em;
-        margin-right: 1em;
-    }
-    
+  .registerBox {
+    margin-left: 1em;
+    margin-right: 1em;
+  }
 }
 
 @media screen and (max-width: 450px) {
-
-    .loginDesc {
-        font-size: 1.1em;
-        padding-top: 1em;
-    }
-    .registerLogo {
-        margin-top: 2em;
-    }
-    .registerBox{
-        height: 100%;
-        margin-bottom: 3em;
-    }
-    .register {
-        height: 100%;
-    }
+  .loginDesc {
+    font-size: 1.1em;
+    padding-top: 1em;
+  }
+  .registerLogo {
+    margin-top: -1em;
+  }
+  .registerBox {
+    height: 100%;
+    margin-bottom: 3em;
+  }
+  .register {
+    height: 100%;
+  }
+  .signInButton {
+    width: 100%;
+  }
+  .signUpButton {
+    margin-top: 0.5em;
+  }
 }

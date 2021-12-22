@@ -30,17 +30,26 @@ export const registerSchema = yup.object().shape({
         email: "Entrez un email valide !",
       },
     }),
-  fullname: yup
+  name: yup
     .string()
-    .required({ fullname: "Entrez votre nom et prénom" })
+    .required({ name: "Entrez votre prenom" })
     .matches(/^[a-zA-Z]{2,}(?: [a-zA-Z]+){0,2}$/, {
       message: {
-        fullname:
-          "Doit contenir un espace et pas de caracteres spéciaux ex: Bill Gates",
+        name: "Pas de caracteres spécial",
       },
     })
-    .min(6, { fullname: "6 caracteres minimum sont requis" })
-    .max(25, { fullname: "25 caracteres maximum" }),
+    .min(3, { name: "3 caracteres minimum sont requis" })
+    .max(25, { name: "25 caracteres maximum" }),
+  lastname: yup
+    .string()
+    .required({ lastname: "Entrez votre nom" })
+    .matches(/^[a-zA-Z]{2,}(?: [a-zA-Z]+){0,2}$/, {
+      message: {
+        lastname: "Pas de caracteres spécial",
+      },
+    })
+    .min(3, { lastname: "3 caracteres minimum sont requis" })
+    .max(25, { lastname: "25 caracteres maximum" }),
 });
 
 // Validateur d'input pour la connexion de l'user.
@@ -49,7 +58,7 @@ export const loginSchema = yup.object().shape({
     .string()
     .required({ password: "Un mot de passe est requis" })
     // 3 en attendant car mdp test mais mettre a 8 apres
-    .min(4, ({ password: "Min 8 caracteres" })),
+    .min(4, { password: "Min 8 caracteres" }),
   email: yup
     .string()
     .email({ email: "Entrez un email valide" })
@@ -74,20 +83,29 @@ export const comSchema = yup.object().shape({});
 
 // Validateur d'input pour lors de la modification du compte.
 export const editProfilSchema = yup.object().shape({
-  fullname: yup
+  name: yup
     .string()
-    .required({ fullname: "Entrez votre nom et prénom" })
+    .required({ name: "Entrez votre prenom" })
     .matches(/^[a-zA-Z]{2,}(?: [a-zA-Z]+){0,2}$/, {
       message: {
-        fullname:
-          "Doit contenir un espace et pas de caracteres spéciaux ex: Bill Gates",
+        name: "Pas de caracteres spécial",
       },
     })
-    .min(6, { fullname: "6 caracteres minimum sont requis" })
-    .max(25, { fullname: "25 caracteres maximum" }),
+    .min(3, { name: "3 caracteres minimum sont requis" })
+    .max(25, { name: "25 caracteres maximum" }),
+  lastname: yup
+    .string()
+    .required({ lastname: "Entrez votre nom" })
+    .matches(/^[a-zA-Z]{2,}(?: [a-zA-Z]+){0,2}$/, {
+      message: {
+        lastname: "Pas de caracteres spécial",
+      },
+    })
+    .min(3, { lastname: "3 caracteres minimum sont requis" })
+    .max(25, { lastname: "25 caracteres maximum" }),
   github: yup
     .string()
-    .max(250, 'max 250')
+    .max(250, "max 250")
     // .matches(
     //   /^((http|https):\/\/)?(www.)?(?!.*(http|https|www.))[a-zA-Z0-9_-]+(\.[a-zA-Z]+)+(\/)?.([\w\?[a-zA-Z-_%\/@?]+)*([^\/\w\?[a-zA-Z0-9_-]+=\w+(&[a-zA-Z0-9_]+=\w+)*)?$/,
     //   "Entrez un url valide"
@@ -95,10 +113,10 @@ export const editProfilSchema = yup.object().shape({
     .notRequired(),
   bio: yup.string().max(250, { bio: "250 caracteres max" }).notRequired(),
   age: yup
-  .number({ age: "Doit etre un nombre" })
-  .min(18, { age: "minimum 18 ans" })
-  .max(100, { age: "maximum 100 ans"})
-  .notRequired(),
+    .number({ age: "Doit etre un nombre" })
+    .min(18, { age: "minimum 18 ans" })
+    .max(100, { age: "maximum 100 ans" })
+    .notRequired(),
   metier: yup.string().max(50, { metier: "50 caracteres max" }).notRequired(),
   country: yup.string().max(50, { country: "50 caracteres max" }).notRequired(),
 });

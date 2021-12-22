@@ -108,6 +108,15 @@
 
 /************************************************************************************* Partie EDIT ************************************************************************************/
 
+.NomPrenomContainer {
+  display: flex;
+}
+
+#dividerNlname {
+  margin: 1em;
+}
+
+
 .profileInputName {
   font-weight: 600;
   text-align: center;
@@ -247,5 +256,9 @@
   }
   #createdAt{
     padding-left: 1em;
+  }
+  .NomPrenomContainer {
+    display: flex;
+    flex-direction: column;
   }
 }

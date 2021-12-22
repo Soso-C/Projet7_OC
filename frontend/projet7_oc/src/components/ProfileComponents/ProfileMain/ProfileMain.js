@@ -31,8 +31,9 @@ export default function ProfileMain(props) {
   const [bio, setBio] = useState("");
   const [work, setWork] = useState("");
   const [country, setCountry] = useState("");
-  const [age, setAge] = useState(18);
+  const [age, setAge] = useState();
   const [urlGit, setUrlGit] = useState("");
+  const [lastname, setLastname] = useState("");
 
   // Passe a false la partie edit
   const closeEdit = () => {
@@ -48,7 +49,8 @@ export default function ProfileMain(props) {
   const uploadProfil = async () => {
     // la data qu'on va envoyé a notre DB
     let formData = {
-      fullname: username,
+      name: username,
+      lastname: lastname,
       bio: bio,
       country: country,
       metier: work,
@@ -116,7 +118,9 @@ export default function ProfileMain(props) {
     p: 4,
   };
 
+  // Toggle on/off modal
   const [open, setOpen] = useState(false);
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -129,15 +133,27 @@ export default function ProfileMain(props) {
         <div className="profileContainer">
           <div className="pictureAndName">
             <div className="avatarPic" style={{ marginBottom: "2em" }}></div>
-            <TextField
-              id="outlined-basic"
-              label=""
-              variant="outlined"
-              value={username}
-              onChange={(e) => {
-                setUsername(e.target.value);
-              }}
-            />
+            <div className="NomPrenomContainer">
+              <TextField
+                id="outlined-basic"
+                label="Prenom"
+                variant="outlined"
+                value={username}
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                }}
+              />
+              <span id="dividerNlname"></span>
+              <TextField
+                id="outlined-basic"
+                label="Nom"
+                variant="outlined"
+                value={lastname}
+                onChange={(e) => {
+                  setLastname(e.target.value);
+                }}
+              />
+            </div>
           </div>
           <div className="bioAndInfoContainer">
             <div className="bioContainer">
@@ -156,7 +172,7 @@ export default function ProfileMain(props) {
                 <p>Métier :</p>
                 <TextField
                   id="outlined-basic"
-                  label=""
+                  label="Métier"
                   variant="outlined"
                   value={work}
                   onChange={(e) => {
@@ -168,7 +184,7 @@ export default function ProfileMain(props) {
                 <p>Pays :</p>
                 <TextField
                   id="outlined-basic"
-                  label=""
+                  label="Pays"
                   variant="outlined"
                   value={country}
                   onChange={(e) => {
@@ -180,7 +196,7 @@ export default function ProfileMain(props) {
                 <p>Age :</p>
                 <TextField
                   id="outlined-basic"
-                  label=""
+                  label="Age"
                   variant="outlined"
                   value={age}
                   onChange={(e) => {
@@ -193,7 +209,7 @@ export default function ProfileMain(props) {
                 <p>Git :</p>
                 <TextField
                   id="outlined-basic"
-                  label=""
+                  label="Github"
                   variant="outlined"
                   value={urlGit}
                   onChange={(e) => {
@@ -279,7 +295,7 @@ export default function ProfileMain(props) {
       <div className="profileContainer">
         <div className="pictureAndName">
           <div className="avatarPic"></div>
-          <p className="profileName">{user.fullname}</p>
+          <p className="profileName">{user.prenom + " " + user.nom}</p>
           {user.id === test1.userId || test1.admin === 1 ? (
             <div className="editProfile">
               <Button

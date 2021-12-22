@@ -22,7 +22,7 @@ const verifyUid = (authorization) => {
 
 module.exports.getAllUsers = async (req, res) => {
   db.query(
-    "SELECT id, fullname, bio, user_created, picture, age, metier, country, github_url FROM users;",
+    "SELECT id, nom, prenom, bio, user_created, age, metier, country, github_url FROM users;",
     (err, result) => {
       if (err) {
         res.status(500).json({ err });
@@ -38,7 +38,7 @@ module.exports.getAllUsers = async (req, res) => {
 module.exports.getOneUser = async (req, res) => {
   const uId = req.params.id;
   db.query(
-    "SELECT id, fullname, bio, user_created, picture, age, metier, country, github_url FROM users WHERE id= ?;",
+    "SELECT id, nom, prenom, bio, user_created, age, metier, country, github_url FROM users WHERE id= ?;",
     [uId],
     (err, result) => {
       if (err) {
@@ -56,13 +56,13 @@ module.exports.modifyUser = async (req, res) => {
   const id = req.params.id;
   const user = verifyUid(req.headers.authorization);
 
-  const { fullname, bio, country, metier, github, age } = req.body;
+  const { name, lastname, bio, country, metier, github, age } = req.body;
 
-  // si notre params id == a notre tokenid ou si notre token est admin alors on peut faire la request.
+  // si notre params id == a notre tokenid alors on peut faire la request.
   if (user.id == id) {
     db.query(
-      "UPDATE users SET fullname = ?, bio = ?, country = ?, metier = ?, age = ?, github_url = ? WHERE id = ?;",
-      [fullname, bio, country, metier, age, github, id],
+      "UPDATE users SET nom = ?, prenom = ?, bio = ?, country = ?, metier = ?, age = ?, github_url = ? WHERE id = ?;",
+      [lastname, name, bio, country, metier, age, github, id],
       (err, result) => {
         if (err) {
           res.status(500).json({ err });
@@ -75,7 +75,6 @@ module.exports.modifyUser = async (req, res) => {
 };
 
 // Delete un user
-// Manque de delete toutes les images du post de l'user avant de le supprimer.
 
 module.exports.deleteUser = async (req, res) => {
   const id = req.params.id;
@@ -201,7 +200,7 @@ module.exports.getUserProfile = async (req, res) => {
   // Si notre tokenid est = id alors on montre les infos du profil si non non.
   if (user.id == id) {
     db.query(
-      "SELECT id, fullname, bio, user_created, picture, age, metier, country, github_url FROM users WHERE id= ?;",
+      "SELECT id, nom, prenom, bio, user_created, age, metier, country, github_url FROM users WHERE id= ?;",
       [id],
       (err, result) => {
         if (err) {
