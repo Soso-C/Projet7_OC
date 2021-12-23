@@ -17,7 +17,7 @@ Le backend a été réalisé avec Node.js, Express.js et MySQL comme base de don
 
 ### Frontend :
 
-Le frontend a été réalisé avec le framework React.js
+Le frontend a été réalisé avec le framework React.js.
 
 ## Comment Installer l'application Groupomania ?
 
@@ -36,7 +36,7 @@ Dans celui-ci remplir les variables de connection à votre base de données ains
 
 #### Packages utilisé :
 
-nodemon / mysql / express / bcrypt / jsonwebtoken / multer / dotenv / helmet / express-rate-limit / yup
+nodemon / mysql / express / bcrypt / jsonwebtoken / multer / dotenv / helmet / express-rate-limit / yup.
 
 #### Une fois les variables /.env/ configurées, executer cette commande dans le dossier /backend depuis votre terminal pour lancer le serveur :
 
@@ -73,7 +73,7 @@ npm start
 
 ## Step 3 Installer la base de donnée :
 
-Pour installer la base de donnée dirigez vous dans le dossier : backend/SQL_DB et vous trouverez 3 fichiers SQL a exécuter pour installer les 
+Pour installer la base de donnée dirigez vous dans le dossier : backend/SQL_DB et vous trouverez 3 fichiers SQL a exécuter pour installer les tables.
 
 #### N'oubliez pas de lancer le serveur backend avec votre frontend pour pouvoir faire fonctionner le site web .
 
