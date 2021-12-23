@@ -47,6 +47,8 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` VALUES (13,'Admin','Admin','sa@sa.fr','$2b$10$DcnXWh5.AkT8jUShKUMnOubrw42iD9jWPVnFn827o.3m1tndFKU12',1,'2021-12-13 17:35:10','','','','',NULL);
+                            /* MOT DE PASSE ADMIN = test */
+                            
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
