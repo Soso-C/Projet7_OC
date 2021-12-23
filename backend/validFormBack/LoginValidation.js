@@ -1,12 +1,11 @@
 const yup = require("yup");
 
-// Schema validateur d'input pour le login.*
+// Schema validateur d'input pour le login.
 
 const loginSchema = yup.object({
   password: yup
     .string()
     .required({ password: "Un mot de passe est requis" })
-    // 3 en attendant car mdp test mais mettre a 8 apres
     .min(8, { password: "Min 8 caracteres" }),
   email: yup
     .string()

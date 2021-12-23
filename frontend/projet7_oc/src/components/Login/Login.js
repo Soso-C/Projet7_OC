@@ -22,12 +22,9 @@ const Login = () => {
   let emailErr = document.querySelector(".error-email");
   let passwordErr = document.querySelector(".error-password");
 
-
-  
   // Target les inputs
   let passwordInput = document.getElementById("password");
   let emailInput = document.getElementById("email");
-
 
   // Affiche les erreurs
   function displayError(tag, message) {
@@ -69,12 +66,11 @@ const Login = () => {
         clearErr();
       }
     });
-    
 
     // Si mes inputs ont aucune erreur et que isValid est true alors on fait une request pour créer l'user
     const isValid = await loginSchema.isValid(formData).then((valid) => {
       if (valid) {
-        clearErr()
+        clearErr();
         Axios.post("http://localhost:3001/api/user/login", formData)
           .then((res) => {
             localStorage.setItem("token", JSON.stringify(res.data));
@@ -82,9 +78,13 @@ const Login = () => {
             window.location.href = "/";
           })
           .catch((err) => {
-            alert(err.response.data.error);
-            passwordInput.classList.add("errorInput");
-            emailInput.classList.add("errorInput");
+            try {
+              alert(err.response.data.error);
+              passwordInput.classList.add("errorInput");
+              emailInput.classList.add("errorInput");
+            } catch {
+              alert("Ip bloquée 15 minutes trop de request");
+            }
           });
       }
     });
@@ -94,7 +94,7 @@ const Login = () => {
     <div className="login">
       <div className="loginWrapper">
         <div className="loginTop">
-          <img className="loginLogo" src={logo} alt="logo groupomania"/>
+          <img className="loginLogo" src={logo} alt="logo groupomania" />
         </div>
         <span className="loginDesc">
           Avec Groupomania, partagez et restez en contact avec votre entreprise
