@@ -73,7 +73,7 @@ npm start
 
 ## Step 3 Installer la base de donnée :
 
-Pour installer la base de donnée dirigez vous dans le dossier : backend/MySQL et vous trouverez 3 fichiers SQL a exécuter pour installer les 
+Pour installer la base de donnée dirigez vous dans le dossier : backend/SQL_DB et vous trouverez 3 fichiers SQL a exécuter pour installer les 
 
 #### N'oubliez pas de lancer le serveur backend avec votre frontend pour pouvoir faire fonctionner le site web .
 
