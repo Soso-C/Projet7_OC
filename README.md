@@ -24,8 +24,9 @@ Le frontend a été réalisé avec le framework React.js
 ### Step 1 Backend :
 
 #### Pour pouvoir installer les packages dirigez vous dans le dossier /backend depuis votre terminal et executer cette commande :
-
-**npm install**
+```
+npm install
+```
 
 Ceci installera tous les packages utilisé pour le bon fonctionnement de notre server.
 
@@ -43,14 +44,18 @@ nodemon / mysql / express / bcrypt / jsonwebtoken / multer / dotenv / helmet / e
 
 Ou si problème avec nodemon :
 
-**node index.js**
+```
+node index.js
+```
 
 
 ### Step 2 Frontend :
 
 #### Pour pouvoir installer les packages dirigez vous dans le dossier /projet7_oc depuis votre terminal et executer cette commande :
 
-**npm install**
+```
+npm install
+```
 
 Ceci installera tous les packages utilisé pour le bon fonctionnement de notre frontend.
 
@@ -60,7 +65,9 @@ react-router-dom / yup / axios / Material UI
 
 #### Une fois les packages installés, executer cette commande dans le dossier /projet7_oc depuis votre terminal pour lancer le site  :
 
-**npm start**
+```
+npm start
+```
 
 
 #### N'oubliez pas de lancer le serveur backend avec votre frontend pour pouvoir faire fonctionner le site web .
