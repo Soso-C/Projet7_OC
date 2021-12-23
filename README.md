@@ -24,10 +24,13 @@ Le frontend a été réalisé avec le framework React.js
 ### Step 1 Backend :
 
 #### Pour pouvoir installer les packages dirigez vous dans le dossier /backend depuis votre terminal et executer cette commande :
+
 npm install
+
 Ceci installera tous les packages utilisé pour le bon fonctionnement de notre server.
 
 #### Modifier le nom du fichier .env_test par .env :
+
 Dans celui-ci remplir les variables de connection à votre base de données ainsi que la variable SECRETTOKEN par une longue chaine de caractères sécurisée.
 
 #### Packages utilisé :
@@ -46,7 +49,9 @@ node index.js
 ### Step 2 Frontend :
 
 #### Pour pouvoir installer les packages dirigez vous dans le dossier /projet7_oc depuis votre terminal et executer cette commande :
+
 npm install
+
 Ceci installera tous les packages utilisé pour le bon fonctionnement de notre frontend.
 
 #### Packages utilisé :
