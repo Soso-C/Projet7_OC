@@ -1,8 +1,6 @@
 const express = require("express");
 const app = express();
 const jwt = require("jsonwebtoken")
-const cookieParser = require("cookie-parser");
-// const cors = require("cors");
 const helmet = require('helmet');
 const rateLimit = require("express-rate-limit");
 const dotenv = require('dotenv').config()

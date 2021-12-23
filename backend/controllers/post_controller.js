@@ -42,7 +42,7 @@ module.exports.createPost = async (req, res) => {
   }
   /****************************************************************************** Fin Error Input Controller **************************************************************************/
 
-  // si notre title fais pas plus de 70 et que l'image ne soit pas vide alors on exectue la request ci dessous.
+  // si notre title fais pas plus de 70 et que l'image n'est pas vide alors on exectue la request ci dessous.
   else {
     try {
       // Si notre img n'est pas en jpg/png/jpeg/gif alors on return une erreur
@@ -132,21 +132,21 @@ module.exports.getOnePost = async (req, res) => {
 
 // Modify un post
 module.exports.modifyPost = async (req, res) => {
-  const id = req.params.id;
-  const title = req.body.title;
-  const img = req.body.img;
+  // const id = req.params.id;
+  // const title = req.body.title;
+  // const img = req.body.img;
 
-  db.query(
-    "UPDATE posts SET title = ?, img_url = ?  WHERE id = ?;",
-    [title, img, id],
-    (err, result) => {
-      if (err) {
-        res.status(500).json({ err });
-      } else {
-        res.status(200).json({ message: "Modification effectuée ! !" });
-      }
-    }
-  );
+  // db.query(
+  //   "UPDATE posts SET title = ?, img_url = ?  WHERE id = ?;",
+  //   [title, img, id],
+  //   (err, result) => {
+  //     if (err) {
+  //       res.status(500).json({ err });
+  //     } else {
+  //       res.status(200).json({ message: "Modification effectuée ! !" });
+  //     }
+  //   }
+  // );
 };
 
 // Delete un post
