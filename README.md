@@ -21,7 +21,7 @@ Le frontend a été réalisé avec le framework React.js.
 
 ## Comment Installer l'application Groupomania ?
 
-### Step 1 Backend :
+## Step 1 Backend :
 
 #### Pour pouvoir installer les packages dirigez vous dans le dossier /backend depuis votre terminal et executer cette commande :
 ```
@@ -51,7 +51,7 @@ node index.js
 ```
 
 
-### Step 2 Frontend :
+## Step 2 Frontend :
 
 #### Pour pouvoir installer les packages dirigez vous dans le dossier /projet7_oc depuis votre terminal et executer cette commande :
 
