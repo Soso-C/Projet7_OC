@@ -85,7 +85,7 @@ export const editProfilSchema = yup.object().shape({
   name: yup
     .string()
     .required({ name: "Entrez votre prenom" })
-    .matches(/^[a-zA-Z]{2,}(?: [a-zA-Z]+){0,2}$/, {
+    .matches(/^[a-zA-Z]{1,}(?: [a-zA-Z]+){0,1}$/, {
       message: {
         name: "Pas de caracteres spécial",
       },
@@ -95,7 +95,7 @@ export const editProfilSchema = yup.object().shape({
   lastname: yup
     .string()
     .required({ lastname: "Entrez votre nom" })
-    .matches(/^[a-zA-Z]{2,}(?: [a-zA-Z]+){0,2}$/, {
+    .matches(/^[a-zA-Z]{1,}(?: [a-zA-Z]+){0,1}$/, {
       message: {
         lastname: "Pas de caracteres spécial",
       },
