@@ -40,7 +40,9 @@ nodemon / mysql / express / bcrypt / jsonwebtoken / multer / dotenv / helmet / e
 
 #### Une fois les variables /.env/ configurées, executer cette commande dans le dossier /backend depuis votre terminal pour lancer le serveur :
 
-**nodemon index.js**
+```
+nodemon index.js
+```
 
 Ou si problème avec nodemon :
 
