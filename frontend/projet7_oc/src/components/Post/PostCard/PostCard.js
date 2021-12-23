@@ -47,7 +47,7 @@ export default function PostCard(props) {
     fetchCount();
   }, [test1.token, post.id]);
 
-  /**************************************************************************************************************************************************************************************/
+  /************************************************************************************************************************************************************************************/
 
   // Toggle commentaire show/hide
 
@@ -71,7 +71,6 @@ export default function PostCard(props) {
       });
   };
 
-  
   return (
     <div className="postCardWrap">
       <Card sx={{ width: 600 }} id="card1">
@@ -93,7 +92,7 @@ export default function PostCard(props) {
             color="text.primary"
             className="title_post"
           >
-           <span id="postTitle">{post.title}</span> 
+            <span id="postTitle">{post.title}</span>
           </Typography>
         </CardContent>
         <CardMedia
@@ -113,10 +112,6 @@ export default function PostCard(props) {
               ? `${countData} commentaires`
               : `${countData} commentaire`}
           </p>
-          <IconButton aria-label="add to favorites">
-            <FavoriteIcon className="favIcon" />
-          </IconButton>
-          <p className="pPostCard">0 like</p>
           {/* Affiche le btn a l'user si il est l'owner ou bien admin si non le cache*/}
           {test1.userId === post.user_id || test1.admin === 1 ? (
             <IconButton onClick={deletePost} id="deletePost">

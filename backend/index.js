@@ -21,7 +21,7 @@ const apiLimiter = rateLimit({
 
 app.use(apiLimiter);
 
-// Ratelimit max 10, sur la login route a la 10 eme request bloque l'ip de l'user pendant 15min
+// Ratelimit max 9 try email/mdp sur la login route a la 10 eme request bloque l'ip de l'user pendant 15min
 const loginLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // maximum 10 connexions en 15 minutes sur le login
   max: 10
@@ -44,7 +44,6 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(helmet());
-app.use(cookieParser());
 
 
 // Routes
