@@ -78,11 +78,11 @@ const Login = () => {
             window.location.href = "/";
           })
           .catch((err) => {
-            try {
+            if (err.response) {
               alert(err.response.data.error);
               passwordInput.classList.add("errorInput");
               emailInput.classList.add("errorInput");
-            } catch {
+            } else {
               alert("Ip bloquée 15 minutes trop de request");
             }
           });
