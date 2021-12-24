@@ -11,13 +11,21 @@ Ceci est mon dernier projet de formation avec Openclassrooms, le but de ce proje
 
 ### Backend :
 
-Le backend a été réalisé avec Node.js, Express.js et MySQL comme base de données.
+Le backend a été réalisé avec Node.js, Express.js et MySQL comme base de données
+
+#### Packages utilisé :
+
+nodemon / mysql / express / bcrypt / jsonwebtoken / multer / dotenv / helmet / express-rate-limit / yup
 
 ### Frontend :
 
-Le frontend a été réalisé avec le framework React.js.
+Le frontend a été réalisé avec le framework React.js
 
-## Comment Installer l'application Groupomania ?
+#### Packages utilisé :
+
+react-router-dom / yup / axios / Material UI
+
+# Comment installer l'application Groupomania ?
 
 ## Step 1 Installer la base de donnée :
 
@@ -36,10 +44,6 @@ Ceci installera tous les packages utilisé pour le bon fonctionnement de notre s
 #### Modifier le nom du fichier .env_test par .env :
 
 Dans celui-ci remplir les variables de connection à votre base de données ainsi que la variable SECRETTOKEN par une longue chaine de caractères sécurisée.
-
-#### Packages utilisé :
-
-nodemon / mysql / express / bcrypt / jsonwebtoken / multer / dotenv / helmet / express-rate-limit / yup.
 
 #### Une fois les variables /.env/ configurées, executer cette commande dans le dossier /backend depuis votre terminal pour lancer le serveur :
 
@@ -63,14 +67,10 @@ npm install
 
 Ceci installera tous les packages utilisé pour le bon fonctionnement de notre frontend.
 
-#### Packages utilisé :
-
-react-router-dom / yup / axios / Material UI
-
 #### Une fois les packages installés, executer cette commande dans le dossier /projet7_oc depuis votre terminal pour lancer le site :
 
 ```
 npm start
 ```
 
-#### N'oubliez pas de lancer le serveur backend avec votre frontend pour pouvoir faire fonctionner le site web .
+#### N'oubliez pas de lancer le serveur backend avec votre frontend pour pouvoir faire fonctionner le site web.
