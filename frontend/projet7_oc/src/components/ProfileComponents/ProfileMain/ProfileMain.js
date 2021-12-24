@@ -26,7 +26,7 @@ export default function ProfileMain(props) {
   // Si true alors on passe en Edit mode
   const [isEdit, setIsEdit] = useState(false);
 
-  // DB infos useState (marche pas je sais pas pourquoi le state prend pas en compte ma data)
+  // user infos useState
   const [username, setUsername] = useState("");
   const [bio, setBio] = useState("");
   const [work, setWork] = useState("");
@@ -63,7 +63,7 @@ export default function ProfileMain(props) {
       alert(Object.values(err.errors[0]));
     });
 
-    // si schema est valid sans erreur alors on envoie le form et on update le profile
+    // si le yup schema est sans erreur alors on envoie la request et on update le profile
     const isValid = await editProfilSchema
       .isValid(formData)
       .then((valid) => {

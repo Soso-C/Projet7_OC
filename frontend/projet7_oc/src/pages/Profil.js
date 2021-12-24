@@ -8,11 +8,12 @@ const Profil = () => {
 
   const test1 = JSON.parse(localStorage.getItem("token"));
 
+
   const [userData, setUserData] = useState([]);
 
-  // useEffect permet de récupérer la data et de l'afficher une seul fois avec les [].
+  // On récupere toutes les infos de notre userID qu'on passera en props pour pouvoir les exploiter dans notre futur component.
   useEffect(() => {
-    Axios.get(`http://localhost:3001/api/user/profil/${test1.userId}`, {
+    Axios.get(`${process.env.REACT_APP_API_URL}/api/user/profil/${test1.userId}`, {
       headers: { Authorization: `Bearer ${test1.token}` },
     }).then((res) => {
       setUserData(res.data[0])
@@ -22,6 +23,7 @@ const Profil = () => {
   return (
     <>
       <NewSearchBar />
+      {/* On passe la data (userData) en props a notre composant enfant qu'on a recupéré via le useEffect pour pouvoir exploiter ces données dans ce composant*/}
       <ProfileMain user={userData} />  
     </>
   );
