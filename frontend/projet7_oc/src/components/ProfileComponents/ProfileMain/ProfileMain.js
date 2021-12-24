@@ -69,7 +69,7 @@ export default function ProfileMain(props) {
       .then((valid) => {
         if (valid) {
           Axios.put(
-            `http://localhost:3001/api/user/${test1.userId}`,
+            `${process.env.REACT_APP_API_URL}/api/user/${test1.userId}`,
             formData,
             {
               headers: { Authorization: `Bearer ${test1.token}` },
@@ -89,7 +89,7 @@ export default function ProfileMain(props) {
   // Delete Profile func
 
   const deleteUser = () => {
-    Axios.delete(`http://localhost:3001/api/user/${test1.userId}`, {
+    Axios.delete(`${process.env.REACT_APP_API_URL}/api/user/${test1.userId}`, {
       headers: { Authorization: `Bearer ${test1.token}` },
     })
       .then((res) => {

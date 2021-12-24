@@ -15,7 +15,7 @@ export default function Comment(props) {
 
   // Appel API pour delete le commentaire.
   const deleteComs = () => {
-    Axios.delete(`http://localhost:3001/api/post/comment-post/${com.id}`, {
+    Axios.delete(`${process.env.REACT_APP_API_URL}/api/post/comment-post/${com.id}`, {
       headers: { Authorization: `Bearer ${test1.token}` },
     })
       // si userid est owner du coms et que la request est effectué on alert le sucess et on refresh la page

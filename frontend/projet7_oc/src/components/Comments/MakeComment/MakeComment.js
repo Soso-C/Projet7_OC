@@ -21,7 +21,7 @@ export default function MakeComment(props) {
 
   // appel api pour récupérer les commentaires
   useEffect(() => {
-    Axios.get(`http://localhost:3001/api/post/comment-post/${postId}`, {
+    Axios.get(`${process.env.REACT_APP_API_URL}/api/post/comment-post/${postId}`, {
       headers: { Authorization: `Bearer ${test1.token}` },
     }) // on montre notre token qui est save dans le localstorage pour voir nos coms
       .then((res) => {
@@ -33,7 +33,7 @@ export default function MakeComment(props) {
   // Envoyer un commentaire avec son postID
   const sendCom = () => {
     Axios.post(
-      "http://localhost:3001/api/post/comment-post",
+      `${process.env.REACT_APP_API_URL}/api/post/comment-post`,
       {
         pId: postId,
         comment: comment,

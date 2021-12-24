@@ -14,7 +14,6 @@ import Avatar from "@mui/material/Avatar";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { red } from "@mui/material/colors";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import CommentOutlinedIcon from "@mui/icons-material/CommentOutlined";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -25,8 +24,6 @@ export default function PostCard(props) {
 
   let test1 = JSON.parse(localStorage.getItem("token"));
 
-  const test = "http://localhost:3001/";
-
   /******************************************************************************** Count Comment Post *********************************************************************************/
 
   const [countData, setCountData] = useState(0);
@@ -36,7 +33,7 @@ export default function PostCard(props) {
     const fetchCount = async () => {
       try {
         const fetchData = await Axios.get(
-          `http://localhost:3001/api/post/comment-count/${post.id}`,
+          `${process.env.REACT_APP_API_URL}/api/post/comment-count/${post.id}`,
           {
             headers: { Authorization: `Bearer ${test1.token}` },
           }
@@ -59,7 +56,7 @@ export default function PostCard(props) {
 
   // Permet de supprimer un post depuis l'id de notre Post
   const deletePost = () => {
-    Axios.delete(`http://localhost:3001/api/post/${post.id}`, {
+    Axios.delete(`${process.env.REACT_APP_API_URL}/api/post/${post.id}`, {
       headers: { Authorization: `Bearer ${test1.token}` },
     })
       .then((res) => {
@@ -99,7 +96,7 @@ export default function PostCard(props) {
           id="imgPostCard"
           component="img"
           height="350"
-          image={test + post.img_url}
+          image={`${process.env.REACT_APP_API_URL}/${post.img_url}`}
           alt=""
         />
         <CardActions disableSpacing>

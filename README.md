@@ -17,7 +17,6 @@ Ceci est mon dernier projet de formation avec Openclassrooms, le but de ce proje
 - Supprimer n'importe quel post
 - Supprimer n'importe quel commentaire
 
-
 ## Compétences évaluées du projet :
 
 - Authentifier un utilisateur et maintenir sa session
@@ -83,7 +82,11 @@ npm install
 
 Ceci installera tous les packages utilisé pour le bon fonctionnement de notre frontend.
 
-#### Une fois les packages installés, executer cette commande dans le dossier /projet7_oc depuis votre terminal pour lancer le site :
+#### Modifier le nom du fichier .env_test par .env :
+
+Dans celui-ci remplir la variable REACT_APP_API_URL par votre URL de votre API.
+
+#### Une fois les packages installés et la variable configurée, executer cette commande dans le dossier /projet7_oc depuis votre terminal pour lancer le site :
 
 ```
 npm start

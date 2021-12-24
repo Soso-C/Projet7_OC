@@ -107,7 +107,7 @@ const Register = () => {
       .isValid(formData)
       .then((valid) => {
         if (valid) {
-          Axios.post("http://localhost:3001/api/user/signup", formData)
+          Axios.post(`${process.env.REACT_APP_API_URL}/api/user/signup`, formData)
             // si ok alors on récupere le token on le stock dans le localStorage et on connecte l'user et le redirige vers "/"
             .then((res) => {
               localStorage.setItem("token", JSON.stringify(res.data));

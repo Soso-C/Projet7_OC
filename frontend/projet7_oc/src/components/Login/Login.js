@@ -7,6 +7,7 @@ import logo from "../../assets/Groupomania_Logos/icon5Svg.svg";
 import { loginSchema } from "../../Validation/ValidForms";
 
 const Login = () => {
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -71,7 +72,7 @@ const Login = () => {
     const isValid = await loginSchema.isValid(formData).then((valid) => {
       if (valid) {
         clearErr();
-        Axios.post("http://localhost:3001/api/user/login", formData)
+        Axios.post(`${process.env.REACT_APP_API_URL}/api/user/login`, formData)
           .then((res) => {
             localStorage.setItem("token", JSON.stringify(res.data));
             alert("Connexion réussie");

@@ -37,7 +37,7 @@ export default function MakePost() {
 
     // si title < 70 alors on peut faire la request pour créer notre post
     if (title.length < 70){
-      Axios.post("http://localhost:3001/api/post/", data, {
+      Axios.post(`${process.env.REACT_APP_API_URL}/api/post/`, data, {
       headers: { Authorization: `Bearer ${test1.token}` },
     })
       .then((res) => {
