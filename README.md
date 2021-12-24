@@ -2,7 +2,23 @@
 
 Ceci est mon dernier projet de formation avec Openclassrooms, le but de ce projet est de créer un réseau social interne d'une entreprise qui se nomme : Groupomania.
 
-## Compétences évaluées :
+## Les fonctionnalitées de l'application :
+
+### Les utilisateurs pourront :
+
+- Créer un compte
+- Se connecter
+- Créer un post contenant une image et du texte ou bien supprimer un post si ils sont propriétaire du post
+- Commenter un post ou bien supprimer le commentaire si ils sont propriétaire du commentaire
+- Modifier son profil ainsi que la possibilité de supprimer son compte
+
+### L'application est aussi configurée pour un compte Admin ou celui-ci pourra :
+
+- Supprimer n'importe quel post
+- Supprimer n'importe quel commentaire
+
+
+## Compétences évaluées du projet :
 
 - Authentifier un utilisateur et maintenir sa session
 - Personnaliser le contenu envoyé à un client web
