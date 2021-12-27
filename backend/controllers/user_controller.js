@@ -128,7 +128,6 @@ module.exports.deleteUser = async (req, res) => {
 
           // on parcour notre array et on recupere seulement les strings (img_url) qu'on push dans notre array vide qui sera un tableau de string de img url
           arrayImg.forEach(function (item, index) {
-            console.log(item.img_url, index);
             testArray.push(item.img_url);
           });
 
@@ -139,7 +138,7 @@ module.exports.deleteUser = async (req, res) => {
             },
           };
           
-          // on itere sur notre array de string (img_url) qui est donc le path pour delete nos img et on les delete une par une avec fs.unlink
+          // on itere sur notre array de string (img_url) qui contient donc le/les path pour delete nos img si il y en a plusieurs et on les delete une par une avec fs.unlink
           testArray.map((img) =>
             fs.unlink(img, (err) => {
               if (err) throw err;
@@ -197,7 +196,7 @@ module.exports.getUserProfile = async (req, res) => {
 
   const user = verifyUid(req.headers.authorization);
 
-  // Si notre tokenid est = id alors on montre les infos du profil si non non.
+  // Si notre token_id est = id alors on montre les infos du profil si non non.
   if (user.id == id) {
     db.query(
       "SELECT id, nom, prenom, bio, user_created, age, metier, country, github_url FROM users WHERE id= ?;",
