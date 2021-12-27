@@ -83,7 +83,52 @@ module.exports.deleteUser = async (req, res) => {
 
   // Si notre tokenid = params id alors on peut faire la request pour supprimer l'utilisateur.
   if (user.id == id) {
-    //Step 1 on supprime tous les commentaires lié a l'id de l'user
+    //Step 1 on cherche tous les post que l'user a créer pour pouvoir les stocké dans un tableau qu'on utilisera plus tard pour supprimer tous les coms en rapport a ces post_id
+
+    db.query(
+      "SELECT id FROM posts WHERE user_id = ?",
+      [user.id],
+      (err, pId) => {
+        if (err) {
+          pId = {
+            ...pId,
+            post: {
+              error: "ID non trouvé",
+            },
+          };
+        } else {
+          // Recupere nos post id de la db dans un array qu'on utilisera pour supprimer les commentaires lié a ceux ci
+          const arrayId = pId;
+
+          // Pour chaque post_id dans notre tableau on supprime tous les commentaires lié au post
+          arrayId.forEach(function (item, index) {
+            db.query(
+              "DELETE FROM comments WHERE post_id = ?",
+              [item.id],
+              (err, result) => {
+                if (err) {
+                  result = {
+                    ...result,
+                    comments: {
+                      error: "ID non trouvé",
+                    },
+                  };
+                } else {
+                  result = {
+                    ...result,
+                    comments: {
+                      message: "Tous les commentaires ont été supprimées",
+                    },
+                  };
+                }
+              }
+            );
+          });
+        }
+      }
+    );
+
+    // Step 2 on delete tous les commentaires de l'user id
     db.query(
       "DELETE FROM comments WHERE user_id = ?",
       [user.id],
@@ -106,7 +151,7 @@ module.exports.deleteUser = async (req, res) => {
       }
     );
 
-    // Step 2 on recupere les url des images dans un array et supprimes toutes les images de notre back
+    // Step 3 on recupere les url des images dans un array et supprimes toutes les images de notre back
 
     db.query(
       "SELECT img_url FROM posts WHERE user_id = ?;",
@@ -137,8 +182,8 @@ module.exports.deleteUser = async (req, res) => {
               message: "Img trouvée",
             },
           };
-          
-          // on itere sur notre array de string (img_url) qui contient donc le/les path pour delete nos img si il y en a plusieurs et on les delete une par une avec fs.unlink
+
+          // on itere sur notre array de string (img_url) qui contient donc le/les path pour delete nos img si il y en a plusieurs on les delete une par une avec fs.unlink
           testArray.map((img) =>
             fs.unlink(img, (err) => {
               if (err) throw err;
@@ -148,7 +193,7 @@ module.exports.deleteUser = async (req, res) => {
       }
     );
 
-    // Step 3 on delete tous les post lié a l'id de l'user
+    // Step 4 on delete tous les post lié a l'id de l'user
 
     db.query("DELETE FROM posts WHERE user_id= ?", [user.id], (err, result) => {
       if (err) {
@@ -162,7 +207,7 @@ module.exports.deleteUser = async (req, res) => {
         result = {
           ...result,
           posts: {
-            message: "Tous les commentaires ont étaient supprimé",
+            message: "Tous les posts ont étaient supprimé",
           },
         };
       }
