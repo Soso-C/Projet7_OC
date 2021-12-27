@@ -13,9 +13,9 @@ module.exports.signUp = async (req, res) => {
       "INSERT INTO users (nom, prenom, email, password) VALUES (?, ?, ?, ?);",
       [lastname, name, email, hash],
       (err, result) => {
-        if (err) {
-          res.status(400).json({ err });
-        } // Si ok alors on créer l'user mais on donne également un token d'auth pour le connecter automatiquement apres enregistrement.
+        if (err) { // Si err logiquement ca peut etre que si l'email est déja existante donc on return Email déja utilisée.
+          res.status(400).json({ error: "Email déja utilisée" });
+        } // Si ok alors on créé l'user mais on donne également un token d'auth pour le connecter automatiquement apres enregistrement.
         else {
           result = {
             ...result,
